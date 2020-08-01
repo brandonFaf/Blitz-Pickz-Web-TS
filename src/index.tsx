@@ -1,12 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import UserStore from './contexts/UserContext';
+import GroupStore from './contexts/GroupContext';
+import Colors from './Styles/colors';
+import styled from 'styled-components/macro';
+import ApolloWrapper from './components/ApolloWrapper';
+import { BrowserRouter as Router } from 'react-router-dom';
 
+const Body = styled.div`
+  font-family: 'acumin-pro', sans-serif;
+  background-color: ${Colors.background};
+  color: #fff;
+`;
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Body>
+      <UserStore>
+        <GroupStore>
+          <ApolloWrapper>
+            <Router>
+              <App />
+            </Router>
+          </ApolloWrapper>
+        </GroupStore>
+      </UserStore>
+    </Body>
   </React.StrictMode>,
   document.getElementById('root')
 );
