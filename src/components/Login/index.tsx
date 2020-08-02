@@ -4,6 +4,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import Logo from '../../Styles/Login/Logo';
+import { auth } from 'firebaseui';
 
 const Container = styled.div`
   display: grid;
@@ -16,7 +17,8 @@ const Login = () => {
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID
-    ]
+    ],
+    credentialHelper: auth.CredentialHelper.NONE
   };
   return (
     <Container>
