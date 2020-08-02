@@ -4,6 +4,7 @@ import useUser from '../hooks/useUser';
 import '../data/firebaseConfig';
 import Login from './Login';
 import CreateProfile from './Profile/CreateProfile';
+import Dashboard from './Dashboard';
 const App = () => {
   const { status, user } = useLogin();
   const { user: dbUser } = useUser();
@@ -17,8 +18,25 @@ const App = () => {
   if (user && !dbUser) {
     return <CreateProfile user={user} />;
   } else {
-    return <div>Logged In</div>;
+    return (
+      <div>
+        {/* <GroupDrawer/>
+        <ProfileDrawer/> */}
+        <MainContent screen='dashboard' />
+      </div>
+    );
   }
 };
+type MainProps = {
+  screen: 'dashboard' | 'join' | 'create' | 'pick';
+};
+const MainContent = ({ screen }: MainProps) => {
+  switch (screen) {
+    case 'dashboard':
+      return <Dashboard />;
 
+    default:
+      return <></>;
+  }
+};
 export default App;

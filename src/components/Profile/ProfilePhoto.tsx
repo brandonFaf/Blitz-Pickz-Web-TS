@@ -33,8 +33,8 @@ const PhotoDiv = styled.div<PhotoProps>`
 `;
 
 type ProfilePhotoProps = {
-  displayName: string;
-  src: string;
+  displayName?: string | null;
+  src?: string | null;
   size: 'large' | 'small';
 };
 
@@ -67,7 +67,7 @@ const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
     return <PhotoImg size={size} src={src} alt='profile' />;
   }
   return (
-    <PhotoDiv size={size}>{initals.substring(0, 2).toUpperCase()}</PhotoDiv>
+    <PhotoDiv size={size}>{initals?.substring(0, 2).toUpperCase()}</PhotoDiv>
   );
 };
 
