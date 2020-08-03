@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GroupList, GroupSliderButtons } from '../../Styles/Groups';
 import { Link } from 'react-router-dom';
 import ActionButton from '../../Styles/Shared/ActionButton';
@@ -10,20 +10,19 @@ import {
   GetGroupsDocument
 } from '../../types/graphql.types';
 import Group from './Group';
-import useToggleState from '../../hooks/useToggleState';
 const Groups = ({ toggleGroups, isEdit, setEditGroup }) => {
   const { user } = useUser();
   const { group, setGroup } = useGroup();
 
   const { data, loading, error } = useGetGroupsQuery({
-    variables: { user_id: user?.id ?? '' }
+    variables: { user_id: user.id }
   });
   const [removeFromGroup] = useRemoveFromGroupMutation();
   const leaveGroup = (id: number) =>
     removeFromGroup({
-      variables: { user_id: user?.id ?? '', group_id: id },
+      variables: { user_id: user.id, group_id: id },
       refetchQueries: [
-        { query: GetGroupsDocument, variables: { user_id: user?.id } }
+        { query: GetGroupsDocument, variables: { user_id: user.id } }
       ]
     });
   if (loading) {
@@ -45,7 +44,7 @@ const Groups = ({ toggleGroups, isEdit, setEditGroup }) => {
         {groups?.map(g => (
           <Group
             leaveGroup={leaveGroup}
-            userId={user?.id ?? ''}
+            userId={user.id}
             group={g.group}
             key={g.group.id}
             toggleGroups={toggleGroups}

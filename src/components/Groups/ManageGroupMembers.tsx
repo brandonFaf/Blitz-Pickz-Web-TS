@@ -21,7 +21,7 @@ const ManageGroupMembers = ({ group_id }) => {
       variables: { user_id, group_id },
       refetchQueries: [
         { query: GetMembersDocument, variables: { group_id } },
-        { query: GetGroupsDocument, variables: { user_id: user?.id } }
+        { query: GetGroupsDocument, variables: { user_id: user.id } }
       ]
     });
   };
@@ -39,7 +39,7 @@ const ManageGroupMembers = ({ group_id }) => {
   return (
     <GroupList>
       {members.map(m => (
-        <Member member={m.user} removeUser={removeUser} />
+        <Member key={m.user.id} member={m.user} removeUser={removeUser} />
       ))}
     </GroupList>
   );

@@ -6,7 +6,10 @@ import useUser from './useUser';
 import { useLoadUserLazyQuery } from '../types/graphql.types';
 import useGroup from './useGroup';
 
-const useLogin = (): { status: string; user?: firebase.User | null } => {
+const useLogin = (): {
+  status: string;
+  user: firebase.User | null | undefined;
+} => {
   const { setUser: setContextUser } = useUser();
   const { setGroup } = useGroup();
   const [user, setUser] = useState<firebase.User | null>();
@@ -21,7 +24,7 @@ const useLogin = (): { status: string; user?: firebase.User | null } => {
         setUser(u);
         if (!u) {
           setStatus('out');
-          setContextUser(null);
+          setContextUser({ id: '', notifications: false });
           setGroup(undefined);
           localStorage.removeItem('token');
           localStorage.removeItem('group');

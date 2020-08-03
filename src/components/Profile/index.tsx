@@ -62,7 +62,7 @@ const Profile: React.FC<Props> = ({ user }) => {
       }).catch(({ graphQLErrors, networkError }) => {
         console.log('error coming in ere');
         if (graphQLErrors) {
-          graphQLErrors.map(({ message }: { message: string }): void => {
+          graphQLErrors.forEach(({ message }: { message: string }): void => {
             if (message.indexOf('phone_number') >= 0) {
               setErrors(e => ({
                 ...e,

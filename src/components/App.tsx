@@ -18,7 +18,7 @@ const App = () => {
   if (status === 'out') {
     return <Login />;
   }
-  if (user && !dbUser) {
+  if (user && !dbUser.id) {
     return <CreateProfile user={user} />;
   } else {
     return (

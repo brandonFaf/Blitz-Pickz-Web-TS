@@ -34,7 +34,7 @@ const Member: React.FC<props> = ({ member, removeUser }) => {
       }}
     >
       <Group>
-        {removeUser && user?.id !== member.id && (
+        {removeUser && user.id !== member.id && (
           <LeaveGroupButton
             data-testid={'leave-group-button'}
             onClick={toggleDeleting}

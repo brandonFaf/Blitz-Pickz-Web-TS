@@ -81,7 +81,7 @@ const Leaderboard = () => {
           rank++;
         }
         let cn = '';
-        if (id === user?.id) {
+        if (id === user.id) {
           cn = 'current';
         }
         return (

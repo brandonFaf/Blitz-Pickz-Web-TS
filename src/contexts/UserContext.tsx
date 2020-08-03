@@ -4,12 +4,12 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 export type UserContextType = {
-  user: Partial<UserModel> | null;
-  setUser: (user: Partial<UserModel> | null) => void;
+  user: UserModel;
+  setUser: (user: UserModel) => void;
   logout: () => void;
 };
 export const UserContext = React.createContext<UserContextType>({
-  user: null,
+  user: { id: '', notifications: false },
   setUser: () => {},
   logout: () => {}
 });
@@ -17,8 +17,11 @@ type Props = {
   children: React.ReactNode;
 };
 const UserStore: React.FC<Props> = ({ children }) => {
-  const [user, storeUser] = useState<Partial<UserModel> | null>(null);
-  const setUser = (u: Partial<UserModel> | null) => {
+  const [user, storeUser] = useState<UserModel>({
+    id: '',
+    notifications: false
+  });
+  const setUser = (u: UserModel) => {
     console.log('set the user');
     storeUser(u);
   };
@@ -27,7 +30,7 @@ const UserStore: React.FC<Props> = ({ children }) => {
       .auth()
       .signOut()
       .then(() => {
-        storeUser(null);
+        storeUser({ id: '', notifications: false });
       });
   };
   return (
