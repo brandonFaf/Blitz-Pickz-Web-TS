@@ -35,11 +35,11 @@ const PhotoDiv = styled.div<PhotoProps>`
 type ProfilePhotoProps = {
   displayName?: string | null;
   src?: string | null;
-  size: 'large' | 'small';
+  size?: 'large' | 'small';
 };
 
 const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
-  size,
+  size = 'small',
   src,
   displayName,
   ...rest
