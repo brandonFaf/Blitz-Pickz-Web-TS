@@ -13,7 +13,7 @@ import { UserModel } from '../../types/UserTypes';
 import useUser from '../../hooks/useUser';
 type props = {
   member: Partial<UserModel>;
-  removeUser: (user_id: string) => void;
+  removeUser?: (user_id: string) => void;
 };
 const Member: React.FC<props> = ({ member, removeUser }) => {
   const { user } = useUser();
@@ -50,9 +50,11 @@ const Member: React.FC<props> = ({ member, removeUser }) => {
         </GroupPhoto>
         <GroupName>{member.display_name}</GroupName>
       </Group>
-      <LeaveButton onClick={() => removeUser(member.id ?? '')}>
-        Remove
-      </LeaveButton>
+      {removeUser && (
+        <LeaveButton onClick={() => removeUser(member.id ?? '')}>
+          Remove
+        </LeaveButton>
+      )}
     </animated.div>
   );
 };
