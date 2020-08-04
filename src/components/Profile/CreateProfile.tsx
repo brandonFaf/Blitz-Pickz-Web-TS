@@ -2,6 +2,8 @@ import React from 'react';
 import Profile from './index';
 import { UserModel } from '../../types/UserTypes';
 import firebase from 'firebase';
+import { Header } from '../../Styles/Header';
+
 type Props = {
   user: firebase.User;
 };
@@ -17,6 +19,11 @@ const CreateProfile = ({ user }: Props) => {
   };
   return (
     <div>
+      <Header>
+        <div />
+        <div className='header-text'>Create Profile</div>
+        <div />
+      </Header>
       <Profile user={u} />
     </div>
   );

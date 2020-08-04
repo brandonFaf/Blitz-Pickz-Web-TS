@@ -5,6 +5,9 @@ import Passcode from './Passcode';
 import Colors from '../../Styles/colors';
 import JoinGroup from './JoinGroup';
 import { SearchGroupModel, JoinGroupStages } from '../../types/GroupTypes';
+import closeX from '../../img/close.svg';
+import { Header } from '../../Styles/Header';
+import { useHistory } from 'react-router-dom';
 
 const JoinGroupPage = () => {
   const [stage, setStage] = useState<JoinGroupStages>(JoinGroupStages.search);
@@ -13,6 +16,7 @@ const JoinGroupPage = () => {
     setStage(nextStage);
     setGroup(g);
   };
+  const history = useHistory();
   const getStage = () => {
     if (!group) {
       return <SearchGroup navigate={navigate} />;
@@ -23,8 +27,19 @@ const JoinGroupPage = () => {
       return <JoinGroup navigate={navigate} group={group} />;
     }
   };
+  const close = () => {
+    history.push('/');
+  };
 
-  return <JGP>{getStage()}</JGP>;
+  return (
+    <JGP>
+      <Header>
+        <img src={closeX} alt='close' onClick={close} />
+        <div className='header-text'>Join Group</div>
+      </Header>
+      {getStage()}
+    </JGP>
+  );
 };
 const JGP = styled.div`
   display: flex;

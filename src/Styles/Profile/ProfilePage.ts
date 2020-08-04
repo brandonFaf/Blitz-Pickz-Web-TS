@@ -11,7 +11,7 @@ export const EditLabel = styled.label`
   background-repeat: no-repeat;
   background-size: contain;
   position: relative;
-  top: 110px;
+  top: 130px;
   z-index: 20;
 `;
 export const ErrorLabel = styled.label`
@@ -28,7 +28,6 @@ export const ProfileForm = styled.form`
   background-color: ${(props: { side: boolean }) =>
     props.side ? 'transparent' : Colors.background};
   width: 100%;
-  height: 100%;
   position: absolute;
   fieldset {
     border: none;

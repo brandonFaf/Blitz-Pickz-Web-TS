@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import Colors from '../colors';
 export const Header = styled.div`
+  flex-shrink: 0;
   height: 75px;
   display: grid;
   font-weight: bold;

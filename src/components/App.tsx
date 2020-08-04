@@ -10,11 +10,19 @@ import GroupDrawer from './Groups/GroupDrawer';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import JoinGroup from './Groups/JoinGroupPage';
 import { useTransition, animated } from 'react-spring';
+import CreateGroup from './Groups/CreateGroup';
+import hamburger from '../img/Hamburger.svg';
+import { Header } from '../Styles/Header';
+import ProfilePhoto from './Profile/ProfilePhoto';
+import ProfileDrawer from './Profile/ProfileDrawer';
+import useGroup from '../hooks/useGroup';
 
 const App = () => {
   const { status, user } = useLogin();
   const { user: dbUser } = useUser();
+  const { group } = useGroup();
   const [showGroups, toggleGroups, groupsRef] = useClickOutsideToggle();
+  const [showProfile, toggleProfile, profileRef] = useClickOutsideToggle();
 
   if (status === 'loading') {
     return <div>Loading</div>;
@@ -28,13 +36,36 @@ const App = () => {
     return (
       <>
         <div style={{ position: 'absolute' }}>
-          <button onClick={toggleGroups}>open</button>
+          <div style={{ width: '100vw' }}>
+            <Header>
+              <img
+                src={hamburger}
+                alt={'hamburger'}
+                data-testid={'group-menu'}
+                onClick={toggleGroups}
+              />
+              <div className='header-text'>
+                {group?.display_name ?? 'League'}
+              </div>
+              <ProfilePhoto
+                data-testid={'profile-menu'}
+                onClick={toggleProfile}
+                displayName={dbUser.display_name}
+                src={dbUser.photo_url}
+                size='small'
+              />
+            </Header>
+          </div>
           <GroupDrawer
             showGroups={showGroups}
             toggleGroups={toggleGroups}
             groupsRef={groupsRef}
           />
-          {/*<ProfileDrawer/> */}
+          <ProfileDrawer
+            showProfile={showProfile}
+            toggleProfile={toggleProfile}
+            profileRef={profileRef}
+          />
           <Dashboard />
         </div>
         <ModalContent />
@@ -61,6 +92,11 @@ const ModalContent = () => {
           <Switch location={item}>
             <Route path='/groups/join'>
               <JoinGroup />
+            </Route>
+          </Switch>
+          <Switch location={item}>
+            <Route path='/groups/create'>
+              <CreateGroup />
             </Route>
           </Switch>
         </animated.div>

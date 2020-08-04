@@ -36,13 +36,14 @@ type ProfilePhotoProps = {
   displayName?: string | null;
   src?: string | null;
   size?: 'large' | 'small';
+  onClick?: () => void;
 };
 
 const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   size = 'small',
   src,
   displayName,
-  ...rest
+  onClick
 }) => {
   let initals =
     displayName &&
@@ -62,12 +63,13 @@ const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   if (initals === '') {
     initals = '?';
   }
-  console.log('rest', rest);
   if (src) {
-    return <PhotoImg size={size} src={src} alt='profile' />;
+    return <PhotoImg onClick={onClick} size={size} src={src} alt='profile' />;
   }
   return (
-    <PhotoDiv size={size}>{initals?.substring(0, 2).toUpperCase()}</PhotoDiv>
+    <PhotoDiv onClick={onClick} size={size}>
+      {initals?.substring(0, 2).toUpperCase()}
+    </PhotoDiv>
   );
 };
 

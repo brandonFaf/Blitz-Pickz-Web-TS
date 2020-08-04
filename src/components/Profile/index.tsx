@@ -27,9 +27,9 @@ type ProfileFormErrors = {
 };
 type Props = {
   user: UserModel;
+  toggleProfile?: () => void;
 };
-// const Profile : React.FC<Props> = ({ user, history, toggle, setHeader }) => {
-const Profile: React.FC<Props> = ({ user }) => {
+const Profile: React.FC<Props> = ({ user, toggleProfile }) => {
   const [updateUser, { loading, error }] = useUpdateUserMutation();
   const { values, handleChange } = useForm<UserModel>({
     ...user
@@ -40,9 +40,6 @@ const Profile: React.FC<Props> = ({ user }) => {
     phoneNumber: null
   });
   const { setUser } = useUser();
-  // if (setHeader) {
-  //   setHeader('Profile Details');
-  // }
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -92,6 +89,9 @@ const Profile: React.FC<Props> = ({ user }) => {
           notifications: allowNotifications || false,
           photo_url: values.photo_url
         });
+        if (toggleProfile) {
+          toggleProfile();
+        }
       }
     }
   };
@@ -104,7 +104,7 @@ const Profile: React.FC<Props> = ({ user }) => {
       .getDownloadURL()
       .then(photoURL => {
         //@ts-ignore
-        handleChange({ target: { name: 'photoURL', value: photoURL } });
+        handleChange({ target: { name: 'photo_url', value: photoURL } });
       });
   };
 
@@ -183,10 +183,10 @@ const Profile: React.FC<Props> = ({ user }) => {
             onChange={toggleNotifications}
           />
         </fieldset>
-        <div>
+        <>
           {error && <ErrorLabel>Error Saving</ErrorLabel>}
           {loading && <div>Loading...</div>}
-        </div>
+        </>
         <ActionButton type='submit'>Save</ActionButton>
       </ProfileForm>
     </>
