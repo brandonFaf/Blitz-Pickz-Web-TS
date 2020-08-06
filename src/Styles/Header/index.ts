@@ -16,12 +16,9 @@ export const Header = styled.div`
   z-index: 12;
   backdrop-filter: blur(5px);
   background-color: ${Colors.background};
-
-  .header-middle {
-    text-align: center;
-  }
 `;
 export const HeaderGroupName = styled.div`
   font-size: 14px;
+  text-align: center;
   color: ${Colors.highlight};
 `;

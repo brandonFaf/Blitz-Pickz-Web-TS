@@ -16,11 +16,13 @@ import { Header } from '../Styles/Header';
 import ProfilePhoto from './Profile/ProfilePhoto';
 import ProfileDrawer from './Profile/ProfileDrawer';
 import useGroup from '../hooks/useGroup';
+import useHeader from '../hooks/useHeader';
 import Picks from './Picks';
 
 const App = () => {
   const { status, user } = useLogin();
   const { user: dbUser } = useUser();
+  const { pickHeader } = useHeader();
   const { group } = useGroup();
   const [showGroups, toggleGroups, groupsRef] = useClickOutsideToggle();
   const [showProfile, toggleProfile, profileRef] = useClickOutsideToggle();
@@ -46,7 +48,7 @@ const App = () => {
                 onClick={toggleGroups}
               />
               <div className='header-text'>
-                {group?.display_name ?? 'League'}
+                {pickHeader ? pickHeader : group?.display_name ?? 'League'}
               </div>
               <ProfilePhoto
                 data-testid={'profile-menu'}

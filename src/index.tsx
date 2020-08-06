@@ -5,6 +5,7 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import UserStore from './contexts/UserContext';
 import GroupStore from './contexts/GroupContext';
+import HeaderStore from './contexts/HeaderContext';
 import Colors from './Styles/colors';
 import styled from 'styled-components/macro';
 import ApolloWrapper from './components/ApolloWrapper';
@@ -20,11 +21,13 @@ ReactDOM.render(
     <Body>
       <UserStore>
         <GroupStore>
-          <ApolloWrapper>
-            <Router>
-              <App />
-            </Router>
-          </ApolloWrapper>
+          <HeaderStore>
+            <ApolloWrapper>
+              <Router>
+                <App />
+              </Router>
+            </ApolloWrapper>
+          </HeaderStore>
         </GroupStore>
       </UserStore>
     </Body>
