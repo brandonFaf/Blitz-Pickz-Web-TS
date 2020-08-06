@@ -41,17 +41,10 @@ export const TeamButton = styled.div<{ active?: boolean | null }>`
     active != null && active !== undefined
       ? Colors.highlight_text
       : Colors.lightBlue_text};
-`;
-export const MiddleButton = styled.div<{ active?: boolean | null }>`
-  flex-basis: 30%;
-  display: flex;
   flex-direction: column;
   text-align: center;
-  justify-content: center;
-  align-items: center;
-  color: ${({ active }) =>
-    active != null && active !== undefined
-      ? Colors.highlight_text
-      : Colors.lightBlue_text};
+`;
+export const MiddleButton = styled(TeamButton)`
+  flex-basis: 30%;
   font-size: 10px;
 `;

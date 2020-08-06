@@ -21,14 +21,23 @@ const EndGame: React.FC<Props> = ({ game }) => {
     winning_team
   } = game;
   const [showWhoPicked, toggleWhoPicked] = useToggleState(false);
-  const howToHighlight = () => {
+  const howToHighlight = (teamId?: number) => {
     const selectedId = userPick?.selected_id;
     if (winning_team) {
       return winning_team.id === selectedId;
     }
-    return false;
+    if (!selectedId) {
+      return false;
+    }
+    if (teamId) {
+      return selectedId === teamId ? true : null;
+    }
+
+    return null;
   };
-  const highlight = howToHighlight();
+  const middleHighlight = howToHighlight();
+  const visHighlight = howToHighlight(vis_team.id);
+  const homeHighlight = howToHighlight(home_team.id);
 
   const getMiddle = () => {
     if (winning_team) {
@@ -59,22 +68,14 @@ const EndGame: React.FC<Props> = ({ game }) => {
   return (
     <div className='container'>
       <Container onClick={toggleWhoPicked}>
-        <TeamButton
-          data-testid={'vis-pick-button'}
-          // className={visHighlight && 'picked'}
-          active={highlight}
-        >
+        <TeamButton data-testid={'vis-pick-button'} active={visHighlight}>
           <>
             <div> {vis_team.short_name.toUpperCase()}</div>
             {vis_score != null && <div>{vis_score}</div>}
           </>
         </TeamButton>
-        <MiddleButton active={highlight}>{getMiddle()}</MiddleButton>
-        <TeamButton
-          data-testid={'home-pick-button'}
-          // className={homeHighlight && 'picked'}
-          active={highlight}
-        >
+        <MiddleButton active={middleHighlight}>{getMiddle()}</MiddleButton>
+        <TeamButton data-testid={'home-pick-button'} active={homeHighlight}>
           <>
             <div> {home_team.short_name.toUpperCase()}</div>
             {home_score != null && <div>{home_score}</div>}

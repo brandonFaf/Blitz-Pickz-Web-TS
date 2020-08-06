@@ -10,6 +10,7 @@ export const WhoPickedContainer = styled.div`
 
 export const PickGroup = styled.div`
   flex: 1;
+  padding-top: 10px;
   text-align: center;
 `;
 export const Divider = styled.div`
