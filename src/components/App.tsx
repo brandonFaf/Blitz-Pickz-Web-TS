@@ -16,6 +16,7 @@ import { Header } from '../Styles/Header';
 import ProfilePhoto from './Profile/ProfilePhoto';
 import ProfileDrawer from './Profile/ProfileDrawer';
 import useGroup from '../hooks/useGroup';
+import Picks from './Picks';
 
 const App = () => {
   const { status, user } = useLogin();
@@ -87,16 +88,22 @@ const ModalContent = () => {
       {transitions.map(({ item, props, key }) => (
         <animated.div
           key={key}
-          style={{ position: 'absolute', zIndex: 80, ...props }}
+          style={{
+            position: 'absolute',
+            top: location.pathname === '/picks' ? 75 : 0,
+            zIndex: location.pathname === '/picks' ? 55 : 80,
+            ...props
+          }}
         >
           <Switch location={item}>
             <Route path='/groups/join'>
               <JoinGroup />
             </Route>
-          </Switch>
-          <Switch location={item}>
             <Route path='/groups/create'>
               <CreateGroup />
+            </Route>
+            <Route path='/picks'>
+              <Picks />
             </Route>
           </Switch>
         </animated.div>

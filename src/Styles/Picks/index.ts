@@ -1,0 +1,16 @@
+import styled from 'styled-components/macro';
+import Colors from '../colors';
+export const GameSection = styled.div``;
+export const TitleRow = styled.div`
+  display: grid;
+  grid-template-columns: 30vw 30vw 30vw;
+  justify-content: center;
+  justify-items: center;
+  align-items: end;
+  font-size: 11px;
+  margin-top: 25px;
+
+  .title {
+    color: ${Colors.highlight};
+  }
+`;

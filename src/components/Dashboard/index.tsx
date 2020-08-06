@@ -6,6 +6,7 @@ import NoGroupMessage from './NoGroupMessage';
 import WeekStatus from '../../Styles/Dashboard/WeekStatus';
 import styled from 'styled-components/macro';
 import getOrdinal from '../../helpers/getOrdinal';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const { group } = useGroup();
@@ -30,10 +31,12 @@ const Dashboard = () => {
           </div>
         </WeekStatus>
         <Leaderboard />
+        <Link to='/picks'>
+          <button>Pick</button>
+        </Link>
         {/* <MakePicks
           week={week}
           user={user}
-          setHeader={setHeader}
           uid={user.id}
         /> */}
       </DRel>
