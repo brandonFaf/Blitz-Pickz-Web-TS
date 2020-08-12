@@ -3841,17 +3841,26 @@ export enum User_Update_Column {
   UpdatedAt = 'updated_at',
 }
 
-export type DashboardQueryVariables = Exact<{
+export type LeaderboardQueryVariables = Exact<{
   group_id: Scalars['Int'];
 }>;
 
-export type DashboardQuery = {
+export type LeaderboardQuery = {
   group_by_pk?: Maybe<Pick<Group, 'id' | 'display_name'>>;
   rankings: Array<
     Pick<Rankings, 'points' | 'rank'> & {
       user?: Maybe<Pick<User, 'display_name' | 'id' | 'photo_url'>>;
     }
   >;
+};
+
+export type DashbaordQueryVariables = Exact<{
+  group_id: Scalars['Int'];
+  user_id: Scalars['String'];
+}>;
+
+export type DashbaordQuery = {
+  rankings: Array<Pick<Rankings, 'points' | 'rank'>>;
 };
 
 export type Game_DetailsFragment = Pick<
@@ -4049,8 +4058,8 @@ export const Game_DetailsFragmentDoc = gql`
     id
   }
 `;
-export const DashboardDocument = gql`
-  query Dashboard($group_id: Int!) {
+export const LeaderboardDocument = gql`
+  query Leaderboard($group_id: Int!) {
     group_by_pk(id: $group_id) {
       id
       display_name
@@ -4068,50 +4077,108 @@ export const DashboardDocument = gql`
 `;
 
 /**
- * __useDashboardQuery__
+ * __useLeaderboardQuery__
  *
- * To run a query within a React component, call `useDashboardQuery` and pass it any options that fit your needs.
- * When your component renders, `useDashboardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useLeaderboardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLeaderboardQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useDashboardQuery({
+ * const { data, loading, error } = useLeaderboardQuery({
  *   variables: {
  *      group_id: // value for 'group_id'
  *   },
  * });
  */
-export function useDashboardQuery(
+export function useLeaderboardQuery(
   baseOptions?: ApolloReactHooks.QueryHookOptions<
-    DashboardQuery,
-    DashboardQueryVariables
+    LeaderboardQuery,
+    LeaderboardQueryVariables
   >,
 ) {
-  return ApolloReactHooks.useQuery<DashboardQuery, DashboardQueryVariables>(
-    DashboardDocument,
+  return ApolloReactHooks.useQuery<LeaderboardQuery, LeaderboardQueryVariables>(
+    LeaderboardDocument,
     baseOptions,
   );
 }
-export function useDashboardLazyQuery(
+export function useLeaderboardLazyQuery(
   baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    DashboardQuery,
-    DashboardQueryVariables
+    LeaderboardQuery,
+    LeaderboardQueryVariables
   >,
 ) {
-  return ApolloReactHooks.useLazyQuery<DashboardQuery, DashboardQueryVariables>(
-    DashboardDocument,
+  return ApolloReactHooks.useLazyQuery<
+    LeaderboardQuery,
+    LeaderboardQueryVariables
+  >(LeaderboardDocument, baseOptions);
+}
+export type LeaderboardQueryHookResult = ReturnType<typeof useLeaderboardQuery>;
+export type LeaderboardLazyQueryHookResult = ReturnType<
+  typeof useLeaderboardLazyQuery
+>;
+export type LeaderboardQueryResult = ApolloReactHooks.QueryResult<
+  LeaderboardQuery,
+  LeaderboardQueryVariables
+>;
+export const DashbaordDocument = gql`
+  query Dashbaord($group_id: Int!, $user_id: String!) {
+    rankings(
+      where: {user_id: {_eq: $user_id}, _and: {group_id: {_eq: $group_id}}}
+    ) {
+      points
+      rank
+    }
+  }
+`;
+
+/**
+ * __useDashbaordQuery__
+ *
+ * To run a query within a React component, call `useDashbaordQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDashbaordQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDashbaordQuery({
+ *   variables: {
+ *      group_id: // value for 'group_id'
+ *      user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useDashbaordQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    DashbaordQuery,
+    DashbaordQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<DashbaordQuery, DashbaordQueryVariables>(
+    DashbaordDocument,
     baseOptions,
   );
 }
-export type DashboardQueryHookResult = ReturnType<typeof useDashboardQuery>;
-export type DashboardLazyQueryHookResult = ReturnType<
-  typeof useDashboardLazyQuery
+export function useDashbaordLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    DashbaordQuery,
+    DashbaordQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<DashbaordQuery, DashbaordQueryVariables>(
+    DashbaordDocument,
+    baseOptions,
+  );
+}
+export type DashbaordQueryHookResult = ReturnType<typeof useDashbaordQuery>;
+export type DashbaordLazyQueryHookResult = ReturnType<
+  typeof useDashbaordLazyQuery
 >;
-export type DashboardQueryResult = ApolloReactHooks.QueryResult<
-  DashboardQuery,
-  DashboardQueryVariables
+export type DashbaordQueryResult = ApolloReactHooks.QueryResult<
+  DashbaordQuery,
+  DashbaordQueryVariables
 >;
 export const GetGamesForWeekDocument = gql`
   query getGamesForWeek($week: Int!, $group_id: Int!) {

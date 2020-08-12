@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import getCurrentWeek from '../../helpers/currentWeek';
 import Leaderboard from './Leaderboard';
 import useGroup from '../../hooks/useGroup';
@@ -7,11 +7,31 @@ import WeekStatus from '../../Styles/Dashboard/WeekStatus';
 import styled from 'styled-components/macro';
 import getOrdinal from '../../helpers/getOrdinal';
 import { Link } from 'react-router-dom';
+import useUser from '../../hooks/useUser';
+import { useDashbaordLazyQuery } from '../../types/graphql.types';
 
 const Dashboard = () => {
   const { group } = useGroup();
-  const rank = 1;
-  const score = 12;
+  const { user } = useUser();
+
+  const [
+    loadDashboard,
+    { data, loading, error, called }
+  ] = useDashbaordLazyQuery();
+  useEffect(() => {
+    if (group) {
+      loadDashboard({
+        variables: { group_id: group.id, user_id: user.id }
+      });
+    }
+  }, [group, loadDashboard, user.id]);
+  if (!called || loading) {
+    return <div>Loading</div>;
+  }
+  if (error) {
+    console.log(error);
+    return <div>There was a problem loading this data</div>;
+  }
   if (!group) {
     return <NoGroupMessage />;
   }
@@ -21,11 +41,12 @@ const Dashboard = () => {
         <WeekStatus>
           <div className='week'>Week {getCurrentWeek()}</div>
           <div className='main'>
-            You're in <strong>{getOrdinal(rank)}</strong> Place,
+            You're in <strong>{getOrdinal(data?.rankings[0]?.rank)}</strong>{' '}
+            Place,
             <br />
             with{' '}
             <strong>
-              {score}
+              {data?.rankings[0]?.points}
               <sup>pts</sup>
             </strong>
           </div>

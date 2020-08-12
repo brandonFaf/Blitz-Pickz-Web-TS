@@ -4,7 +4,7 @@ import ProfilePhoto from '../Profile/ProfilePhoto';
 import Colors from '../../Styles/colors';
 import useUser from '../../hooks/useUser';
 import useGroup from '../../hooks/useGroup';
-import { useDashboardLazyQuery } from '../../types/graphql.types';
+import { useLeaderboardLazyQuery } from '../../types/graphql.types';
 
 const Row = styled.div`
   display: grid;
@@ -35,17 +35,17 @@ const Leaderboard = () => {
   const { user } = useUser();
   const { group } = useGroup();
   const [
-    loadDashboard,
+    loadLeaderboard,
     { data, loading, error, called }
-  ] = useDashboardLazyQuery();
+  ] = useLeaderboardLazyQuery();
   useEffect(() => {
     console.log('g', group);
     if (group) {
-      loadDashboard({
+      loadLeaderboard({
         variables: { group_id: group.id }
       });
     }
-  }, [group, loadDashboard]);
+  }, [group, loadLeaderboard]);
   if (!called || loading) {
     return <div>Loading...</div>;
   }
