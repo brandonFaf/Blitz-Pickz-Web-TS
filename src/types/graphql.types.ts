@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  bigint: any;
   date: any;
   timestamptz: any;
   timetz: any;
@@ -25,6 +26,51 @@ export type Boolean_Comparison_Exp = {
   _lte?: Maybe<Scalars['Boolean']>;
   _neq?: Maybe<Scalars['Boolean']>;
   _nin?: Maybe<Array<Scalars['Boolean']>>;
+};
+
+/** expression to compare columns of type Int. All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: Maybe<Scalars['Int']>;
+  _gt?: Maybe<Scalars['Int']>;
+  _gte?: Maybe<Scalars['Int']>;
+  _in?: Maybe<Array<Scalars['Int']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['Int']>;
+  _lte?: Maybe<Scalars['Int']>;
+  _neq?: Maybe<Scalars['Int']>;
+  _nin?: Maybe<Array<Scalars['Int']>>;
+};
+
+/** expression to compare columns of type String. All fields are combined with logical 'AND'. */
+export type String_Comparison_Exp = {
+  _eq?: Maybe<Scalars['String']>;
+  _gt?: Maybe<Scalars['String']>;
+  _gte?: Maybe<Scalars['String']>;
+  _ilike?: Maybe<Scalars['String']>;
+  _in?: Maybe<Array<Scalars['String']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _like?: Maybe<Scalars['String']>;
+  _lt?: Maybe<Scalars['String']>;
+  _lte?: Maybe<Scalars['String']>;
+  _neq?: Maybe<Scalars['String']>;
+  _nilike?: Maybe<Scalars['String']>;
+  _nin?: Maybe<Array<Scalars['String']>>;
+  _nlike?: Maybe<Scalars['String']>;
+  _nsimilar?: Maybe<Scalars['String']>;
+  _similar?: Maybe<Scalars['String']>;
+};
+
+/** expression to compare columns of type bigint. All fields are combined with logical 'AND'. */
+export type Bigint_Comparison_Exp = {
+  _eq?: Maybe<Scalars['bigint']>;
+  _gt?: Maybe<Scalars['bigint']>;
+  _gte?: Maybe<Scalars['bigint']>;
+  _in?: Maybe<Array<Scalars['bigint']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['bigint']>;
+  _lte?: Maybe<Scalars['bigint']>;
+  _neq?: Maybe<Scalars['bigint']>;
+  _nin?: Maybe<Array<Scalars['bigint']>>;
 };
 
 /** expression to compare columns of type date. All fields are combined with logical 'AND'. */
@@ -185,7 +231,7 @@ export enum Game_Constraint {
   GamePkey = 'game_pkey',
 }
 
-/** input type for incrementing integer columne in table "game" */
+/** input type for incrementing integer column in table "game" */
 export type Game_Inc_Input = {
   home_id?: Maybe<Scalars['Int']>;
   home_score?: Maybe<Scalars['Int']>;
@@ -320,6 +366,11 @@ export type Game_Order_By = {
   week?: Maybe<Order_By>;
   winner_id?: Maybe<Order_By>;
   winning_team?: Maybe<Team_Order_By>;
+};
+
+/** primary key columns input for table: "game" */
+export type Game_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "game" */
@@ -585,6 +636,10 @@ export type Group = {
   picks_aggregate: Picks_Aggregate;
   private: Scalars['Boolean'];
   /** An array relationship */
+  rankings: Array<Rankings>;
+  /** An aggregated array relationship */
+  rankings_aggregate: Rankings_Aggregate;
+  /** An array relationship */
   scores: Array<Score>;
   /** An aggregated array relationship */
   scores_aggregate: Score_Aggregate;
@@ -625,6 +680,24 @@ export type GroupPicks_AggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<Picks_Order_By>>;
   where?: Maybe<Picks_Bool_Exp>;
+};
+
+/** columns and relationships of "group" */
+export type GroupRankingsArgs = {
+  distinct_on?: Maybe<Array<Rankings_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Rankings_Order_By>>;
+  where?: Maybe<Rankings_Bool_Exp>;
+};
+
+/** columns and relationships of "group" */
+export type GroupRankings_AggregateArgs = {
+  distinct_on?: Maybe<Array<Rankings_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Rankings_Order_By>>;
+  where?: Maybe<Rankings_Bool_Exp>;
 };
 
 /** columns and relationships of "group" */
@@ -717,6 +790,7 @@ export type Group_Bool_Exp = {
   passcode?: Maybe<String_Comparison_Exp>;
   picks?: Maybe<Picks_Bool_Exp>;
   private?: Maybe<Boolean_Comparison_Exp>;
+  rankings?: Maybe<Rankings_Bool_Exp>;
   scores?: Maybe<Score_Bool_Exp>;
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
 };
@@ -729,7 +803,7 @@ export enum Group_Constraint {
   GroupPkey = 'group_pkey',
 }
 
-/** input type for incrementing integer columne in table "group" */
+/** input type for incrementing integer column in table "group" */
 export type Group_Inc_Input = {
   id?: Maybe<Scalars['Int']>;
 };
@@ -821,8 +895,14 @@ export type Group_Order_By = {
   passcode?: Maybe<Order_By>;
   picks_aggregate?: Maybe<Picks_Aggregate_Order_By>;
   private?: Maybe<Order_By>;
+  rankings_aggregate?: Maybe<Rankings_Aggregate_Order_By>;
   scores_aggregate?: Maybe<Score_Aggregate_Order_By>;
   updated_at?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "group" */
+export type Group_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "group" */
@@ -1001,7 +1081,7 @@ export enum Group_User_Constraint {
   GroupUserPkey = 'group_user_pkey',
 }
 
-/** input type for incrementing integer columne in table "group_user" */
+/** input type for incrementing integer column in table "group_user" */
 export type Group_User_Inc_Input = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
@@ -1072,6 +1152,11 @@ export type Group_User_Order_By = {
   id?: Maybe<Order_By>;
   user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "group_user" */
+export type Group_User_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "group_user" */
@@ -1215,63 +1300,92 @@ export type Group_Variance_Order_By = {
   id?: Maybe<Order_By>;
 };
 
-/** expression to compare columns of type Int. All fields are combined with logical 'AND'. */
-export type Int_Comparison_Exp = {
-  _eq?: Maybe<Scalars['Int']>;
-  _gt?: Maybe<Scalars['Int']>;
-  _gte?: Maybe<Scalars['Int']>;
-  _in?: Maybe<Array<Scalars['Int']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['Int']>;
-  _lte?: Maybe<Scalars['Int']>;
-  _neq?: Maybe<Scalars['Int']>;
-  _nin?: Maybe<Array<Scalars['Int']>>;
-};
-
 /** mutation root */
 export type Mutation_Root = {
   /** delete data from the table: "game" */
   delete_game?: Maybe<Game_Mutation_Response>;
+  /** delete single row from the table: "game" */
+  delete_game_by_pk?: Maybe<Game>;
   /** delete data from the table: "group" */
   delete_group?: Maybe<Group_Mutation_Response>;
+  /** delete single row from the table: "group" */
+  delete_group_by_pk?: Maybe<Group>;
   /** delete data from the table: "group_user" */
   delete_group_user?: Maybe<Group_User_Mutation_Response>;
+  /** delete single row from the table: "group_user" */
+  delete_group_user_by_pk?: Maybe<Group_User>;
   /** delete data from the table: "picks" */
   delete_picks?: Maybe<Picks_Mutation_Response>;
+  /** delete single row from the table: "picks" */
+  delete_picks_by_pk?: Maybe<Picks>;
   /** delete data from the table: "score" */
   delete_score?: Maybe<Score_Mutation_Response>;
+  /** delete single row from the table: "score" */
+  delete_score_by_pk?: Maybe<Score>;
   /** delete data from the table: "team" */
   delete_team?: Maybe<Team_Mutation_Response>;
+  /** delete single row from the table: "team" */
+  delete_team_by_pk?: Maybe<Team>;
   /** delete data from the table: "user" */
   delete_user?: Maybe<User_Mutation_Response>;
+  /** delete single row from the table: "user" */
+  delete_user_by_pk?: Maybe<User>;
   /** insert data into the table: "game" */
   insert_game?: Maybe<Game_Mutation_Response>;
+  /** insert a single row into the table: "game" */
+  insert_game_one?: Maybe<Game>;
   /** insert data into the table: "group" */
   insert_group?: Maybe<Group_Mutation_Response>;
+  /** insert a single row into the table: "group" */
+  insert_group_one?: Maybe<Group>;
   /** insert data into the table: "group_user" */
   insert_group_user?: Maybe<Group_User_Mutation_Response>;
+  /** insert a single row into the table: "group_user" */
+  insert_group_user_one?: Maybe<Group_User>;
   /** insert data into the table: "picks" */
   insert_picks?: Maybe<Picks_Mutation_Response>;
+  /** insert a single row into the table: "picks" */
+  insert_picks_one?: Maybe<Picks>;
   /** insert data into the table: "score" */
   insert_score?: Maybe<Score_Mutation_Response>;
+  /** insert a single row into the table: "score" */
+  insert_score_one?: Maybe<Score>;
   /** insert data into the table: "team" */
   insert_team?: Maybe<Team_Mutation_Response>;
+  /** insert a single row into the table: "team" */
+  insert_team_one?: Maybe<Team>;
   /** insert data into the table: "user" */
   insert_user?: Maybe<User_Mutation_Response>;
+  /** insert a single row into the table: "user" */
+  insert_user_one?: Maybe<User>;
   /** update data of the table: "game" */
   update_game?: Maybe<Game_Mutation_Response>;
+  /** update single row of the table: "game" */
+  update_game_by_pk?: Maybe<Game>;
   /** update data of the table: "group" */
   update_group?: Maybe<Group_Mutation_Response>;
+  /** update single row of the table: "group" */
+  update_group_by_pk?: Maybe<Group>;
   /** update data of the table: "group_user" */
   update_group_user?: Maybe<Group_User_Mutation_Response>;
+  /** update single row of the table: "group_user" */
+  update_group_user_by_pk?: Maybe<Group_User>;
   /** update data of the table: "picks" */
   update_picks?: Maybe<Picks_Mutation_Response>;
+  /** update single row of the table: "picks" */
+  update_picks_by_pk?: Maybe<Picks>;
   /** update data of the table: "score" */
   update_score?: Maybe<Score_Mutation_Response>;
+  /** update single row of the table: "score" */
+  update_score_by_pk?: Maybe<Score>;
   /** update data of the table: "team" */
   update_team?: Maybe<Team_Mutation_Response>;
+  /** update single row of the table: "team" */
+  update_team_by_pk?: Maybe<Team>;
   /** update data of the table: "user" */
   update_user?: Maybe<User_Mutation_Response>;
+  /** update single row of the table: "user" */
+  update_user_by_pk?: Maybe<User>;
 };
 
 /** mutation root */
@@ -1280,8 +1394,18 @@ export type Mutation_RootDelete_GameArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_Game_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+/** mutation root */
 export type Mutation_RootDelete_GroupArgs = {
   where: Group_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Group_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 /** mutation root */
@@ -1290,8 +1414,20 @@ export type Mutation_RootDelete_Group_UserArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_Group_User_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+/** mutation root */
 export type Mutation_RootDelete_PicksArgs = {
   where: Picks_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Picks_By_PkArgs = {
+  game_id: Scalars['Int'];
+  group_id: Scalars['Int'];
+  user_id: Scalars['String'];
 };
 
 /** mutation root */
@@ -1300,8 +1436,18 @@ export type Mutation_RootDelete_ScoreArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_Score_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+/** mutation root */
 export type Mutation_RootDelete_TeamArgs = {
   where: Team_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Team_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 /** mutation root */
@@ -1310,8 +1456,19 @@ export type Mutation_RootDelete_UserArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_User_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+/** mutation root */
 export type Mutation_RootInsert_GameArgs = {
   objects: Array<Game_Insert_Input>;
+  on_conflict?: Maybe<Game_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Game_OneArgs = {
+  object: Game_Insert_Input;
   on_conflict?: Maybe<Game_On_Conflict>;
 };
 
@@ -1322,8 +1479,20 @@ export type Mutation_RootInsert_GroupArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootInsert_Group_OneArgs = {
+  object: Group_Insert_Input;
+  on_conflict?: Maybe<Group_On_Conflict>;
+};
+
+/** mutation root */
 export type Mutation_RootInsert_Group_UserArgs = {
   objects: Array<Group_User_Insert_Input>;
+  on_conflict?: Maybe<Group_User_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Group_User_OneArgs = {
+  object: Group_User_Insert_Input;
   on_conflict?: Maybe<Group_User_On_Conflict>;
 };
 
@@ -1334,8 +1503,20 @@ export type Mutation_RootInsert_PicksArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootInsert_Picks_OneArgs = {
+  object: Picks_Insert_Input;
+  on_conflict?: Maybe<Picks_On_Conflict>;
+};
+
+/** mutation root */
 export type Mutation_RootInsert_ScoreArgs = {
   objects: Array<Score_Insert_Input>;
+  on_conflict?: Maybe<Score_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Score_OneArgs = {
+  object: Score_Insert_Input;
   on_conflict?: Maybe<Score_On_Conflict>;
 };
 
@@ -1346,8 +1527,20 @@ export type Mutation_RootInsert_TeamArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootInsert_Team_OneArgs = {
+  object: Team_Insert_Input;
+  on_conflict?: Maybe<Team_On_Conflict>;
+};
+
+/** mutation root */
 export type Mutation_RootInsert_UserArgs = {
   objects: Array<User_Insert_Input>;
+  on_conflict?: Maybe<User_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_User_OneArgs = {
+  object: User_Insert_Input;
   on_conflict?: Maybe<User_On_Conflict>;
 };
 
@@ -1359,10 +1552,24 @@ export type Mutation_RootUpdate_GameArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Game_By_PkArgs = {
+  _inc?: Maybe<Game_Inc_Input>;
+  _set?: Maybe<Game_Set_Input>;
+  pk_columns: Game_Pk_Columns_Input;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_GroupArgs = {
   _inc?: Maybe<Group_Inc_Input>;
   _set?: Maybe<Group_Set_Input>;
   where: Group_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Group_By_PkArgs = {
+  _inc?: Maybe<Group_Inc_Input>;
+  _set?: Maybe<Group_Set_Input>;
+  pk_columns: Group_Pk_Columns_Input;
 };
 
 /** mutation root */
@@ -1373,10 +1580,24 @@ export type Mutation_RootUpdate_Group_UserArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Group_User_By_PkArgs = {
+  _inc?: Maybe<Group_User_Inc_Input>;
+  _set?: Maybe<Group_User_Set_Input>;
+  pk_columns: Group_User_Pk_Columns_Input;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_PicksArgs = {
   _inc?: Maybe<Picks_Inc_Input>;
   _set?: Maybe<Picks_Set_Input>;
   where: Picks_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Picks_By_PkArgs = {
+  _inc?: Maybe<Picks_Inc_Input>;
+  _set?: Maybe<Picks_Set_Input>;
+  pk_columns: Picks_Pk_Columns_Input;
 };
 
 /** mutation root */
@@ -1387,6 +1608,13 @@ export type Mutation_RootUpdate_ScoreArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Score_By_PkArgs = {
+  _inc?: Maybe<Score_Inc_Input>;
+  _set?: Maybe<Score_Set_Input>;
+  pk_columns: Score_Pk_Columns_Input;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_TeamArgs = {
   _inc?: Maybe<Team_Inc_Input>;
   _set?: Maybe<Team_Set_Input>;
@@ -1394,9 +1622,22 @@ export type Mutation_RootUpdate_TeamArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Team_By_PkArgs = {
+  _inc?: Maybe<Team_Inc_Input>;
+  _set?: Maybe<Team_Set_Input>;
+  pk_columns: Team_Pk_Columns_Input;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_UserArgs = {
   _set?: Maybe<User_Set_Input>;
   where: User_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_User_By_PkArgs = {
+  _set?: Maybe<User_Set_Input>;
+  pk_columns: User_Pk_Columns_Input;
 };
 
 /** column ordering options */
@@ -1417,6 +1658,7 @@ export enum Order_By {
 
 /** columns and relationships of "picks" */
 export type Picks = {
+  correct?: Maybe<Scalars['Boolean']>;
   created_at: Scalars['timestamptz'];
   /** An object relationship */
   game: Game;
@@ -1506,6 +1748,7 @@ export type Picks_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Picks_Bool_Exp>>>;
   _not?: Maybe<Picks_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Picks_Bool_Exp>>>;
+  correct?: Maybe<Boolean_Comparison_Exp>;
   created_at?: Maybe<Timestamptz_Comparison_Exp>;
   game?: Maybe<Game_Bool_Exp>;
   game_id?: Maybe<Int_Comparison_Exp>;
@@ -1526,7 +1769,7 @@ export enum Picks_Constraint {
   PicksPkey = 'picks_pkey',
 }
 
-/** input type for incrementing integer columne in table "picks" */
+/** input type for incrementing integer column in table "picks" */
 export type Picks_Inc_Input = {
   game_id?: Maybe<Scalars['Int']>;
   group_id?: Maybe<Scalars['Int']>;
@@ -1537,6 +1780,7 @@ export type Picks_Inc_Input = {
 
 /** input type for inserting data into table "picks" */
 export type Picks_Insert_Input = {
+  correct?: Maybe<Scalars['Boolean']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   game?: Maybe<Game_Obj_Rel_Insert_Input>;
   game_id?: Maybe<Scalars['Int']>;
@@ -1622,6 +1866,7 @@ export type Picks_On_Conflict = {
 
 /** ordering options when selecting data from "picks" */
 export type Picks_Order_By = {
+  correct?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
   game?: Maybe<Game_Order_By>;
   game_id?: Maybe<Order_By>;
@@ -1636,8 +1881,17 @@ export type Picks_Order_By = {
   week?: Maybe<Order_By>;
 };
 
+/** primary key columns input for table: "picks" */
+export type Picks_Pk_Columns_Input = {
+  game_id: Scalars['Int'];
+  group_id: Scalars['Int'];
+  user_id: Scalars['String'];
+};
+
 /** select columns of table "picks" */
 export enum Picks_Select_Column {
+  /** column name */
+  Correct = 'correct',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
@@ -1658,6 +1912,7 @@ export enum Picks_Select_Column {
 
 /** input type for updating data in table "picks" */
 export type Picks_Set_Input = {
+  correct?: Maybe<Scalars['Boolean']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   game_id?: Maybe<Scalars['Int']>;
   group_id?: Maybe<Scalars['Int']>;
@@ -1742,6 +1997,8 @@ export type Picks_Sum_Order_By = {
 
 /** update columns of table "picks" */
 export enum Picks_Update_Column {
+  /** column name */
+  Correct = 'correct',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
@@ -1844,6 +2101,10 @@ export type Query_Root = {
   picks_aggregate: Picks_Aggregate;
   /** fetch data from the table: "picks" using primary key columns */
   picks_by_pk?: Maybe<Picks>;
+  /** fetch data from the table: "rankings" */
+  rankings: Array<Rankings>;
+  /** fetch aggregated fields from the table: "rankings" */
+  rankings_aggregate: Rankings_Aggregate;
   /** fetch data from the table: "score" */
   score: Array<Score>;
   /** fetch aggregated fields from the table: "score" */
@@ -1979,6 +2240,24 @@ export type Query_RootPicks_By_PkArgs = {
 };
 
 /** query root */
+export type Query_RootRankingsArgs = {
+  distinct_on?: Maybe<Array<Rankings_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Rankings_Order_By>>;
+  where?: Maybe<Rankings_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootRankings_AggregateArgs = {
+  distinct_on?: Maybe<Array<Rankings_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Rankings_Order_By>>;
+  where?: Maybe<Rankings_Bool_Exp>;
+};
+
+/** query root */
 export type Query_RootScoreArgs = {
   distinct_on?: Maybe<Array<Score_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -2045,6 +2324,239 @@ export type Query_RootUser_AggregateArgs = {
 /** query root */
 export type Query_RootUser_By_PkArgs = {
   id: Scalars['String'];
+};
+
+/** columns and relationships of "rankings" */
+export type Rankings = {
+  /** An object relationship */
+  group?: Maybe<Group>;
+  group_id?: Maybe<Scalars['Int']>;
+  points?: Maybe<Scalars['bigint']>;
+  rank?: Maybe<Scalars['bigint']>;
+  /** An object relationship */
+  user?: Maybe<User>;
+  user_id?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "rankings" */
+export type Rankings_Aggregate = {
+  aggregate?: Maybe<Rankings_Aggregate_Fields>;
+  nodes: Array<Rankings>;
+};
+
+/** aggregate fields of "rankings" */
+export type Rankings_Aggregate_Fields = {
+  avg?: Maybe<Rankings_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Rankings_Max_Fields>;
+  min?: Maybe<Rankings_Min_Fields>;
+  stddev?: Maybe<Rankings_Stddev_Fields>;
+  stddev_pop?: Maybe<Rankings_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Rankings_Stddev_Samp_Fields>;
+  sum?: Maybe<Rankings_Sum_Fields>;
+  var_pop?: Maybe<Rankings_Var_Pop_Fields>;
+  var_samp?: Maybe<Rankings_Var_Samp_Fields>;
+  variance?: Maybe<Rankings_Variance_Fields>;
+};
+
+/** aggregate fields of "rankings" */
+export type Rankings_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Rankings_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "rankings" */
+export type Rankings_Aggregate_Order_By = {
+  avg?: Maybe<Rankings_Avg_Order_By>;
+  count?: Maybe<Order_By>;
+  max?: Maybe<Rankings_Max_Order_By>;
+  min?: Maybe<Rankings_Min_Order_By>;
+  stddev?: Maybe<Rankings_Stddev_Order_By>;
+  stddev_pop?: Maybe<Rankings_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Rankings_Stddev_Samp_Order_By>;
+  sum?: Maybe<Rankings_Sum_Order_By>;
+  var_pop?: Maybe<Rankings_Var_Pop_Order_By>;
+  var_samp?: Maybe<Rankings_Var_Samp_Order_By>;
+  variance?: Maybe<Rankings_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Rankings_Avg_Fields = {
+  group_id?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "rankings" */
+export type Rankings_Avg_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "rankings". All fields are combined with a logical 'AND'. */
+export type Rankings_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Rankings_Bool_Exp>>>;
+  _not?: Maybe<Rankings_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Rankings_Bool_Exp>>>;
+  group?: Maybe<Group_Bool_Exp>;
+  group_id?: Maybe<Int_Comparison_Exp>;
+  points?: Maybe<Bigint_Comparison_Exp>;
+  rank?: Maybe<Bigint_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
+  user_id?: Maybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Rankings_Max_Fields = {
+  group_id?: Maybe<Scalars['Int']>;
+  points?: Maybe<Scalars['bigint']>;
+  rank?: Maybe<Scalars['bigint']>;
+  user_id?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "rankings" */
+export type Rankings_Max_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+  user_id?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Rankings_Min_Fields = {
+  group_id?: Maybe<Scalars['Int']>;
+  points?: Maybe<Scalars['bigint']>;
+  rank?: Maybe<Scalars['bigint']>;
+  user_id?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "rankings" */
+export type Rankings_Min_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+  user_id?: Maybe<Order_By>;
+};
+
+/** ordering options when selecting data from "rankings" */
+export type Rankings_Order_By = {
+  group?: Maybe<Group_Order_By>;
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
+  user_id?: Maybe<Order_By>;
+};
+
+/** select columns of table "rankings" */
+export enum Rankings_Select_Column {
+  /** column name */
+  GroupId = 'group_id',
+  /** column name */
+  Points = 'points',
+  /** column name */
+  Rank = 'rank',
+  /** column name */
+  UserId = 'user_id',
+}
+
+/** aggregate stddev on columns */
+export type Rankings_Stddev_Fields = {
+  group_id?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "rankings" */
+export type Rankings_Stddev_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Rankings_Stddev_Pop_Fields = {
+  group_id?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "rankings" */
+export type Rankings_Stddev_Pop_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Rankings_Stddev_Samp_Fields = {
+  group_id?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "rankings" */
+export type Rankings_Stddev_Samp_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Rankings_Sum_Fields = {
+  group_id?: Maybe<Scalars['Int']>;
+  points?: Maybe<Scalars['bigint']>;
+  rank?: Maybe<Scalars['bigint']>;
+};
+
+/** order by sum() on columns of table "rankings" */
+export type Rankings_Sum_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Rankings_Var_Pop_Fields = {
+  group_id?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "rankings" */
+export type Rankings_Var_Pop_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Rankings_Var_Samp_Fields = {
+  group_id?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "rankings" */
+export type Rankings_Var_Samp_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Rankings_Variance_Fields = {
+  group_id?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "rankings" */
+export type Rankings_Variance_Order_By = {
+  group_id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  rank?: Maybe<Order_By>;
 };
 
 /** columns and relationships of "score" */
@@ -2150,7 +2662,7 @@ export enum Score_Constraint {
   ScorePkey = 'score_pkey',
 }
 
-/** input type for incrementing integer columne in table "score" */
+/** input type for incrementing integer column in table "score" */
 export type Score_Inc_Input = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
@@ -2248,6 +2760,11 @@ export type Score_Order_By = {
   user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "score" */
+export type Score_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "score" */
@@ -2423,25 +2940,6 @@ export type Score_Variance_Order_By = {
   week?: Maybe<Order_By>;
 };
 
-/** expression to compare columns of type String. All fields are combined with logical 'AND'. */
-export type String_Comparison_Exp = {
-  _eq?: Maybe<Scalars['String']>;
-  _gt?: Maybe<Scalars['String']>;
-  _gte?: Maybe<Scalars['String']>;
-  _ilike?: Maybe<Scalars['String']>;
-  _in?: Maybe<Array<Scalars['String']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _like?: Maybe<Scalars['String']>;
-  _lt?: Maybe<Scalars['String']>;
-  _lte?: Maybe<Scalars['String']>;
-  _neq?: Maybe<Scalars['String']>;
-  _nilike?: Maybe<Scalars['String']>;
-  _nin?: Maybe<Array<Scalars['String']>>;
-  _nlike?: Maybe<Scalars['String']>;
-  _nsimilar?: Maybe<Scalars['String']>;
-  _similar?: Maybe<Scalars['String']>;
-};
-
 /** subscription root */
 export type Subscription_Root = {
   /** fetch data from the table: "game" */
@@ -2472,6 +2970,10 @@ export type Subscription_Root = {
   picks_aggregate: Picks_Aggregate;
   /** fetch data from the table: "picks" using primary key columns */
   picks_by_pk?: Maybe<Picks>;
+  /** fetch data from the table: "rankings" */
+  rankings: Array<Rankings>;
+  /** fetch aggregated fields from the table: "rankings" */
+  rankings_aggregate: Rankings_Aggregate;
   /** fetch data from the table: "score" */
   score: Array<Score>;
   /** fetch aggregated fields from the table: "score" */
@@ -2604,6 +3106,24 @@ export type Subscription_RootPicks_By_PkArgs = {
   game_id: Scalars['Int'];
   group_id: Scalars['Int'];
   user_id: Scalars['String'];
+};
+
+/** subscription root */
+export type Subscription_RootRankingsArgs = {
+  distinct_on?: Maybe<Array<Rankings_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Rankings_Order_By>>;
+  where?: Maybe<Rankings_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootRankings_AggregateArgs = {
+  distinct_on?: Maybe<Array<Rankings_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Rankings_Order_By>>;
+  where?: Maybe<Rankings_Bool_Exp>;
 };
 
 /** subscription root */
@@ -2770,7 +3290,7 @@ export enum Team_Constraint {
   TeamShortNameKey = 'team_short_name_key',
 }
 
-/** input type for incrementing integer columne in table "team" */
+/** input type for incrementing integer column in table "team" */
 export type Team_Inc_Input = {
   id?: Maybe<Scalars['Int']>;
   streak?: Maybe<Scalars['Int']>;
@@ -2856,6 +3376,11 @@ export type Team_Order_By = {
   short_name?: Maybe<Order_By>;
   streak?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "team" */
+export type Team_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "team" */
@@ -3161,8 +3686,6 @@ export enum User_Constraint {
   /** unique or primary key constraint */
   UserPhoneNumberKey = 'user_phone_number_key',
   /** unique or primary key constraint */
-  UserPhotoUrlKey = 'user_photo_url_key',
-  /** unique or primary key constraint */
   UserPkey = 'user_pkey',
 }
 
@@ -3261,6 +3784,11 @@ export type User_Order_By = {
   updated_at?: Maybe<Order_By>;
 };
 
+/** primary key columns input for table: "user" */
+export type User_Pk_Columns_Input = {
+  id: Scalars['String'];
+};
+
 /** select columns of table "user" */
 export enum User_Select_Column {
   /** column name */
@@ -3318,15 +3846,10 @@ export type DashboardQueryVariables = Exact<{
 }>;
 
 export type DashboardQuery = {
-  group_by_pk?: Maybe<
-    Pick<Group, 'display_name' | 'id'> & {
-      members: Array<{
-        user: Pick<User, 'display_name' | 'id' | 'photo_url'> & {
-          scores_aggregate: {
-            aggregate?: Maybe<{sum?: Maybe<Pick<Score_Sum_Fields, 'points'>>}>;
-          };
-        };
-      }>;
+  group_by_pk?: Maybe<Pick<Group, 'id' | 'display_name'>>;
+  rankings: Array<
+    Pick<Rankings, 'points' | 'rank'> & {
+      user?: Maybe<Pick<User, 'display_name' | 'id' | 'photo_url'>>;
     }
   >;
 };
@@ -3345,7 +3868,9 @@ export type Game_DetailsFragment = Pick<
   home_team: Pick<Team, 'id' | 'short_name' | 'record'>;
   vis_team: Pick<Team, 'id' | 'short_name' | 'record'>;
   picks: Array<
-    Pick<Picks, 'selected_id'> & {user: Pick<User, 'id' | 'display_name'>}
+    Pick<Picks, 'selected_id' | 'correct'> & {
+      user: Pick<User, 'id' | 'display_name'>;
+    }
   >;
   winning_team?: Maybe<Pick<Team, 'id' | 'short_name'>>;
 };
@@ -3365,6 +3890,7 @@ export type SavePickMutationVariables = Exact<{
   game_id?: Maybe<Scalars['Int']>;
   selected_id?: Maybe<Scalars['Int']>;
   group_id?: Maybe<Scalars['Int']>;
+  week?: Maybe<Scalars['Int']>;
 }>;
 
 export type SavePickMutation = {
@@ -3382,6 +3908,7 @@ export type GetGroupsQueryVariables = Exact<{
 export type GetGroupsQuery = {
   group_user: Array<{
     group: Pick<Group, 'display_name' | 'id' | 'admin_id'> & {
+      rankings: Array<Pick<Rankings, 'rank' | 'points'>>;
       members: Array<{user: Pick<User, 'photo_url' | 'id' | 'display_name'>}>;
     };
   }>;
@@ -3507,6 +4034,7 @@ export const Game_DetailsFragmentDoc = gql`
         display_name
       }
       selected_id
+      correct
     }
     quarter
     winning_team {
@@ -3524,21 +4052,16 @@ export const Game_DetailsFragmentDoc = gql`
 export const DashboardDocument = gql`
   query Dashboard($group_id: Int!) {
     group_by_pk(id: $group_id) {
-      display_name
       id
-      members {
-        user {
-          display_name
-          id
-          photo_url
-          scores_aggregate(where: {group_id: {_eq: $group_id}}) {
-            aggregate {
-              sum {
-                points
-              }
-            }
-          }
-        }
+      display_name
+    }
+    rankings(where: {group_id: {_eq: $group_id}}, order_by: {rank: asc}) {
+      points
+      rank
+      user {
+        display_name
+        id
+        photo_url
       }
     }
   }
@@ -3669,12 +4192,18 @@ export type GetGamesForWeekQueryResult = ApolloReactHooks.QueryResult<
   GetGamesForWeekQueryVariables
 >;
 export const SavePickDocument = gql`
-  mutation savePick($game_id: Int, $selected_id: Int, $group_id: Int) {
+  mutation savePick(
+    $game_id: Int
+    $selected_id: Int
+    $group_id: Int
+    $week: Int
+  ) {
     insert_picks(
       objects: {
         game_id: $game_id
         selected_id: $selected_id
         group_id: $group_id
+        week: $week
       }
       on_conflict: {constraint: picks_pkey, update_columns: selected_id}
     ) {
@@ -3706,6 +4235,7 @@ export type SavePickMutationFn = ApolloReactHooks.MutationFunction<
  *      game_id: // value for 'game_id'
  *      selected_id: // value for 'selected_id'
  *      group_id: // value for 'group_id'
+ *      week: // value for 'week'
  *   },
  * });
  */
@@ -3735,6 +4265,10 @@ export const GetGroupsDocument = gql`
         display_name
         id
         admin_id
+        rankings(where: {user_id: {_eq: $user_id}}) {
+          rank
+          points
+        }
         members {
           user {
             photo_url

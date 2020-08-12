@@ -6,24 +6,26 @@ import {
 import useGroup from '../../hooks/useGroup';
 import useHeader from '../../hooks/useHeader';
 import useUser from '../../hooks/useUser';
+import useWeek from '../../hooks/useWeek';
 import GameSection from './GamesSection';
 import GamesSkeleton from './GamesSkeleton';
 import getCurrentWeek from '../../helpers/currentWeek';
 import { HeaderGroupName } from '../../Styles/Header';
 
-const GamesList = ({ week }) => {
+const GamesList = () => {
   const { group } = useGroup();
   const { user } = useUser();
+  const { week } = useWeek();
   const { setPickHeader } = useHeader();
 
   const { data, loading, error } = useGetGamesForWeekQuery({
-    variables: { week, group_id: group?.id ?? 1 }
+    variables: { week, group_id: group?.id ?? 0 }
   });
   useGetGamesForWeekQuery({
-    variables: { week: week + 1, group_id: group?.id ?? 1 }
+    variables: { week: week + 1, group_id: group?.id ?? 0 }
   });
   useGetGamesForWeekQuery({
-    variables: { week: week - 1, group_id: group?.id ?? 1 }
+    variables: { week: week - 1, group_id: group?.id ?? 0 }
   });
   const getPickCount = useCallback(
     (d: GetGamesForWeekQuery) => {
@@ -36,10 +38,17 @@ const GamesList = ({ week }) => {
     },
     [user.id]
   );
+  const getWeekScore = useCallback(
+    (d: GetGamesForWeekQuery) => {
+      const reduceFunc = (acc, g) =>
+        g.picks.find(p => p.user.id === user.id && p.correct) ? acc + 1 : acc;
+      return d.completedGames.reduce(reduceFunc, 0);
+    },
+    [user.id]
+  );
 
   useEffect(() => {
     if (data) {
-      console.log('i"m here here here');
       setPickHeader(
         <>
           <HeaderGroupName>
@@ -49,7 +58,7 @@ const GamesList = ({ week }) => {
             {week < getCurrentWeek() ? (
               <>
                 <span>{`Week ${week} Picks `}</span>
-                <span>{`${12} PTS`}</span>
+                <span>{`${getWeekScore(data)} PTS`}</span>
               </>
             ) : (
               `Make Your Picks ${getPickCount(data)} / ${getGameCount(data)}`
@@ -58,7 +67,7 @@ const GamesList = ({ week }) => {
         </>
       );
     }
-  }, [data, getPickCount, group, setPickHeader, week]);
+  }, [data, getPickCount, getWeekScore, group, setPickHeader, week]);
 
   if (loading) {
     return <GamesSkeleton />;

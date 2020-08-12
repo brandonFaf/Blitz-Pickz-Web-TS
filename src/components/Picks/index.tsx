@@ -8,9 +8,9 @@ import Colors from '../../Styles/colors';
 import chevron from '../../img/Chevron.png';
 import ActionButton from '../../Styles/Shared/ActionButton';
 import useHeader from '../../hooks/useHeader';
+import WeekStore from '../../contexts/WeekContext';
 
 const Picks = () => {
-  const [week, setWeek] = useState(getCurrentWeek());
   const { setPickHeader } = useHeader();
   const history = useHistory();
   const close = () => {
@@ -19,13 +19,15 @@ const Picks = () => {
   };
   return (
     <>
-      <JGP>
-        <ActionButton onClick={close} small data-testid={'close-picker'}>
-          <img src={chevron} className='down' alt='chevron' />
-        </ActionButton>
-        <GamesList week={week}></GamesList>
-      </JGP>
-      <WeekSlider week={week} setWeek={setWeek} />
+      <WeekStore>
+        <JGP>
+          <ActionButton onClick={close} small data-testid={'close-picker'}>
+            <img src={chevron} className='down' alt='chevron' />
+          </ActionButton>
+          <GamesList></GamesList>
+        </JGP>
+        <WeekSlider />
+      </WeekStore>
     </>
   );
 };

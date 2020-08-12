@@ -2,11 +2,19 @@ import {
   Group,
   User,
   Group_User_Aggregate_Fields,
-  Maybe
+  Maybe,
+  Rankings
 } from './graphql.types';
 export type MemberModel = Pick<User, 'photo_url' | 'id' | 'display_name'>;
 export type GroupModel = Pick<Group, 'display_name' | 'id' | 'admin_id'> & {
   members: Array<{ user: MemberModel }>;
+};
+export type GroupDrawerModel = Pick<
+  Group,
+  'display_name' | 'id' | 'admin_id'
+> & {
+  rankings: Array<Pick<Rankings, 'rank' | 'points'>>;
+  members: Array<{ user: Pick<User, 'photo_url' | 'id' | 'display_name'> }>;
 };
 export type SearchGroupModel = Pick<
   Group,

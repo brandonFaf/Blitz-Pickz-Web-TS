@@ -1,14 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
 import getCurrentWeek from '../../helpers/currentWeek';
 import WeekSliderContainer from '../../Styles/Picks/WeekSlider';
+import useWeek from '../../hooks/useWeek';
 
-type props = {
-  week: number;
-  setWeek: (week: number) => void;
-};
-const WeekSlider: React.FC<props> = ({ week, setWeek }) => {
+const WeekSlider: React.FC = () => {
   const currentWeek = useMemo(() => getCurrentWeek(), []);
-
+  const { week, setWeek } = useWeek();
   const weekNumbers = new Array(17).fill('1');
   const weekBox = useCallback(
     node => {

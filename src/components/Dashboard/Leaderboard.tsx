@@ -5,7 +5,6 @@ import Colors from '../../Styles/colors';
 import useUser from '../../hooks/useUser';
 import useGroup from '../../hooks/useGroup';
 import { useDashboardLazyQuery } from '../../types/graphql.types';
-import { Member } from '../../types/UserTypes';
 
 const Row = styled.div`
   display: grid;
@@ -57,15 +56,6 @@ const Leaderboard = () => {
   if (!data || !data.group_by_pk) {
     return <div></div>;
   }
-  const { members } = data?.group_by_pk;
-  const byScore = (a: Member, b: Member) => {
-    const first = a?.user.scores_aggregate?.aggregate?.sum?.points ?? 0;
-    const second = b?.user.scores_aggregate?.aggregate?.sum?.points ?? 0;
-    return second - first;
-  };
-
-  let rank = 0;
-  let previousScore: number;
   return (
     <LBoard data-testid='leaderboard'>
       <Row>
@@ -74,19 +64,18 @@ const Leaderboard = () => {
         <div>Player</div>
         <div>Points</div>
       </Row>
-      {[...members].sort(byScore).map(m => {
-        const { photo_url, display_name, id } = m.user;
-        const score = m.user.scores_aggregate.aggregate?.sum?.points;
-        if (score !== previousScore) {
-          rank++;
+      {data.rankings.map(m => {
+        if (!m.user) {
+          return <></>;
         }
+        const { photo_url, display_name, id } = m.user;
         let cn = '';
         if (id === user.id) {
           cn = 'current';
         }
         return (
           <Row data-testid='leaderboard-row' key={id} className={cn}>
-            <div>{rank}.</div>
+            <div>{m.rank}.</div>
             <div>
               <ProfilePhoto
                 size={'small'}
@@ -95,7 +84,7 @@ const Leaderboard = () => {
               />
             </div>
             <div className={cn}>{display_name}</div>
-            <div>{score}</div>
+            <div>{m.points}</div>
           </Row>
         );
       })}

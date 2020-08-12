@@ -8,6 +8,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import useUser from '../../hooks/useUser';
 import useGroup from '../../hooks/useGroup';
+import useWeek from '../../hooks/useWeek';
 import { Container, TeamButton, MiddleButton } from '../../Styles/Game';
 type Props = {
   game: Game_DetailsFragment;
@@ -15,6 +16,7 @@ type Props = {
 const Game: React.FC<Props> = ({ game }) => {
   const { user } = useUser();
   const { group } = useGroup();
+  const { week } = useWeek();
   const userPick = game.picks?.find(p => p.user.id === user.id);
   const { vis_team, home_team, date, time } = game;
   const [savePickMutation] = useSavePickMutation({
@@ -24,7 +26,8 @@ const Game: React.FC<Props> = ({ game }) => {
         variables: { week: game.week, group_id: group?.id }
       }
     ],
-    onError: () => {
+    onError: e => {
+      console.log(e);
       //check if the error is validation of time and open drawer
       //show error else
     }
@@ -40,7 +43,8 @@ const Game: React.FC<Props> = ({ game }) => {
       variables: {
         game_id: game.id,
         selected_id: teamId,
-        group_id: group?.id
+        group_id: group?.id,
+        week
       }
     });
   };

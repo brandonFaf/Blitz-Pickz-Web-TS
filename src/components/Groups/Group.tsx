@@ -12,10 +12,10 @@ import ProfilePhoto from '../Profile/ProfilePhoto';
 import { useSpring, animated } from 'react-spring';
 import useClickOutsideToggle from '../../hooks/useClickOutsideToggle';
 import useGroup from '../../hooks/useGroup';
-import { GroupModel } from '../../types/GroupTypes';
+import { GroupDrawerModel } from '../../types/GroupTypes';
 import getOrdinal from '../../helpers/getOrdinal';
 type props = {
-  group: GroupModel;
+  group: GroupDrawerModel;
   leaveGroup: (id: number) => void;
   userId: string;
   toggleGroups: () => void;
@@ -85,8 +85,8 @@ const Group: React.FC<props> = ({
           <div>{group.display_name}</div>
         </GroupName>
         <GroupDetail onClick={selectGroup}>
-          <div>{getOrdinal(1)}</div>
-          <div>{12} PTS</div>
+          <div>{getOrdinal(group.rankings[0]?.rank || 1)}</div>
+          <div>{group.rankings[0]?.points || 0} PTS</div>
           <div>{group.members.length} Players</div>
         </GroupDetail>
       </G>
