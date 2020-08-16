@@ -11,6 +11,7 @@ import GameSection from './GamesSection';
 import GamesSkeleton from './GamesSkeleton';
 import getCurrentWeek from '../../helpers/currentWeek';
 import { HeaderGroupName } from '../../Styles/Header';
+import Colors from '../../Styles/colors';
 
 const GamesList = () => {
   const { group } = useGroup();
@@ -58,7 +59,9 @@ const GamesList = () => {
             {week < getCurrentWeek() ? (
               <>
                 <span>{`Week ${week} Picks `}</span>
-                <span>{`${getWeekScore(data)} PTS`}</span>
+                <span style={{ color: Colors.highlight }}>{`${getWeekScore(
+                  data
+                )} PTS`}</span>
               </>
             ) : (
               `Make Your Picks ${getPickCount(data)} / ${getGameCount(data)}`

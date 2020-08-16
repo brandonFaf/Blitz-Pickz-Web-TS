@@ -3854,6 +3854,19 @@ export type LeaderboardQuery = {
   >;
 };
 
+export type PicksQueryVariables = Exact<{
+  user_id: Scalars['String'];
+  group_id: Scalars['Int'];
+  week: Scalars['Int'];
+}>;
+
+export type PicksQuery = {
+  user_by_pk?: Maybe<{
+    picks_aggregate: {aggregate?: Maybe<Pick<Picks_Aggregate_Fields, 'count'>>};
+  }>;
+  game_aggregate: {aggregate?: Maybe<Pick<Game_Aggregate_Fields, 'count'>>};
+};
+
 export type DashbaordQueryVariables = Exact<{
   group_id: Scalars['Int'];
   user_id: Scalars['String'];
@@ -4121,6 +4134,71 @@ export type LeaderboardLazyQueryHookResult = ReturnType<
 export type LeaderboardQueryResult = ApolloReactHooks.QueryResult<
   LeaderboardQuery,
   LeaderboardQueryVariables
+>;
+export const PicksDocument = gql`
+  query Picks($user_id: String!, $group_id: Int!, $week: Int!) {
+    user_by_pk(id: $user_id) {
+      picks_aggregate(
+        where: {_and: {group_id: {_eq: $group_id}}, week: {_eq: $week}}
+      ) {
+        aggregate {
+          count
+        }
+      }
+    }
+    game_aggregate(where: {week: {_eq: $week}}) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
+/**
+ * __usePicksQuery__
+ *
+ * To run a query within a React component, call `usePicksQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePicksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePicksQuery({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *      group_id: // value for 'group_id'
+ *      week: // value for 'week'
+ *   },
+ * });
+ */
+export function usePicksQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    PicksQuery,
+    PicksQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<PicksQuery, PicksQueryVariables>(
+    PicksDocument,
+    baseOptions,
+  );
+}
+export function usePicksLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    PicksQuery,
+    PicksQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<PicksQuery, PicksQueryVariables>(
+    PicksDocument,
+    baseOptions,
+  );
+}
+export type PicksQueryHookResult = ReturnType<typeof usePicksQuery>;
+export type PicksLazyQueryHookResult = ReturnType<typeof usePicksLazyQuery>;
+export type PicksQueryResult = ApolloReactHooks.QueryResult<
+  PicksQuery,
+  PicksQueryVariables
 >;
 export const DashbaordDocument = gql`
   query Dashbaord($group_id: Int!, $user_id: String!) {

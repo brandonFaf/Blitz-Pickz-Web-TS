@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Game_DetailsFragment,
   useSavePickMutation,
-  GetGamesForWeekDocument
+  GetGamesForWeekDocument,
+  PicksDocument
 } from '../../types/graphql.types';
 import moment from 'moment';
 import 'moment-timezone';
@@ -24,6 +25,10 @@ const Game: React.FC<Props> = ({ game }) => {
       {
         query: GetGamesForWeekDocument,
         variables: { week: game.week, group_id: group?.id }
+      },
+      {
+        query: PicksDocument,
+        variables: { user_id: user.id, group_id: group?.id ?? 0, week }
       }
     ],
     onError: e => {

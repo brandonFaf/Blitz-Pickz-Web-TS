@@ -1,6 +1,8 @@
 import styled from 'styled-components/macro';
 import Colors from '../colors';
 export const Header = styled.div`
+  position: fixed;
+  top: 0;
   flex-shrink: 0;
   height: 75px;
   display: grid;
@@ -13,7 +15,7 @@ export const Header = styled.div`
   justify-items: center;
   text-transform: uppercase;
   opacity: 0.75;
-  z-index: 12;
+  z-index: 56;
   backdrop-filter: blur(5px);
   background-color: ${Colors.background};
 `;

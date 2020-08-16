@@ -38,40 +38,40 @@ const App = () => {
   } else {
     return (
       <>
-        <div style={{ position: 'absolute' }}>
-          <div style={{ width: '100vw' }}>
-            <Header>
-              <img
-                src={hamburger}
-                alt={'hamburger'}
-                data-testid={'group-menu'}
-                onClick={toggleGroups}
-              />
-              <div className='header-text'>
-                {pickHeader ? pickHeader : group?.display_name ?? 'League'}
-              </div>
-              <ProfilePhoto
-                data-testid={'profile-menu'}
-                onClick={toggleProfile}
-                displayName={dbUser.display_name}
-                src={dbUser.photo_url}
-                size='small'
-              />
-            </Header>
+        <div style={{ width: '95vw' }}>
+          <Header>
+            <img
+              src={hamburger}
+              alt={'hamburger'}
+              data-testid={'group-menu'}
+              onClick={toggleGroups}
+            />
+            <div className='header-text'>
+              {pickHeader ? pickHeader : group?.display_name ?? 'League'}
+            </div>
+            <ProfilePhoto
+              data-testid={'profile-menu'}
+              onClick={toggleProfile}
+              displayName={dbUser.display_name}
+              src={dbUser.photo_url}
+              size='small'
+            />
+          </Header>
+          <div style={{ position: 'absolute', top: 75 }}>
+            <GroupDrawer
+              showGroups={showGroups}
+              toggleGroups={toggleGroups}
+              groupsRef={groupsRef}
+            />
+            <ProfileDrawer
+              showProfile={showProfile}
+              toggleProfile={toggleProfile}
+              profileRef={profileRef}
+            />
+            <Dashboard />
           </div>
-          <GroupDrawer
-            showGroups={showGroups}
-            toggleGroups={toggleGroups}
-            groupsRef={groupsRef}
-          />
-          <ProfileDrawer
-            showProfile={showProfile}
-            toggleProfile={toggleProfile}
-            profileRef={profileRef}
-          />
-          <Dashboard />
+          <ModalContent />
         </div>
-        <ModalContent />
       </>
     );
   }

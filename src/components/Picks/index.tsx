@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import getCurrentWeek from '../../helpers/currentWeek';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import WeekSlider from './WeekSlider';
 import GamesList from './GamesList';
