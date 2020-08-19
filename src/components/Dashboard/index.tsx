@@ -25,7 +25,7 @@ const Dashboard = () => {
       });
     }
   }, [group, loadDashboard, user.id]);
-  if (!called || loading) {
+  if (loading) {
     return <div>Loading</div>;
   }
   if (error) {
@@ -34,6 +34,9 @@ const Dashboard = () => {
   }
   if (!group) {
     return <NoGroupMessage />;
+  }
+  if (!called) {
+    return <div>Loading</div>;
   }
   return (
     <D>

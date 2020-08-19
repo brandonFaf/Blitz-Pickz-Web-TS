@@ -47,7 +47,7 @@ const App = () => {
               onClick={toggleGroups}
             />
             <div className='header-text'>
-              {pickHeader ? pickHeader : group?.display_name ?? 'League'}
+              {pickHeader ? pickHeader : group?.display_name ?? 'Dashboard'}
             </div>
             <ProfilePhoto
               data-testid={'profile-menu'}

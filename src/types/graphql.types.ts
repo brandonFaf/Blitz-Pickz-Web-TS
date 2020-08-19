@@ -4266,6 +4266,7 @@ export const GetGamesForWeekDocument = gql`
         week: {_eq: $week}
         quarter: {_is_null: true}
       }
+      order_by: {date: asc, time: asc}
     ) {
       ...game_details
     }
@@ -4275,11 +4276,13 @@ export const GetGamesForWeekDocument = gql`
         week: {_eq: $week}
         quarter: {_is_null: false}
       }
+      order_by: {date: asc, time: asc}
     ) {
       ...game_details
     }
     completedGames: game(
       where: {winner_id: {_is_null: false}, week: {_eq: $week}}
+      order_by: {date: asc, time: asc}
     ) {
       ...game_details
     }
@@ -4474,7 +4477,7 @@ export type GetGroupsQueryResult = ApolloReactHooks.QueryResult<
 >;
 export const FetchAvailableGroupsDocument = gql`
   query FetchAvailableGroups($user_id: String!) {
-    get_available_groups(args: {user_id: $user_id}) {
+    get_available_groups(args: {user_id: $user_id}, distinct_on: id) {
       id
       display_name
       admin_id

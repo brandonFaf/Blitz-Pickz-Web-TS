@@ -31,11 +31,12 @@ const Container = styled.div`
   grid-template-rows: 60vh 15vh;
   align-items: center;
   height: calc(100vh - 75px);
+  width: 100vw;
 `;
 const TextContainer = styled.div`
   width: 60vw;
-  font-size: 15px;
-  line-height: 17px;
+  font-size: 20px;
+  line-height: 22px;
   letter-spacing: -0.04em;
 `;
 
