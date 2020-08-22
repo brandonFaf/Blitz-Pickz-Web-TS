@@ -19,17 +19,17 @@ const Body = styled.div`
 ReactDOM.render(
   <React.StrictMode>
     <Body>
-      <UserStore>
-        <GroupStore>
-          <HeaderStore>
-            <ApolloWrapper>
+      <ApolloWrapper>
+        <UserStore>
+          <GroupStore>
+            <HeaderStore>
               <Router>
                 <App />
               </Router>
-            </ApolloWrapper>
-          </HeaderStore>
-        </GroupStore>
-      </UserStore>
+            </HeaderStore>
+          </GroupStore>
+        </UserStore>
+      </ApolloWrapper>
     </Body>
   </React.StrictMode>,
   document.getElementById('root')

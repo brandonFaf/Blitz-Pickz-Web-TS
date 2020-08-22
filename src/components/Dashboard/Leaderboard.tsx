@@ -39,7 +39,6 @@ const Leaderboard = () => {
     { data, loading, error, called }
   ] = useLeaderboardLazyQuery();
   useEffect(() => {
-    console.log('g', group);
     if (group) {
       loadLeaderboard({
         variables: { group_id: group.id }
@@ -56,6 +55,10 @@ const Leaderboard = () => {
   if (!data || !data.group_by_pk) {
     return <div></div>;
   }
+  const members =
+    data.rankings.length === 0
+      ? group?.members.map(m => ({ ...m, rank: 1, points: 0 }))
+      : data.rankings;
   return (
     <LBoard data-testid='leaderboard'>
       <Row>
@@ -64,7 +67,7 @@ const Leaderboard = () => {
         <div>Player</div>
         <div>Points</div>
       </Row>
-      {data.rankings.map(m => {
+      {members?.map(m => {
         if (!m.user) {
           return <></>;
         }
@@ -75,7 +78,7 @@ const Leaderboard = () => {
         }
         return (
           <Row data-testid='leaderboard-row' key={id} className={cn}>
-            <div>{m.rank}.</div>
+            <div>{m.rank || 1}.</div>
             <div>
               <ProfilePhoto
                 size={'small'}
@@ -84,7 +87,7 @@ const Leaderboard = () => {
               />
             </div>
             <div className={cn}>{display_name}</div>
-            <div>{m.points}</div>
+            <div>{m.points || 0}</div>
           </Row>
         );
       })}

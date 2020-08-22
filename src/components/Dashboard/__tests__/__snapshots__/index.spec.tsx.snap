@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dashboard/> should render 1`] = `
+<DocumentFragment>
+  <div
+    class="Dashboard__D-sc-13z2q2e-0 juNKjh"
+  >
+    <div
+      class="Dashboard__DRel-sc-13z2q2e-1 cxmUfG"
+    >
+      <div
+        class="WeekStatus-sc-1wmp7hy-0 jPRXJe"
+      >
+        <div
+          class="week"
+        >
+          Week 1
+        </div>
+        <div
+          class="main"
+        >
+          You're in 
+          <strong>
+            2nd
+          </strong>
+           Place,
+          <br />
+          with 
+          <strong>
+            8
+            <sup>
+              pts
+            </sup>
+          </strong>
+        </div>
+      </div>
+      <div>
+        Leaderboard
+      </div>
+      <div>
+        Make Picks
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

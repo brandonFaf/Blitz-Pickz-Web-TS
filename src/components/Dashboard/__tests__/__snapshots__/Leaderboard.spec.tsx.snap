@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Leaderboard/> renders correctly for many people in the list 1`] = `
+<DocumentFragment>
+  <div
+    class="Leaderboard__LBoard-sc-15t7lnt-1 jeYLWJ"
+    data-testid="leaderboard"
+  >
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+    >
+      <div />
+      <div />
+      <div>
+        Player
+      </div>
+      <div>
+        Points
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg current"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        1.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 dHqMbu"
+          src="https://randomuser.me/api/portraits/thumb/women/14.jpg"
+        />
+      </div>
+      <div
+        class="current"
+      >
+        Allison Bell
+      </div>
+      <div>
+        40
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        2.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 bBetzn"
+          src="https://randomuser.me/api/portraits/thumb/men/37.jpg"
+        />
+      </div>
+      <div
+        class=""
+      >
+        Michael Johnson
+      </div>
+      <div>
+        38
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        3.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 dpNfGy"
+          src="https://randomuser.me/api/portraits/thumb/women/50.jpg"
+        />
+      </div>
+      <div
+        class=""
+      >
+        Vera Lynch
+      </div>
+      <div>
+        37
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        3.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 hpevHm"
+          src="https://randomuser.me/api/portraits/thumb/men/50.jpg"
+        />
+      </div>
+      <div
+        class=""
+      >
+        Fred Ramos
+      </div>
+      <div>
+        37
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        5.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 crPlGd"
+          src="https://randomuser.me/api/portraits/thumb/men/24.jpg"
+        />
+      </div>
+      <div
+        class=""
+      >
+        Gabriel Rice
+      </div>
+      <div>
+        32
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        6.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 hwRSpk"
+          src="https://randomuser.me/api/portraits/thumb/men/12.jpg"
+        />
+      </div>
+      <div
+        class=""
+      >
+        Fletcher Brown
+      </div>
+      <div>
+        31
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        7.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 hZRxBl"
+          src="https://randomuser.me/api/portraits/thumb/men/46.jpg"
+        />
+      </div>
+      <div
+        class=""
+      >
+        Urbano da Mota
+      </div>
+      <div>
+        27
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Leaderboard/> renders correctly for one person in the list 1`] = `
+<DocumentFragment>
+  <div
+    class="Leaderboard__LBoard-sc-15t7lnt-1 jeYLWJ"
+    data-testid="leaderboard"
+  >
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+    >
+      <div />
+      <div />
+      <div>
+        Player
+      </div>
+      <div>
+        Points
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg current"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        1.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 dHqMbu"
+          src="https://randomuser.me/api/portraits/thumb/women/14.jpg"
+        />
+      </div>
+      <div
+        class="current"
+      >
+        Allison Bell
+      </div>
+      <div>
+        40
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Leaderboard/> renders group members if data rankings is empty 1`] = `
+<DocumentFragment>
+  <div
+    class="Leaderboard__LBoard-sc-15t7lnt-1 jeYLWJ"
+    data-testid="leaderboard"
+  >
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+    >
+      <div />
+      <div />
+      <div>
+        Player
+      </div>
+      <div>
+        Points
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        1.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 bBetzn"
+          src="https://randomuser.me/api/portraits/thumb/men/37.jpg"
+        />
+      </div>
+      <div
+        class=""
+      >
+        Michael Johnson
+      </div>
+      <div>
+        0
+      </div>
+    </div>
+    <div
+      class="Leaderboard__Row-sc-15t7lnt-0 dOHGgg current"
+      data-testid="leaderboard-row"
+    >
+      <div>
+        1.
+      </div>
+      <div>
+        <div
+          alt="profile"
+          class="ProfilePhoto__PhotoImg-sc-1wpt521-0 dHqMbu"
+          src="https://randomuser.me/api/portraits/thumb/women/14.jpg"
+        />
+      </div>
+      <div
+        class="current"
+      >
+        Allison Bell
+      </div>
+      <div>
+        0
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

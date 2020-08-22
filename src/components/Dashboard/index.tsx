@@ -44,12 +44,12 @@ const Dashboard = () => {
         <WeekStatus>
           <div className='week'>Week {getCurrentWeek()}</div>
           <div className='main'>
-            You're in <strong>{getOrdinal(data?.rankings[0]?.rank)}</strong>{' '}
-            Place,
+            You're in{' '}
+            <strong>{getOrdinal(data?.rankings[0]?.rank || 1)}</strong> Place,
             <br />
             with{' '}
             <strong>
-              {data?.rankings[0]?.points}
+              {data?.rankings[0]?.points || 0}
               <sup>pts</sup>
             </strong>
           </div>
