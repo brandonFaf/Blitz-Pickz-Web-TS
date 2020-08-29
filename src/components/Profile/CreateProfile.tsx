@@ -13,9 +13,7 @@ const CreateProfile = ({ user }: Props) => {
     id: user.uid,
     display_name:
       user.displayName || user.email?.substr(0, user.email?.indexOf('@')),
-    photo_url: user.photoURL,
-    phone_number: user.phoneNumber,
-    notifications: false
+    photo_url: user.photoURL
   };
   return (
     <div>

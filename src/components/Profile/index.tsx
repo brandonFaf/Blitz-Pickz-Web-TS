@@ -12,18 +12,15 @@ import {
   ErrorLabel
 } from '../../Styles/Profile/ProfilePage';
 import ActionButton from '../../Styles/Shared/ActionButton';
-import Toggle from 'react-toggle';
 import '../../Styles/ToggleCSS.css';
 import { GroupFormError } from '../../Styles/Groups';
 import { UserModel } from '../../types/UserTypes';
 import { useUpdateUserMutation } from '../../types/graphql.types';
-import useToggleState from '../../hooks/useToggleState';
 import { validateForm } from './validateForm';
 import useUser from '../../hooks/useUser';
 
 type ProfileFormErrors = {
   displayName: string | null;
-  phoneNumber: string | null;
 };
 type Props = {
   user: UserModel;
@@ -34,38 +31,25 @@ const Profile: React.FC<Props> = ({ user, toggleProfile }) => {
   const { values, handleChange } = useForm<UserModel>({
     ...user
   });
-  const [allowNotifications, toggleNotifications] = useToggleState(false);
   const [errors, setErrors] = useState<ProfileFormErrors>({
-    displayName: null,
-    phoneNumber: null
+    displayName: null
   });
   const { setUser } = useUser();
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (await validateForm(values, setErrors, allowNotifications)) {
-      if (!allowNotifications) {
-        values.phone_number = null;
-      }
+    if (await validateForm(values, setErrors)) {
       console.log(JSON.stringify(values));
       const res = await updateUser({
         variables: {
           user_id: user.id,
           displayName: values.display_name ?? '',
-          phoneNumber: values.phone_number,
-          notifications: allowNotifications || false,
           photoUrl: values.photo_url
         }
       }).catch(({ graphQLErrors, networkError }) => {
         console.log('error coming in ere');
         if (graphQLErrors) {
           graphQLErrors.forEach(({ message }: { message: string }): void => {
-            if (message.indexOf('phone_number') >= 0) {
-              setErrors(e => ({
-                ...e,
-                phoneNumber: 'phone number taken'
-              }));
-            }
             if (message.indexOf('display_name') >= 0) {
               setErrors(e => ({
                 ...e,
@@ -85,8 +69,6 @@ const Profile: React.FC<Props> = ({ user, toggleProfile }) => {
         setUser({
           id: user.id,
           display_name: values.display_name,
-          phone_number: values.phone_number,
-          notifications: allowNotifications || false,
           photo_url: values.photo_url
         });
         if (toggleProfile) {
@@ -150,38 +132,6 @@ const Profile: React.FC<Props> = ({ user, toggleProfile }) => {
               {errors.displayName}
             </GroupFormError>
           )}
-          {/* {!displayNameUnique && (
-            <GroupFormError className="error">
-              Display Name Taken
-            </GroupFormError>
-          )} */}
-
-          {allowNotifications && (
-            <>
-              <Input
-                label='Phone Number'
-                name='phone_number'
-                type='phone'
-                onChange={handleChange}
-                value={values.phone_number}
-              />
-              {errors.phoneNumber && (
-                <div>
-                  <ErrorLabel className='error'>
-                    {errors.phoneNumber}
-                  </ErrorLabel>
-                </div>
-              )}
-            </>
-          )}
-          <label className='toggle-label' htmlFor='notifications'>
-            Notifications
-          </label>
-          <Toggle
-            id='notifications'
-            defaultChecked={allowNotifications}
-            onChange={toggleNotifications}
-          />
         </fieldset>
         <>
           {error && <ErrorLabel>Error Saving</ErrorLabel>}

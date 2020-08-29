@@ -48,3 +48,9 @@ export const MiddleButton = styled(TeamButton)`
   flex-basis: 30%;
   font-size: 10px;
 `;
+export const ErrorPicking = styled.div`
+  width: 80vw;
+  padding-top: 10px;
+  color: ${Colors.wrong};
+  font-size: 12px;
+`;

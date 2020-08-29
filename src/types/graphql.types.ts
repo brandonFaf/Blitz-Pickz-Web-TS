@@ -1314,6 +1314,10 @@ export type Mutation_Root = {
   delete_group_user?: Maybe<Group_User_Mutation_Response>;
   /** delete single row from the table: "group_user" */
   delete_group_user_by_pk?: Maybe<Group_User>;
+  /** delete data from the table: "notification_token" */
+  delete_notification_token?: Maybe<Notification_Token_Mutation_Response>;
+  /** delete single row from the table: "notification_token" */
+  delete_notification_token_by_pk?: Maybe<Notification_Token>;
   /** delete data from the table: "picks" */
   delete_picks?: Maybe<Picks_Mutation_Response>;
   /** delete single row from the table: "picks" */
@@ -1342,6 +1346,10 @@ export type Mutation_Root = {
   insert_group_user?: Maybe<Group_User_Mutation_Response>;
   /** insert a single row into the table: "group_user" */
   insert_group_user_one?: Maybe<Group_User>;
+  /** insert data into the table: "notification_token" */
+  insert_notification_token?: Maybe<Notification_Token_Mutation_Response>;
+  /** insert a single row into the table: "notification_token" */
+  insert_notification_token_one?: Maybe<Notification_Token>;
   /** insert data into the table: "picks" */
   insert_picks?: Maybe<Picks_Mutation_Response>;
   /** insert a single row into the table: "picks" */
@@ -1370,6 +1378,10 @@ export type Mutation_Root = {
   update_group_user?: Maybe<Group_User_Mutation_Response>;
   /** update single row of the table: "group_user" */
   update_group_user_by_pk?: Maybe<Group_User>;
+  /** update data of the table: "notification_token" */
+  update_notification_token?: Maybe<Notification_Token_Mutation_Response>;
+  /** update single row of the table: "notification_token" */
+  update_notification_token_by_pk?: Maybe<Notification_Token>;
   /** update data of the table: "picks" */
   update_picks?: Maybe<Picks_Mutation_Response>;
   /** update single row of the table: "picks" */
@@ -1415,6 +1427,16 @@ export type Mutation_RootDelete_Group_UserArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Group_User_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Notification_TokenArgs = {
+  where: Notification_Token_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Notification_Token_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -1494,6 +1516,18 @@ export type Mutation_RootInsert_Group_UserArgs = {
 export type Mutation_RootInsert_Group_User_OneArgs = {
   object: Group_User_Insert_Input;
   on_conflict?: Maybe<Group_User_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Notification_TokenArgs = {
+  objects: Array<Notification_Token_Insert_Input>;
+  on_conflict?: Maybe<Notification_Token_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Notification_Token_OneArgs = {
+  object: Notification_Token_Insert_Input;
+  on_conflict?: Maybe<Notification_Token_On_Conflict>;
 };
 
 /** mutation root */
@@ -1587,6 +1621,20 @@ export type Mutation_RootUpdate_Group_User_By_PkArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Notification_TokenArgs = {
+  _inc?: Maybe<Notification_Token_Inc_Input>;
+  _set?: Maybe<Notification_Token_Set_Input>;
+  where: Notification_Token_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Notification_Token_By_PkArgs = {
+  _inc?: Maybe<Notification_Token_Inc_Input>;
+  _set?: Maybe<Notification_Token_Set_Input>;
+  pk_columns: Notification_Token_Pk_Columns_Input;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_PicksArgs = {
   _inc?: Maybe<Picks_Inc_Input>;
   _set?: Maybe<Picks_Set_Input>;
@@ -1638,6 +1686,264 @@ export type Mutation_RootUpdate_UserArgs = {
 export type Mutation_RootUpdate_User_By_PkArgs = {
   _set?: Maybe<User_Set_Input>;
   pk_columns: User_Pk_Columns_Input;
+};
+
+/** columns and relationships of "notification_token" */
+export type Notification_Token = {
+  id: Scalars['Int'];
+  token: Scalars['String'];
+  /** An object relationship */
+  user: User;
+  user_id: Scalars['String'];
+};
+
+/** aggregated selection of "notification_token" */
+export type Notification_Token_Aggregate = {
+  aggregate?: Maybe<Notification_Token_Aggregate_Fields>;
+  nodes: Array<Notification_Token>;
+};
+
+/** aggregate fields of "notification_token" */
+export type Notification_Token_Aggregate_Fields = {
+  avg?: Maybe<Notification_Token_Avg_Fields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Notification_Token_Max_Fields>;
+  min?: Maybe<Notification_Token_Min_Fields>;
+  stddev?: Maybe<Notification_Token_Stddev_Fields>;
+  stddev_pop?: Maybe<Notification_Token_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Notification_Token_Stddev_Samp_Fields>;
+  sum?: Maybe<Notification_Token_Sum_Fields>;
+  var_pop?: Maybe<Notification_Token_Var_Pop_Fields>;
+  var_samp?: Maybe<Notification_Token_Var_Samp_Fields>;
+  variance?: Maybe<Notification_Token_Variance_Fields>;
+};
+
+/** aggregate fields of "notification_token" */
+export type Notification_Token_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Notification_Token_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "notification_token" */
+export type Notification_Token_Aggregate_Order_By = {
+  avg?: Maybe<Notification_Token_Avg_Order_By>;
+  count?: Maybe<Order_By>;
+  max?: Maybe<Notification_Token_Max_Order_By>;
+  min?: Maybe<Notification_Token_Min_Order_By>;
+  stddev?: Maybe<Notification_Token_Stddev_Order_By>;
+  stddev_pop?: Maybe<Notification_Token_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Notification_Token_Stddev_Samp_Order_By>;
+  sum?: Maybe<Notification_Token_Sum_Order_By>;
+  var_pop?: Maybe<Notification_Token_Var_Pop_Order_By>;
+  var_samp?: Maybe<Notification_Token_Var_Samp_Order_By>;
+  variance?: Maybe<Notification_Token_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "notification_token" */
+export type Notification_Token_Arr_Rel_Insert_Input = {
+  data: Array<Notification_Token_Insert_Input>;
+  on_conflict?: Maybe<Notification_Token_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Notification_Token_Avg_Fields = {
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "notification_token" */
+export type Notification_Token_Avg_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "notification_token". All fields are combined with a logical 'AND'. */
+export type Notification_Token_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Notification_Token_Bool_Exp>>>;
+  _not?: Maybe<Notification_Token_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Notification_Token_Bool_Exp>>>;
+  id?: Maybe<Int_Comparison_Exp>;
+  token?: Maybe<String_Comparison_Exp>;
+  user?: Maybe<User_Bool_Exp>;
+  user_id?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "notification_token" */
+export enum Notification_Token_Constraint {
+  /** unique or primary key constraint */
+  NotificationTokenPkey = 'notification_token_pkey',
+  /** unique or primary key constraint */
+  NotificationTokenTokenKey = 'notification_token_token_key',
+}
+
+/** input type for incrementing integer column in table "notification_token" */
+export type Notification_Token_Inc_Input = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "notification_token" */
+export type Notification_Token_Insert_Input = {
+  id?: Maybe<Scalars['Int']>;
+  token?: Maybe<Scalars['String']>;
+  user?: Maybe<User_Obj_Rel_Insert_Input>;
+  user_id?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Notification_Token_Max_Fields = {
+  id?: Maybe<Scalars['Int']>;
+  token?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "notification_token" */
+export type Notification_Token_Max_Order_By = {
+  id?: Maybe<Order_By>;
+  token?: Maybe<Order_By>;
+  user_id?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Notification_Token_Min_Fields = {
+  id?: Maybe<Scalars['Int']>;
+  token?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "notification_token" */
+export type Notification_Token_Min_Order_By = {
+  id?: Maybe<Order_By>;
+  token?: Maybe<Order_By>;
+  user_id?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "notification_token" */
+export type Notification_Token_Mutation_Response = {
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Notification_Token>;
+};
+
+/** input type for inserting object relation for remote table "notification_token" */
+export type Notification_Token_Obj_Rel_Insert_Input = {
+  data: Notification_Token_Insert_Input;
+  on_conflict?: Maybe<Notification_Token_On_Conflict>;
+};
+
+/** on conflict condition type for table "notification_token" */
+export type Notification_Token_On_Conflict = {
+  constraint: Notification_Token_Constraint;
+  update_columns: Array<Notification_Token_Update_Column>;
+  where?: Maybe<Notification_Token_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "notification_token" */
+export type Notification_Token_Order_By = {
+  id?: Maybe<Order_By>;
+  token?: Maybe<Order_By>;
+  user?: Maybe<User_Order_By>;
+  user_id?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "notification_token" */
+export type Notification_Token_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "notification_token" */
+export enum Notification_Token_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Token = 'token',
+  /** column name */
+  UserId = 'user_id',
+}
+
+/** input type for updating data in table "notification_token" */
+export type Notification_Token_Set_Input = {
+  id?: Maybe<Scalars['Int']>;
+  token?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Notification_Token_Stddev_Fields = {
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "notification_token" */
+export type Notification_Token_Stddev_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Notification_Token_Stddev_Pop_Fields = {
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "notification_token" */
+export type Notification_Token_Stddev_Pop_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Notification_Token_Stddev_Samp_Fields = {
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "notification_token" */
+export type Notification_Token_Stddev_Samp_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Notification_Token_Sum_Fields = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "notification_token" */
+export type Notification_Token_Sum_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** update columns of table "notification_token" */
+export enum Notification_Token_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Token = 'token',
+  /** column name */
+  UserId = 'user_id',
+}
+
+/** aggregate var_pop on columns */
+export type Notification_Token_Var_Pop_Fields = {
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "notification_token" */
+export type Notification_Token_Var_Pop_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Notification_Token_Var_Samp_Fields = {
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "notification_token" */
+export type Notification_Token_Var_Samp_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Notification_Token_Variance_Fields = {
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "notification_token" */
+export type Notification_Token_Variance_Order_By = {
+  id?: Maybe<Order_By>;
 };
 
 /** column ordering options */
@@ -2095,6 +2401,12 @@ export type Query_Root = {
   group_user_aggregate: Group_User_Aggregate;
   /** fetch data from the table: "group_user" using primary key columns */
   group_user_by_pk?: Maybe<Group_User>;
+  /** fetch data from the table: "notification_token" */
+  notification_token: Array<Notification_Token>;
+  /** fetch aggregated fields from the table: "notification_token" */
+  notification_token_aggregate: Notification_Token_Aggregate;
+  /** fetch data from the table: "notification_token" using primary key columns */
+  notification_token_by_pk?: Maybe<Notification_Token>;
   /** fetch data from the table: "picks" */
   picks: Array<Picks>;
   /** fetch aggregated fields from the table: "picks" */
@@ -2211,6 +2523,29 @@ export type Query_RootGroup_User_AggregateArgs = {
 
 /** query root */
 export type Query_RootGroup_User_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+/** query root */
+export type Query_RootNotification_TokenArgs = {
+  distinct_on?: Maybe<Array<Notification_Token_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Notification_Token_Order_By>>;
+  where?: Maybe<Notification_Token_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootNotification_Token_AggregateArgs = {
+  distinct_on?: Maybe<Array<Notification_Token_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Notification_Token_Order_By>>;
+  where?: Maybe<Notification_Token_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootNotification_Token_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -2964,6 +3299,12 @@ export type Subscription_Root = {
   group_user_aggregate: Group_User_Aggregate;
   /** fetch data from the table: "group_user" using primary key columns */
   group_user_by_pk?: Maybe<Group_User>;
+  /** fetch data from the table: "notification_token" */
+  notification_token: Array<Notification_Token>;
+  /** fetch aggregated fields from the table: "notification_token" */
+  notification_token_aggregate: Notification_Token_Aggregate;
+  /** fetch data from the table: "notification_token" using primary key columns */
+  notification_token_by_pk?: Maybe<Notification_Token>;
   /** fetch data from the table: "picks" */
   picks: Array<Picks>;
   /** fetch aggregated fields from the table: "picks" */
@@ -3080,6 +3421,29 @@ export type Subscription_RootGroup_User_AggregateArgs = {
 
 /** subscription root */
 export type Subscription_RootGroup_User_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+/** subscription root */
+export type Subscription_RootNotification_TokenArgs = {
+  distinct_on?: Maybe<Array<Notification_Token_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Notification_Token_Order_By>>;
+  where?: Maybe<Notification_Token_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootNotification_Token_AggregateArgs = {
+  distinct_on?: Maybe<Array<Notification_Token_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Notification_Token_Order_By>>;
+  where?: Maybe<Notification_Token_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootNotification_Token_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -3559,6 +3923,10 @@ export type User = {
   /** An aggregated array relationship */
   groups_aggregate: Group_User_Aggregate;
   id: Scalars['String'];
+  /** An array relationship */
+  notification_tokens: Array<Notification_Token>;
+  /** An aggregated array relationship */
+  notification_tokens_aggregate: Notification_Token_Aggregate;
   notifications: Scalars['Boolean'];
   phone_number?: Maybe<Scalars['String']>;
   photo_url?: Maybe<Scalars['String']>;
@@ -3589,6 +3957,24 @@ export type UserGroups_AggregateArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Array<Group_User_Order_By>>;
   where?: Maybe<Group_User_Bool_Exp>;
+};
+
+/** columns and relationships of "user" */
+export type UserNotification_TokensArgs = {
+  distinct_on?: Maybe<Array<Notification_Token_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Notification_Token_Order_By>>;
+  where?: Maybe<Notification_Token_Bool_Exp>;
+};
+
+/** columns and relationships of "user" */
+export type UserNotification_Tokens_AggregateArgs = {
+  distinct_on?: Maybe<Array<Notification_Token_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Notification_Token_Order_By>>;
+  where?: Maybe<Notification_Token_Bool_Exp>;
 };
 
 /** columns and relationships of "user" */
@@ -3669,6 +4055,7 @@ export type User_Bool_Exp = {
   email?: Maybe<String_Comparison_Exp>;
   groups?: Maybe<Group_User_Bool_Exp>;
   id?: Maybe<String_Comparison_Exp>;
+  notification_tokens?: Maybe<Notification_Token_Bool_Exp>;
   notifications?: Maybe<Boolean_Comparison_Exp>;
   phone_number?: Maybe<String_Comparison_Exp>;
   photo_url?: Maybe<String_Comparison_Exp>;
@@ -3696,6 +4083,7 @@ export type User_Insert_Input = {
   email?: Maybe<Scalars['String']>;
   groups?: Maybe<Group_User_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['String']>;
+  notification_tokens?: Maybe<Notification_Token_Arr_Rel_Insert_Input>;
   notifications?: Maybe<Scalars['Boolean']>;
   phone_number?: Maybe<Scalars['String']>;
   photo_url?: Maybe<Scalars['String']>;
@@ -3776,6 +4164,7 @@ export type User_Order_By = {
   email?: Maybe<Order_By>;
   groups_aggregate?: Maybe<Group_User_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
+  notification_tokens_aggregate?: Maybe<Notification_Token_Aggregate_Order_By>;
   notifications?: Maybe<Order_By>;
   phone_number?: Maybe<Order_By>;
   photo_url?: Maybe<Order_By>;
@@ -3861,9 +4250,13 @@ export type PicksQueryVariables = Exact<{
 }>;
 
 export type PicksQuery = {
-  user_by_pk?: Maybe<{
-    picks_aggregate: {aggregate?: Maybe<Pick<Picks_Aggregate_Fields, 'count'>>};
-  }>;
+  user_by_pk?: Maybe<
+    Pick<User, 'id'> & {
+      picks_aggregate: {
+        aggregate?: Maybe<Pick<Picks_Aggregate_Fields, 'count'>>;
+      };
+    }
+  >;
   game_aggregate: {aggregate?: Maybe<Pick<Game_Aggregate_Fields, 'count'>>};
 };
 
@@ -3890,7 +4283,7 @@ export type Game_DetailsFragment = Pick<
   home_team: Pick<Team, 'id' | 'short_name' | 'record'>;
   vis_team: Pick<Team, 'id' | 'short_name' | 'record'>;
   picks: Array<
-    Pick<Picks, 'selected_id' | 'correct'> & {
+    Pick<Picks, 'id' | 'selected_id' | 'correct'> & {
       user: Pick<User, 'id' | 'display_name'>;
     }
   >;
@@ -4008,19 +4401,23 @@ export type LoadUserQueryVariables = Exact<{
 }>;
 
 export type LoadUserQuery = {
-  user_by_pk?: Maybe<
-    Pick<
-      User,
-      'notifications' | 'phone_number' | 'photo_url' | 'display_name' | 'id'
-    >
+  user_by_pk?: Maybe<Pick<User, 'photo_url' | 'display_name' | 'id'>>;
+};
+
+export type SaveNotificationTokenMutationVariables = Exact<{
+  user_id: Scalars['String'];
+  token: Scalars['String'];
+}>;
+
+export type SaveNotificationTokenMutation = {
+  insert_notification_token?: Maybe<
+    Pick<Notification_Token_Mutation_Response, 'affected_rows'>
   >;
 };
 
 export type UpdateUserMutationVariables = Exact<{
   user_id: Scalars['String'];
   displayName: Scalars['String'];
-  notifications: Scalars['Boolean'];
-  phoneNumber?: Maybe<Scalars['String']>;
   photoUrl?: Maybe<Scalars['String']>;
 }>;
 
@@ -4051,6 +4448,7 @@ export const Game_DetailsFragmentDoc = gql`
       record
     }
     picks(where: {group_id: {_eq: $group_id}}) {
+      id
       user {
         id
         display_name
@@ -4138,6 +4536,7 @@ export type LeaderboardQueryResult = ApolloReactHooks.QueryResult<
 export const PicksDocument = gql`
   query Picks($user_id: String!, $group_id: Int!, $week: Int!) {
     user_by_pk(id: $user_id) {
+      id
       picks_aggregate(
         where: {_and: {group_id: {_eq: $group_id}}, week: {_eq: $week}}
       ) {
@@ -4791,8 +5190,6 @@ export type CreateGroupMutationOptions = ApolloReactHooks.BaseMutationOptions<
 export const LoadUserDocument = gql`
   query loadUser($user_id: String!) {
     user_by_pk(id: $user_id) {
-      notifications
-      phone_number
       photo_url
       display_name
       id
@@ -4846,25 +5243,68 @@ export type LoadUserQueryResult = ApolloReactHooks.QueryResult<
   LoadUserQuery,
   LoadUserQueryVariables
 >;
+export const SaveNotificationTokenDocument = gql`
+  mutation SaveNotificationToken($user_id: String!, $token: String!) {
+    insert_notification_token(objects: {user_id: $user_id, token: $token}) {
+      affected_rows
+    }
+  }
+`;
+export type SaveNotificationTokenMutationFn = ApolloReactHooks.MutationFunction<
+  SaveNotificationTokenMutation,
+  SaveNotificationTokenMutationVariables
+>;
+
+/**
+ * __useSaveNotificationTokenMutation__
+ *
+ * To run a mutation, you first call `useSaveNotificationTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveNotificationTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveNotificationTokenMutation, { data, loading, error }] = useSaveNotificationTokenMutation({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useSaveNotificationTokenMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SaveNotificationTokenMutation,
+    SaveNotificationTokenMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    SaveNotificationTokenMutation,
+    SaveNotificationTokenMutationVariables
+  >(SaveNotificationTokenDocument, baseOptions);
+}
+export type SaveNotificationTokenMutationHookResult = ReturnType<
+  typeof useSaveNotificationTokenMutation
+>;
+export type SaveNotificationTokenMutationResult = ApolloReactHooks.MutationResult<
+  SaveNotificationTokenMutation
+>;
+export type SaveNotificationTokenMutationOptions = ApolloReactHooks.BaseMutationOptions<
+  SaveNotificationTokenMutation,
+  SaveNotificationTokenMutationVariables
+>;
 export const UpdateUserDocument = gql`
   mutation updateUser(
     $user_id: String!
     $displayName: String!
-    $notifications: Boolean!
-    $phoneNumber: String
     $photoUrl: String
   ) {
     insert_user(
-      objects: {
-        id: $user_id
-        display_name: $displayName
-        notifications: $notifications
-        phone_number: $phoneNumber
-        photo_url: $photoUrl
-      }
+      objects: {id: $user_id, display_name: $displayName, photo_url: $photoUrl}
       on_conflict: {
         constraint: user_pkey
-        update_columns: [notifications, phone_number, display_name, photo_url]
+        update_columns: [display_name, photo_url]
       }
     ) {
       affected_rows
@@ -4891,8 +5331,6 @@ export type UpdateUserMutationFn = ApolloReactHooks.MutationFunction<
  *   variables: {
  *      user_id: // value for 'user_id'
  *      displayName: // value for 'displayName'
- *      notifications: // value for 'notifications'
- *      phoneNumber: // value for 'phoneNumber'
  *      photoUrl: // value for 'photoUrl'
  *   },
  * });

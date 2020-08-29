@@ -24,7 +24,7 @@ const useLogin = (): {
         setUser(u);
         if (!u) {
           setStatus('out');
-          setContextUser({ id: '', notifications: false });
+          setContextUser({ id: '' });
           setGroup(undefined);
           localStorage.removeItem('token');
           localStorage.removeItem('group');
