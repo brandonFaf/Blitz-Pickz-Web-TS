@@ -40,5 +40,8 @@ const ActionButton = styled.button<ActionButtonProps>`
   :focus {
     outline: none;
   }
+  @media (min-width: 620px) {
+    width: 47%;
+  }
 `;
 export default ActionButton;

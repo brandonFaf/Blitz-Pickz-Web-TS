@@ -24,14 +24,14 @@ import styled from 'styled-components/macro';
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 15% 1fr 15%;
+  grid-template-columns: 25% 1fr 25%;
   height: 100vh;
+  overflow: hidden;
 `;
 const MiddleContainer = styled.div`
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   height: 100vh;
-
 `;
 const Drawer = styled.div`
   background-color: ${Colors.drawer};
@@ -40,7 +40,14 @@ const LeftBar = () => {
   return <Drawer>Left</Drawer>;
 };
 const RightBar = () => {
-  return <Drawer>right</Drawer>;
+  const [showProfile, toggleProfile, profileRef] = useClickOutsideToggle();
+  return (
+    <ProfileDrawer
+      showProfile={showProfile}
+      toggleProfile={toggleProfile}
+      profileRef={profileRef}
+    />
+  );
 };
 const Middle = () => {
   const { pickHeader } = useHeader();
@@ -59,7 +66,6 @@ const Middle = () => {
 const DesktopApp = () => {
   const { user } = useUser();
   const [showGroups, toggleGroups, groupsRef] = useClickOutsideToggle();
-  const [showProfile, toggleProfile, profileRef] = useClickOutsideToggle();
 
   return (
     <Container>

@@ -33,6 +33,18 @@ export const GroupSliderButtons = styled.div`
   button {
     margin-bottom: 10px;
   }
+  @media (min-width: 620px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    a {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
 `;
 
 export const GroupList = styled.div`

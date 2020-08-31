@@ -19,7 +19,7 @@ const WeekSlider = styled.div`
   @media (min-width: 620px) {
     grid-template-columns: repeat(19, 20%);
     padding: 0;
-    width: 70%;
+    width: 50%;
     position: fixed;
     box-shadow: 0px -22px 16px -16px rgba(0, 0, 0, 0.7);
   }
