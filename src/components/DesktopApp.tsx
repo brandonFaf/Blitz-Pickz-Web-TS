@@ -12,7 +12,7 @@ import JoinGroup from './Groups/JoinGroupPage';
 import { useTransition, animated } from 'react-spring';
 import CreateGroup from './Groups/CreateGroup';
 import hamburger from '../img/Hamburger.svg';
-import { Header } from '../Styles/Header';
+import { DesktopHeader } from '../Styles/Header';
 import ProfilePhoto from './Profile/ProfilePhoto';
 import ProfileDrawer from './Profile/ProfileDrawer';
 import useGroup from '../hooks/useGroup';
@@ -27,6 +27,12 @@ const Container = styled.div`
   grid-template-columns: 15% 1fr 15%;
   height: 100vh;
 `;
+const MiddleContainer = styled.div`
+  display: flex;
+  flex-direction:column;
+  height: 100vh;
+
+`;
 const Drawer = styled.div`
   background-color: ${Colors.drawer};
 `;
@@ -36,17 +42,29 @@ const LeftBar = () => {
 const RightBar = () => {
   return <Drawer>right</Drawer>;
 };
-const DesktopApp = () => {
-  const { user } = useUser();
+const Middle = () => {
   const { pickHeader } = useHeader();
   const { group } = useGroup();
+  return (
+    <MiddleContainer>
+      <DesktopHeader>
+        <div className='header-text'>
+          {pickHeader ? pickHeader : group?.display_name ?? 'Dashboard'}
+        </div>
+      </DesktopHeader>
+      <Picks />
+    </MiddleContainer>
+  );
+};
+const DesktopApp = () => {
+  const { user } = useUser();
   const [showGroups, toggleGroups, groupsRef] = useClickOutsideToggle();
   const [showProfile, toggleProfile, profileRef] = useClickOutsideToggle();
 
   return (
     <Container>
       <LeftBar />
-      <Picks />
+      <Middle />
       <RightBar />
     </Container>
   );

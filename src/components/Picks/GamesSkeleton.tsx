@@ -6,7 +6,7 @@ const GamesSkeleton = () => {
   const fakeGames = new Array(17).fill('1');
 
   return (
-    <div style={{ height: '100vh', width: '90%' }}>
+    <div style={{ height: '100vh', width: '90%', display: 'flex', justifyContent: 'center' }}>
       <GameSection data-testid={'in-progress'}>
         <TitleRow>
           <div></div>

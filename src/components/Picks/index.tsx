@@ -34,13 +34,12 @@ const Picks = () => {
   return isMobile ? (
     guts
   ) : (
-    <div
-      className='picker-container'
-      style={{ width: '100%', overflow: 'scroll' }}
-    >
-      {guts}
-    </div>
-  );
+      <DesktopContainer
+        className='picker-container'
+      >
+        {guts}
+      </DesktopContainer>
+    );
 };
 const JGP = styled.div`
   display: flex;
@@ -51,4 +50,11 @@ const JGP = styled.div`
   width: 100%;
   z-index: 60;
 `;
+const DesktopContainer = styled.div`
+width:100%;
+height:100%;
+overflow:scroll;
+padding-bottom:65px;
+margin-bottom:50px;
+`
 export default Picks;

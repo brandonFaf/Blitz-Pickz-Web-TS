@@ -64,8 +64,8 @@ const GamesList = () => {
                 )} PTS`}</span>
               </>
             ) : (
-              `Make Your Picks ${getPickCount(data)} / ${getGameCount(data)}`
-            )}
+                `Make Your Picks ${getPickCount(data)} / ${getGameCount(data)}`
+              )}
           </div>
         </>
       );

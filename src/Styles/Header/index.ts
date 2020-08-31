@@ -19,6 +19,21 @@ export const Header = styled.div`
   backdrop-filter: blur(5px);
   background-color: ${Colors.background};
 `;
+export const DesktopHeader = styled.div`
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: rgba(12, 29, 52, .75);
+  display: flex;
+  font-size: 15px;
+  font-weight: bold;
+  height: 75px;
+  justify-content: center;
+  /* margin-bottom: -10px; */
+  /* opacity: 0.75; */
+  position: sticky;
+  text-transform: uppercase;
+  top: 0;
+`;
 export const HeaderGroupName = styled.div`
   font-size: 14px;
   text-align: center;
