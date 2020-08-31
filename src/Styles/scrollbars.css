@@ -1,0 +1,21 @@
+.picker-container::-webkit-scrollbar {
+  width: 5px; /* width of the entire scrollbar */
+}
+.picker-container::-webkit-scrollbar-track {
+  background: #0c1d34; /* color of the tracking area */
+}
+.picker-container::-webkit-scrollbar-thumb {
+  background-color: #6fe793; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+.picker-container {
+  scrollbar-width: thin;
+  scrollbar-color: #6fe793 #0c1d34;
+}
+.week-slider {
+  scrollbar-width: none;
+}
+.week-slider::-webkit-scrollbar {
+  width: 0; /* width of the entire scrollbar */
+}

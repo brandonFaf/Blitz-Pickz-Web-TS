@@ -11,6 +11,10 @@ const Container = styled(animated.div)`
   justify-content: center;
   align-content: center;
   align-items: center;
+  width: 100%;
+  .container {
+    width: 90%;
+  }
 `;
 type props = {
   games: Array<Game_DetailsFragment>;

@@ -1,9 +1,11 @@
 import styled from 'styled-components/macro';
 import Colors from '../colors';
-export const GameSection = styled.div``;
+export const GameSection = styled.div`
+  width: 100%;
+`;
 export const TitleRow = styled.div`
   display: grid;
-  grid-template-columns: 30vw 30vw 30vw;
+  grid-template-columns: 28% 30% 28%;
   justify-content: center;
   justify-items: center;
   align-items: end;

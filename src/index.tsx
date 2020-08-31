@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import UserStore from './contexts/UserContext';
 import GroupStore from './contexts/GroupContext';
 import HeaderStore from './contexts/HeaderContext';
+import ViewportStore from './contexts/ViewportContext';
 import Colors from './Styles/colors';
 import styled from 'styled-components/macro';
 import ApolloWrapper from './components/ApolloWrapper';
@@ -18,19 +19,21 @@ const Body = styled.div`
 `;
 ReactDOM.render(
   <React.StrictMode>
-    <Body>
-      <ApolloWrapper>
-        <UserStore>
-          <GroupStore>
-            <HeaderStore>
-              <Router>
-                <App />
-              </Router>
-            </HeaderStore>
-          </GroupStore>
-        </UserStore>
-      </ApolloWrapper>
-    </Body>
+    <ViewportStore>
+      <Body>
+        <ApolloWrapper>
+          <UserStore>
+            <GroupStore>
+              <HeaderStore>
+                <Router>
+                  <App />
+                </Router>
+              </HeaderStore>
+            </GroupStore>
+          </UserStore>
+        </ApolloWrapper>
+      </Body>
+    </ViewportStore>
   </React.StrictMode>,
   document.getElementById('root')
 );

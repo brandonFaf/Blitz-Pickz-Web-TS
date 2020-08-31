@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import Colors from '../colors';
 
 export const Container = styled.div<{ active?: boolean | null }>`
-  width: 90vw;
+  min-width: 90%;
   background-color: ${({ active }) =>
     active == null || active === undefined
       ? Colors.lightBlue

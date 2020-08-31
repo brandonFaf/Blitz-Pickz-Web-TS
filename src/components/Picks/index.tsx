@@ -8,26 +8,38 @@ import chevron from '../../img/Chevron.png';
 import ActionButton from '../../Styles/Shared/ActionButton';
 import useHeader from '../../hooks/useHeader';
 import WeekStore from '../../contexts/WeekContext';
-
+import useViewport from '../../hooks/useViewport';
+import '../../Styles/scrollbars.css';
 const Picks = () => {
   const { setPickHeader } = useHeader();
+  const { isMobile } = useViewport();
   const history = useHistory();
   const close = () => {
     setPickHeader(null);
     history.push('/');
   };
-  return (
-    <>
-      <WeekStore>
-        <JGP>
+  const guts = (
+    <WeekStore>
+      <JGP>
+        {isMobile && (
           <ActionButton onClick={close} small data-testid={'close-picker'}>
             <img src={chevron} className='down' alt='chevron' />
           </ActionButton>
-          <GamesList></GamesList>
-        </JGP>
-        <WeekSlider />
-      </WeekStore>
-    </>
+        )}
+        <GamesList></GamesList>
+      </JGP>
+      <WeekSlider />
+    </WeekStore>
+  );
+  return isMobile ? (
+    guts
+  ) : (
+    <div
+      className='picker-container'
+      style={{ width: '100%', overflow: 'scroll' }}
+    >
+      {guts}
+    </div>
   );
 };
 const JGP = styled.div`
@@ -36,7 +48,7 @@ const JGP = styled.div`
   flex-direction: column;
   background-color: ${Colors.background};
   height: 100%;
-  width: 100vw;
+  width: 100%;
   z-index: 60;
 `;
 export default Picks;
