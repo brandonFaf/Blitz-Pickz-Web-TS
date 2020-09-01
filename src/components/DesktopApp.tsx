@@ -33,9 +33,6 @@ const MiddleContainer = styled.div`
   flex-direction: column;
   height: 100vh;
 `;
-const Drawer = styled.div`
-  background-color: ${Colors.drawer};
-`;
 const LeftBar = () => {
   return <Dashboard />;
 };

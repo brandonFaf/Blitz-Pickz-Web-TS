@@ -67,9 +67,9 @@ const Container = styled.div`
   grid-template-rows: 15vh 50vh 15vh;
   align-items: center;
   @media (min-width: 620px) {
-    grid-template-rows: 15vh 85vh;
+    grid-template-rows: 150px 70vh;
     align-items: start;
-    grid-row-gap: 50px;
+    grid-row-gap: 35px;
     background-color: ${Colors.drawer};
     &::-webkit-scrollbar {
       width: 5px; /* width of the entire scrollbar */

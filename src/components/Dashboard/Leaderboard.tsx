@@ -18,15 +18,23 @@ const Row = styled.div`
     color: ${Colors.highlight};
   }
 `;
-
+const HeaderRow = styled(Row)`
+  position: sticky;
+  top: 0;
+  background-color: ${Colors.background};
+  @media (min-width: 620px) {
+    background-color: ${Colors.drawer};
+  }
+`;
 const LBoard = styled.div`
   display: grid;
   grid-auto-flow: row;
   font-size: 14px;
   grid-row-gap: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
   grid-auto-rows: max-content;
   grid-template-columns: 100%;
+  height: 100%;
 `;
 
 const Leaderboard = () => {
@@ -59,12 +67,12 @@ const Leaderboard = () => {
       : data.rankings;
   return (
     <LBoard data-testid='leaderboard'>
-      <Row>
+      <HeaderRow>
         <div />
         <div />
         <div>Player</div>
         <div>Points</div>
-      </Row>
+      </HeaderRow>
       {members?.map(m => {
         if (!m.user) {
           return <></>;
