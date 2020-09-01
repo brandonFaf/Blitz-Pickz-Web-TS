@@ -8,10 +8,12 @@ import { useLeaderboardLazyQuery } from '../../types/graphql.types';
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 5vw 45px 28vw 10vw;
+  grid-template-columns: 5% 20% 40% 10%;
   grid-auto-flow: row;
   grid-column-gap: 12px;
   align-items: center;
+  justify-items: center;
+  justify-content: center;
   .current {
     color: ${Colors.highlight};
   }
@@ -20,15 +22,11 @@ const Row = styled.div`
 const LBoard = styled.div`
   display: grid;
   grid-auto-flow: row;
-  margin-top: 40px;
   font-size: 14px;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
   grid-row-gap: 10px;
   overflow-y: scroll;
-  margin: 0 10vw;
   grid-auto-rows: max-content;
+  grid-template-columns: 100%;
 `;
 
 const Leaderboard = () => {

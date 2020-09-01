@@ -29,7 +29,7 @@ const MobileApp = () => {
 
   return (
     <>
-      <div style={{ width: '95vw' }}>
+      <div>
         <Header>
           <img
             src={hamburger}
@@ -48,7 +48,7 @@ const MobileApp = () => {
             size='small'
           />
         </Header>
-        <div style={{ position: 'absolute', top: 75 }}>
+        <div style={{ position: 'relative', top: 75 }}>
           <GroupDrawer
             showGroups={showGroups}
             toggleGroups={toggleGroups}

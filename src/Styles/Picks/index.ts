@@ -2,9 +2,9 @@ import styled from 'styled-components/macro';
 import Colors from '../colors';
 export const GameSection = styled.div`
   width: 100%;
-    @media (min-width: 620px) {
-    width:80%;
-    }
+  @media (min-width: 620px) {
+    width: 80%;
+  }
 `;
 export const TitleRow = styled.div`
   display: grid;

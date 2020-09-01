@@ -22,7 +22,7 @@ export const Header = styled.div`
 export const DesktopHeader = styled.div`
   align-items: center;
   backdrop-filter: blur(5px);
-  background-color: rgba(12, 29, 52, .75);
+  background-color: rgba(12, 29, 52);
   display: flex;
   font-size: 15px;
   font-weight: bold;
@@ -32,6 +32,7 @@ export const DesktopHeader = styled.div`
   /* opacity: 0.75; */
   position: sticky;
   text-transform: uppercase;
+  flex-shrink: 0;
   top: 0;
 `;
 export const HeaderGroupName = styled.div`

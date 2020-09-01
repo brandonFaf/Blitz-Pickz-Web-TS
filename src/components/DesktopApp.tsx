@@ -37,7 +37,7 @@ const Drawer = styled.div`
   background-color: ${Colors.drawer};
 `;
 const LeftBar = () => {
-  return <Drawer>Left</Drawer>;
+  return <Dashboard />;
 };
 const RightBar = () => {
   const [showProfile, toggleProfile, profileRef] = useClickOutsideToggle();

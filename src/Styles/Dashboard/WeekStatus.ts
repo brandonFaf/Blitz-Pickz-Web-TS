@@ -21,5 +21,8 @@ const WeekStatus = styled.div`
   strong {
     color: ${Colors.highlight};
   }
+  @media (min-width: 620px) {
+    align-self: center;
+  }
 `;
 export default WeekStatus;

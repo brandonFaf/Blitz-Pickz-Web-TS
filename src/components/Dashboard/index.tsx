@@ -9,10 +9,13 @@ import getOrdinal from '../../helpers/getOrdinal';
 import MakePicks from './MakePicks';
 import useUser from '../../hooks/useUser';
 import { useDashbaordLazyQuery } from '../../types/graphql.types';
+import useViewport from '../../hooks/useViewport';
+import Colors from '../../Styles/colors';
 
 const Dashboard = () => {
   const { group } = useGroup();
   const { user } = useUser();
+  const { isMobile } = useViewport();
 
   const [
     loadDashboard,
@@ -39,39 +42,48 @@ const Dashboard = () => {
     return <div>Loading</div>;
   }
   return (
-    <D>
-      <DRel>
-        <WeekStatus>
-          <div className='week'>Week {getCurrentWeek()}</div>
-          <div className='main'>
-            You're in{' '}
-            <strong>{getOrdinal(data?.rankings[0]?.rank || 1)}</strong> Place,
-            <br />
-            with{' '}
-            <strong>
-              {data?.rankings[0]?.points || 0}
-              <sup>pts</sup>
-            </strong>
-          </div>
-        </WeekStatus>
-        <Leaderboard />
-        <MakePicks />
-      </DRel>
-    </D>
+    <Container>
+      <WeekStatus>
+        <div className='week'>Week {getCurrentWeek()}</div>
+        <div className='main'>
+          You're in <strong>{getOrdinal(data?.rankings[0]?.rank || 1)}</strong>{' '}
+          Place,
+          <br />
+          with{' '}
+          <strong>
+            {data?.rankings[0]?.points || 0}
+            <sup>pts</sup>
+          </strong>
+        </div>
+      </WeekStatus>
+      <Leaderboard />
+      {isMobile && <MakePicks />}
+    </Container>
   );
 };
 
-const D = styled.div`
-  position: absolute;
-`;
-const DRel = styled.div`
-  position: relative;
-  width: 100vw;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
+const Container = styled.div`
   display: grid;
-  grid-template-rows: 15vh 42vh;
+  grid-template-rows: 15vh 50vh 15vh;
+  align-items: center;
+  @media (min-width: 620px) {
+    grid-template-rows: 15vh 85vh;
+    align-items: start;
+    grid-row-gap: 50px;
+    background-color: ${Colors.drawer};
+    &::-webkit-scrollbar {
+      width: 5px; /* width of the entire scrollbar */
+    }
+    &::-webkit-scrollbar-track {
+      background: ${Colors.drawer}; /* color of the tracking area */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #6fe793; /* color of the scroll thumb */
+      border-radius: 20px; /* roundness of the scroll thumb */
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #6fe793 ${Colors.drawer};
+  }
 `;
 export default Dashboard;
