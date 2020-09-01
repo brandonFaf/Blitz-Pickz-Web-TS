@@ -85,6 +85,7 @@ export const MemberList = styled.div`
   grid-row-gap: 20px;
   height: 90%;
   overflow: auto;
+  align-content: baseline;
 `;
 const JGP = styled.div`
   display: grid;

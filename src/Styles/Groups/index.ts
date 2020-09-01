@@ -59,6 +59,7 @@ export const GroupList = styled.div`
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  align-content: baseline;
   @media (min-width: 620px) {
     &::-webkit-scrollbar {
       width: 5px; /* width of the entire scrollbar */
@@ -154,7 +155,9 @@ export const CreateGroupForm = styled.div`
   background-color: ${Colors.background};
   height: 100vh;
   width: 100vw;
-  z-index: 60;
+  /* z-index: 55; */
+  margin-top: 75px;
+
   fieldset {
     border: none;
     width: 70vw;
