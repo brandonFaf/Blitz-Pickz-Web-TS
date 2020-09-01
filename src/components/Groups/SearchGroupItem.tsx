@@ -35,7 +35,7 @@ const SearchGroupItem: React.FC<JoinGroupParams> = ({ group, navigate }) => {
 const Group = styled.div`
   display: grid;
   grid-template-areas: '. name' 'photo name' 'photo details';
-  grid-template-columns: 10vw 60vw;
+  grid-template-columns: 15% 60%;
   grid-template-rows: 8px 25px 12px;
   grid-row-gap: 0;
   margin-bottom: 20px;

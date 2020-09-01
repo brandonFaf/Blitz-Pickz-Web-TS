@@ -33,8 +33,40 @@ const MiddleContainer = styled.div`
   flex-direction: column;
   height: 100vh;
 `;
+const Hamburger = styled.img`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 18px;
+`;
+const ModalBackground = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(111, 231, 147, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const LeftBar = () => {
-  return <Dashboard />;
+  const [showGroups, toggleGroups, groupsRef] = useClickOutsideToggle();
+
+  return (
+    <div>
+      <Hamburger
+        src={hamburger}
+        alt={'hamburger'}
+        data-testid={'group-menu'}
+        onClick={toggleGroups}
+      />
+      <GroupDrawer
+        showGroups={showGroups}
+        toggleGroups={toggleGroups}
+        groupsRef={groupsRef}
+      />
+      <Dashboard />
+      {ModalContent()}
+    </div>
+  );
 };
 const RightBar = () => {
   const [showProfile, toggleProfile, profileRef] = useClickOutsideToggle();
@@ -60,18 +92,13 @@ const Middle = () => {
     </MiddleContainer>
   );
 };
-const DesktopApp = () => {
-  const { user } = useUser();
-  const [showGroups, toggleGroups, groupsRef] = useClickOutsideToggle();
-
-  return (
-    <Container>
-      <LeftBar />
-      <Middle />
-      <RightBar />
-    </Container>
-  );
-};
+const DesktopApp = () => (
+  <Container>
+    <LeftBar />
+    <Middle />
+    <RightBar />
+  </Container>
+);
 
 const ModalContent = () => {
   const location = useLocation();
@@ -95,12 +122,15 @@ const ModalContent = () => {
         >
           <Switch location={item}>
             <Route path='/groups/join'>
-              <JoinGroup />
+              <ModalBackground>
+                <JoinGroup />
+              </ModalBackground>
             </Route>
             <Route path='/groups/create'>
-              <CreateGroup />
+              <ModalBackground>
+                <CreateGroup />
+              </ModalBackground>
             </Route>
-            <Route path='/picks'></Route>
           </Switch>
         </animated.div>
       ))}

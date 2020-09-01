@@ -67,6 +67,7 @@ const Container = styled.div`
   grid-template-rows: 15vh 50vh 15vh;
   align-items: center;
   @media (min-width: 620px) {
+    height: 100vh;
     grid-template-rows: 150px 70vh;
     align-items: start;
     grid-row-gap: 35px;

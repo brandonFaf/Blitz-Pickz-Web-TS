@@ -2,7 +2,6 @@ import styled from 'styled-components/macro';
 import Colors from '../colors';
 import { Header } from '../Header';
 import { animated } from 'react-spring';
-
 export const GroupsSlider = styled(animated.div)`
   position: fixed;
   top: 0;
@@ -17,7 +16,11 @@ export const GroupsSlider = styled(animated.div)`
   justify-items: center;
   align-items: center;
   overflow: hidden;
-  background-color: rgba(22, 51, 89, 0.95);
+  background-color: rgb(22, 51, 89);
+  @media (min-width: 620px) {
+    width: 25%;
+    height: 100%;
+  }
 `;
 export const GroupsSlidingHeader = styled(Header)`
   position: absolute;
@@ -53,6 +56,24 @@ export const GroupList = styled.div`
   align-self: start;
   width: 100%;
   grid-row-gap: 20px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @media (min-width: 620px) {
+    &::-webkit-scrollbar {
+      width: 5px; /* width of the entire scrollbar */
+    }
+    &::-webkit-scrollbar-track {
+      background: rgb(22, 51, 89); /* color of the tracking area */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #6fe793; /* color of the scroll thumb */
+      border-radius: 20px; /* roundness of the scroll thumb */
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #6fe793 rgb(22, 51, 89);
+  }
 `;
 export const Group = styled.div`
   display: grid;
@@ -137,5 +158,12 @@ export const CreateGroupForm = styled.div`
   fieldset {
     border: none;
     width: 70vw;
+  }
+  @media (min-width: 620px) {
+    width: 80%;
+    height: 80%;
+    fieldset {
+      width: 50%;
+    }
   }
 `;

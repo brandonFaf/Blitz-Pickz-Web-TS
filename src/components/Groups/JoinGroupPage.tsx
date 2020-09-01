@@ -6,8 +6,9 @@ import Colors from '../../Styles/colors';
 import JoinGroup from './JoinGroup';
 import { SearchGroupModel, JoinGroupStages } from '../../types/GroupTypes';
 import closeX from '../../img/close.svg';
-import { Header } from '../../Styles/Header';
+import { Header, ModalHeader } from '../../Styles/Header';
 import { useHistory } from 'react-router-dom';
+import useViewport from '../../hooks/useViewport';
 
 const JoinGroupPage = () => {
   const [stage, setStage] = useState<JoinGroupStages>(JoinGroupStages.search);
@@ -17,6 +18,8 @@ const JoinGroupPage = () => {
     setGroup(g);
   };
   const history = useHistory();
+  const { isMobile } = useViewport();
+
   const getStage = () => {
     if (!group) {
       return <SearchGroup navigate={navigate} />;
@@ -30,13 +33,19 @@ const JoinGroupPage = () => {
   const close = () => {
     history.push('/');
   };
-
+  const HeaderContent = (
+    <>
+      <img src={closeX} alt='close' onClick={close} />
+      <div className='header-text'>Join Group</div>
+    </>
+  );
   return (
     <JGP>
-      <Header>
-        <img src={closeX} alt='close' onClick={close} />
-        <div className='header-text'>Join Group</div>
-      </Header>
+      {isMobile ? (
+        <Header>{HeaderContent}</Header>
+      ) : (
+        <ModalHeader>{HeaderContent}</ModalHeader>
+      )}
       {getStage()}
     </JGP>
   );
@@ -49,6 +58,23 @@ const JGP = styled.div`
   height: 100vh;
   width: 100vw;
   z-index: 60;
+  @media (min-width: 620px) {
+    width: 80%;
+    height: 80%;
+    &::-webkit-scrollbar {
+      width: 5px; /* width of the entire scrollbar */
+    }
+    &::-webkit-scrollbar-track {
+      background: #0c1d34; /* color of the tracking area */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #6fe793; /* color of the scroll thumb */
+      border-radius: 20px; /* roundness of the scroll thumb */
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #6fe793 #0c1d34;
+  }
 `;
 
 export default JoinGroupPage;
