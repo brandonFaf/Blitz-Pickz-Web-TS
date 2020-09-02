@@ -4,6 +4,7 @@ import { animated, useSpring } from 'react-spring';
 import { GameSection, TitleRow } from '../../Styles/Picks';
 import GameContainer from '../Game/GameContainer';
 import styled from 'styled-components/macro';
+import moment from 'moment';
 
 const Container = styled(animated.div)`
   display: flex;
@@ -29,10 +30,12 @@ const GamesSection: React.FC<props> = ({ games, title }) => {
   }));
   start({ opacity: 1, config: { duration: 300 } });
   const sortedGames = [...games].sort((a, b) => {
-    const first = new Date(a.date + ' ' + a.time.substr(0, 8));
-    const second = new Date(b.date + ' ' + b.time.substr(0, 8));
-    //@ts-ignore
-    return first - second || b.id - a.id;
+    const first = moment(a.date + ' ' + a.time.substr(0, 8));
+    const second = moment(b.date + ' ' + b.time.substr(0, 8));
+    if (second.isSame(first)) {
+      return b.id - a.id;
+    }
+    return first.isBefore(second) ? -1 : 1;
   });
   return (
     <>
