@@ -3,7 +3,8 @@ import {
   Game_DetailsFragment,
   useSavePickMutation,
   GetGamesForWeekDocument,
-  PicksDocument
+  PicksDocument,
+  GetGamesForWeekQuery
 } from '../../types/graphql.types';
 import moment from 'moment';
 import 'moment-timezone';
@@ -16,6 +17,7 @@ import {
   MiddleButton,
   ErrorPicking
 } from '../../Styles/Game';
+import { PickModel } from '../../types/GameTypes';
 type Props = {
   game: Game_DetailsFragment;
 };
@@ -36,6 +38,51 @@ const Game: React.FC<Props> = ({ game }) => {
         variables: { user_id: user.id, group_id: group?.id ?? 0, week }
       }
     ],
+    update: (cache, payload) => {
+      const cacheOptions = {
+        query: GetGamesForWeekDocument,
+        variables: { week: game.week, group_id: group?.id }
+      };
+      const newPickData = payload?.data?.insert_picks?.returning[0];
+      const data = cache.readQuery<GetGamesForWeekQuery>(cacheOptions);
+      if (!newPickData || !data) return;
+      const gameData = data.upcomingGames.find(
+        g => g.id === newPickData.game_id
+      );
+      if (!gameData) return;
+      const existingPick = gameData.picks.find(
+        p => p.user.id === user.id && p.group_id === group?.id
+      );
+      let updatedPicks: PickModel[] = [];
+      if (existingPick) {
+        updatedPicks = [
+          ...gameData.picks.filter(p => p.id !== newPickData.id),
+          {
+            ...existingPick,
+            id: newPickData.id,
+            selected_id: newPickData.selected_id
+          }
+        ];
+      } else {
+        const newPick: PickModel = {
+          id: newPickData.id,
+          selected_id: newPickData.selected_id,
+          group_id: group?.id || 0,
+          correct: false,
+          user: { id: user.id, display_name: user.display_name }
+        };
+        updatedPicks = [...gameData.picks, newPick];
+      }
+      const updatedGame = { ...gameData, picks: updatedPicks };
+      const upcomingGames = data.upcomingGames.filter(
+        g => g.id !== gameData.id
+      );
+      const newData = {
+        ...data,
+        upcomingGames: [...upcomingGames, updatedGame]
+      };
+      cache.writeQuery({ ...cacheOptions, data: newData });
+    },
     onError: e => {
       console.log(e);
       //check if the error is validation of time and open drawer
@@ -55,6 +102,18 @@ const Game: React.FC<Props> = ({ game }) => {
         selected_id: teamId,
         group_id: group?.id,
         week
+      },
+      optimisticResponse: {
+        insert_picks: {
+          affected_rows: 1,
+          returning: [
+            {
+              selected_id: teamId,
+              id: userPick?.id ?? -1,
+              game_id: game.id
+            }
+          ]
+        }
       }
     });
   };
