@@ -1,9 +1,5 @@
 import React from 'react';
-import useLogin from '../hooks/useLogin';
-import useUser from '../hooks/useUser';
 import '../data/firebaseConfig';
-import Login from './Login';
-import CreateProfile from './Profile/CreateProfile';
 import Dashboard from './Dashboard';
 import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
 import GroupDrawer from './Groups/GroupDrawer';
@@ -13,12 +9,10 @@ import { useTransition, animated } from 'react-spring';
 import CreateGroup from './Groups/CreateGroup';
 import hamburger from '../img/Hamburger.svg';
 import { DesktopHeader } from '../Styles/Header';
-import ProfilePhoto from './Profile/ProfilePhoto';
 import ProfileDrawer from './Profile/ProfileDrawer';
 import useGroup from '../hooks/useGroup';
 import useHeader from '../hooks/useHeader';
 import Picks from './Picks';
-import Colors from '../Styles/colors';
 
 import styled from 'styled-components/macro';
 
@@ -35,14 +29,14 @@ const MiddleContainer = styled.div`
 `;
 const Hamburger = styled.img`
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 30px;
+  left: 20px;
   height: 18px;
 `;
 const ModalBackground = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: rgba(111, 231, 147, 0.45);
+  background-color: rgba(111, 141, 231, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,6 +102,7 @@ const ModalContent = () => {
     leave: { transform: 'translate3d(0,75vh,0)' },
     config: { duration: 300 }
   });
+
   return (
     <>
       {transitions.map(({ item, props, key }) => (

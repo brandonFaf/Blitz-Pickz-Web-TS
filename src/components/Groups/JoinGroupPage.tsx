@@ -59,7 +59,7 @@ const JGP = styled.div`
   width: 100vw;
   z-index: 60;
   @media (min-width: 620px) {
-    width: 80%;
+    width: 65%;
     height: 80%;
     &::-webkit-scrollbar {
       width: 5px; /* width of the entire scrollbar */

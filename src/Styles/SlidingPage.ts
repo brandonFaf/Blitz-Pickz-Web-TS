@@ -25,7 +25,8 @@ export const OpenText = styled.div`
   color: ${Colors.highlight};
   display: flex;
   justify-content: flex-end;
-  padding-right: 25px;
+  padding-right: 30px;
+  padding-top: 30px;
 `;
 export const SlidingHeader = styled(Header)`
   justify-items: center;

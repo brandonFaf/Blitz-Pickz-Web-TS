@@ -1,9 +1,6 @@
 import React from 'react';
-import useLogin from '../hooks/useLogin';
 import useUser from '../hooks/useUser';
 import '../data/firebaseConfig';
-import Login from './Login';
-import CreateProfile from './Profile/CreateProfile';
 import Dashboard from './Dashboard';
 import useClickOutsideToggle from '../hooks/useClickOutsideToggle';
 import GroupDrawer from './Groups/GroupDrawer';
@@ -20,7 +17,6 @@ import useHeader from '../hooks/useHeader';
 import Picks from './Picks';
 
 const MobileApp = () => {
-  const { status, user } = useLogin();
   const { user: dbUser } = useUser();
   const { pickHeader } = useHeader();
   const { group } = useGroup();

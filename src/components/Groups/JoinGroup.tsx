@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import Colors from '../../Styles/colors';
-import {
-  GroupList,
-  GroupSliderButtons,
-  GroupFormError
-} from '../../Styles/Groups';
+import { GroupSliderButtons, GroupFormError } from '../../Styles/Groups';
 import Member from './Member';
 import ActionButton from '../../Styles/Shared/ActionButton';
 import HighlightText from '../../Styles/Shared/HighlightText';
