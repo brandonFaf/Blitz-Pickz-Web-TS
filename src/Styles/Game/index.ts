@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import Colors from '../colors';
 
 export const Container = styled.div<{ active?: boolean | null }>`
-  width: 90vw;
+  min-width: 90%;
   background-color: ${({ active }) =>
     active == null || active === undefined
       ? Colors.lightBlue
@@ -47,4 +47,10 @@ export const TeamButton = styled.div<{ active?: boolean | null }>`
 export const MiddleButton = styled(TeamButton)`
   flex-basis: 30%;
   font-size: 10px;
+`;
+export const ErrorPicking = styled.div`
+  width: 80vw;
+  padding-top: 10px;
+  color: ${Colors.wrong};
+  font-size: 12px;
 `;

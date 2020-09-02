@@ -2,16 +2,18 @@ import React, { useCallback, useMemo } from 'react';
 import getCurrentWeek from '../../helpers/currentWeek';
 import WeekSliderContainer from '../../Styles/Picks/WeekSlider';
 import useWeek from '../../hooks/useWeek';
+import useViewport from '../../hooks/useViewport';
 
 const WeekSlider: React.FC = () => {
   const currentWeek = useMemo(() => getCurrentWeek(), []);
+  const { isMobile } = useViewport();
   const { week, setWeek } = useWeek();
   const weekNumbers = new Array(17).fill('1');
   const weekBox = useCallback(
     node => {
       if (node) {
         node.scrollTo({
-          left: ((week - 1) * window.innerWidth) / 5,
+          left: ((week - 1) * node.clientWidth) / 5,
           behavior: 'smooth'
         });
       }
@@ -20,7 +22,13 @@ const WeekSlider: React.FC = () => {
     [week]
   );
   return (
-    <WeekSliderContainer ref={weekBox}>
+    <WeekSliderContainer className='week-slider' ref={weekBox}>
+      {!isMobile && (
+        <>
+          <div></div>
+          <div></div>{' '}
+        </>
+      )}
       {weekNumbers.map((x, i) => {
         let cn = i + 1 === week ? 'active' : '';
         cn += i + 1 === currentWeek ? ' current' : '';

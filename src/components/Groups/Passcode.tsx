@@ -19,7 +19,7 @@ const Passcode: React.FC<JoinGroupParams> = ({ navigate, group }) => {
     }
   };
   return (
-    <div style={{ width: '70vw' }}>
+    <Container>
       <Input
         label='Passcode'
         name='passcode'
@@ -37,10 +37,19 @@ const Passcode: React.FC<JoinGroupParams> = ({ navigate, group }) => {
           Cancel
         </Button>
       </ButtonContainer>
-    </div>
+    </Container>
   );
 };
-
+const Container = styled.div`
+  width: 70vw;
+  padding-top: 75px;
+  height: 100%;
+  @media (min-width: 620px) {
+    width: 50%;
+    height: 50%;
+    padding-top: 60px;
+  }
+`;
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;

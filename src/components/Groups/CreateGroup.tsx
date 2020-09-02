@@ -13,10 +13,11 @@ import { CreateGroupForm, GroupFormError } from '../../Styles/Groups';
 import Toggle from 'react-toggle';
 import ActionButton from '../../Styles/Shared/ActionButton';
 import { useHistory } from 'react-router-dom';
-import { Header } from '../../Styles/Header';
+import { Header, ModalHeader } from '../../Styles/Header';
 import closeX from '../../img/close.svg';
 import styled from 'styled-components/macro';
 import Colors from '../../Styles/colors';
+import useViewport from '../../hooks/useViewport';
 
 export type CreateGroupModel = {
   groupName: string;
@@ -32,6 +33,7 @@ const initialState: CreateGroupModel = {
 };
 const CreateGroup = () => {
   const history = useHistory();
+  const { isMobile } = useViewport();
   const { values, handleChange } = useForm<CreateGroupModel>(initialState);
   const { user } = useUser();
   const { setGroup } = useGroup();
@@ -84,12 +86,19 @@ const CreateGroup = () => {
   const close = () => {
     history.push('/');
   };
+  const HeaderContent = (
+    <>
+      <img src={closeX} alt='close' onClick={close} />
+      <div className='header-text'>Create Group</div>
+    </>
+  );
   return (
     <JGP>
-      <Header>
-        <img src={closeX} alt='close' onClick={close} />
-        <div className='header-text'>Create Group</div>
-      </Header>
+      {isMobile ? (
+        <Header>{HeaderContent}</Header>
+      ) : (
+        <ModalHeader>{HeaderContent}</ModalHeader>
+      )}
       <CreateGroupForm onSubmit={submitForm}>
         <fieldset>
           <Input
@@ -149,4 +158,8 @@ const JGP = styled.div`
   height: 100vh;
   width: 100vw;
   z-index: 60;
+  @media (min-width: 620px) {
+    width: 80%;
+    height: 80%;
+  }
 `;

@@ -21,6 +21,7 @@ export const ErrorLabel = styled.label`
 export const ProfileForm = styled.form`
   display: grid;
   grid-area: guts;
+  grid-template-columns: 1fr;
   grid-template-rows: 20vh 35vh 5vh;
   align-items: center;
   justify-content: center;
@@ -28,7 +29,6 @@ export const ProfileForm = styled.form`
   background-color: ${(props: { side: boolean }) =>
     props.side ? 'transparent' : Colors.background};
   width: 100%;
-  position: absolute;
   fieldset {
     border: none;
     align-self: baseline;

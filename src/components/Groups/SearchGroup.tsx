@@ -1,4 +1,5 @@
 import React, { useState, useEffect, SyntheticEvent } from 'react';
+import styled from 'styled-components/macro';
 import Input from '../Shared/FloatingInput';
 import { useFetchAvailableGroupsQuery } from '../../types/graphql.types';
 import useUser from '../../hooks/useUser';
@@ -40,18 +41,34 @@ const SearchGroup = ({
     return <GroupFormError>There was an error fetching leagues</GroupFormError>;
   }
   return (
-    <div style={{ width: '70vw' }}>
+    <Container>
       <Input
         label='Search'
         name='searchterm'
         onChange={handleChange}
         value={search}
       />
-      {groups.map(g => (
-        <SearchGroupItem navigate={navigate} group={g} key={g.id} />
-      ))}
-    </div>
+      <GroupContainer>
+        {groups.map(g => (
+          <SearchGroupItem navigate={navigate} group={g} key={g.id} />
+        ))}
+      </GroupContainer>
+    </Container>
   );
 };
-
+const Container = styled.div`
+  width: 70vw;
+  padding-top: 75px;
+  height: 100%;
+  @media (min-width: 620px) {
+    width: 50%;
+    height: 50%;
+    padding-top: 60px;
+  }
+`;
+const GroupContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+`;
 export default SearchGroup;

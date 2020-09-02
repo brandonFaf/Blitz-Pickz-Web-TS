@@ -10,7 +10,12 @@ import 'moment-timezone';
 import useUser from '../../hooks/useUser';
 import useGroup from '../../hooks/useGroup';
 import useWeek from '../../hooks/useWeek';
-import { Container, TeamButton, MiddleButton } from '../../Styles/Game';
+import {
+  Container,
+  TeamButton,
+  MiddleButton,
+  ErrorPicking
+} from '../../Styles/Game';
 type Props = {
   game: Game_DetailsFragment;
 };
@@ -20,7 +25,7 @@ const Game: React.FC<Props> = ({ game }) => {
   const { week } = useWeek();
   const userPick = game.picks?.find(p => p.user.id === user.id);
   const { vis_team, home_team, date, time } = game;
-  const [savePickMutation] = useSavePickMutation({
+  const [savePickMutation, { error }] = useSavePickMutation({
     refetchQueries: [
       {
         query: GetGamesForWeekDocument,
@@ -60,28 +65,35 @@ const Game: React.FC<Props> = ({ game }) => {
   const visHighlight = howToHighlight(vis_team.id);
   const homeHighlight = howToHighlight(home_team.id);
   return (
-    <Container>
-      <TeamButton
-        active={visHighlight}
-        data-testid={'vis-pick-button'}
-        // className={visHighlight && 'picked'}
-        onClick={save(vis_team.id)}
-      >
-        {vis_team.short_name.toUpperCase()}
-      </TeamButton>
-      <MiddleButton>
-        <div>{gameDate.format('ddd M/D')}</div>
-        <div>{gameDate.format('h:mm A')}</div>
-      </MiddleButton>
-      <TeamButton
-        active={homeHighlight}
-        data-testid={'home-pick-button'}
-        // className={homeHighlight && 'picked'}
-        onClick={save(home_team.id)}
-      >
-        {home_team.short_name.toUpperCase()}
-      </TeamButton>
-    </Container>
+    <>
+      <Container>
+        <TeamButton
+          active={visHighlight}
+          data-testid={'vis-pick-button'}
+          onClick={save(vis_team.id)}
+        >
+          {vis_team.short_name.toUpperCase()}
+        </TeamButton>
+        <MiddleButton>
+          <div>{gameDate.format('ddd M/D')}</div>
+          <div>{gameDate.format('h:mm A')}</div>
+        </MiddleButton>
+        <TeamButton
+          active={homeHighlight}
+          data-testid={'home-pick-button'}
+          onClick={save(home_team.id)}
+        >
+          {home_team.short_name.toUpperCase()}
+        </TeamButton>
+      </Container>
+
+      {error && (
+        <ErrorPicking>
+          This game has already started. Refresh the page and get the latest
+          scores
+        </ErrorPicking>
+      )}
+    </>
   );
 };
 

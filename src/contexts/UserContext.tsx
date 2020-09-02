@@ -9,7 +9,7 @@ export type UserContextType = {
   logout: () => void;
 };
 export const UserContext = React.createContext<UserContextType>({
-  user: { id: '', notifications: false },
+  user: { id: '' },
   setUser: () => {},
   logout: () => {}
 });
@@ -18,8 +18,7 @@ type Props = {
 };
 const UserStore: React.FC<Props> = ({ children }) => {
   const [user, storeUser] = useState<UserModel>({
-    id: '',
-    notifications: false
+    id: ''
   });
   const setUser = (u: UserModel) => {
     console.log('set the user');
@@ -30,7 +29,7 @@ const UserStore: React.FC<Props> = ({ children }) => {
       .auth()
       .signOut()
       .then(() => {
-        storeUser({ id: '', notifications: false });
+        storeUser({ id: '' });
       });
   };
   return (

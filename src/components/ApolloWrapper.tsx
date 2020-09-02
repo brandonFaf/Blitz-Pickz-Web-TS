@@ -83,7 +83,19 @@ const ApolloWrapper = ({ children }: props) => {
     }
   );
   const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            game: {
+              merge: (existing, incoming) => {
+                return incoming;
+              }
+            }
+          }
+        }
+      }
+    }),
     link: authLink.concat(resetToken).concat(httpLink)
   });
 

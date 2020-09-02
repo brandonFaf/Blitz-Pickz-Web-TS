@@ -3,7 +3,10 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import useUser from './useUser';
-import { useLoadUserLazyQuery } from '../types/graphql.types';
+import {
+  useLoadUserLazyQuery,
+  useGetGroupsLazyQuery
+} from '../types/graphql.types';
 import useGroup from './useGroup';
 
 const useLogin = (): {
@@ -17,6 +20,8 @@ const useLogin = (): {
   const [loadUser, { loading, data, error }] = useLoadUserLazyQuery({
     fetchPolicy: 'no-cache'
   });
+  const [loadGroups, { data: groupData }] = useGetGroupsLazyQuery();
+
   useEffect(() => {
     const unregisterAuthObserver = firebase
       .auth()
@@ -24,15 +29,21 @@ const useLogin = (): {
         setUser(u);
         if (!u) {
           setStatus('out');
-          setContextUser({ id: '', notifications: false });
+          setContextUser({ id: '' });
           setGroup(undefined);
           localStorage.removeItem('token');
           localStorage.removeItem('group');
           return;
         }
         const group = await localStorage.getItem('group');
+        console.log('group:', group);
         if (group) {
           setGroup(JSON.parse(group));
+        } else {
+          console.log('loading Groups');
+          loadGroups({
+            variables: { user_id: u.uid }
+          });
         }
         const t = await u.getIdToken();
         const idTokenResult = await u.getIdTokenResult();
@@ -83,6 +94,14 @@ const useLogin = (): {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading, error]);
+  useEffect(() => {
+    if (groupData) {
+      if (groupData.group_user.length > 0) {
+        setGroup(groupData.group_user[0].group);
+      }
+    }
+  }, [groupData, setGroup]);
   return { status, user };
 };
+
 export default useLogin;

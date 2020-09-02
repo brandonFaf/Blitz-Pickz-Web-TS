@@ -3,6 +3,19 @@ import { Game_DetailsFragment } from '../../types/graphql.types';
 import { animated, useSpring } from 'react-spring';
 import { GameSection, TitleRow } from '../../Styles/Picks';
 import GameContainer from '../Game/GameContainer';
+import styled from 'styled-components/macro';
+
+const Container = styled(animated.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  .container {
+    width: 90%;
+  }
+`;
 type props = {
   games: Array<Game_DetailsFragment>;
   title: string;
@@ -26,9 +39,9 @@ const GamesSection: React.FC<props> = ({ games, title }) => {
             <div>HOME</div>
           </TitleRow>
           {games.map(game => (
-            <animated.div style={gameAnimationProps} key={game.id}>
+            <Container style={gameAnimationProps} key={game.id}>
               <GameContainer game={game} />
-            </animated.div>
+            </Container>
           ))}
         </GameSection>
       )}

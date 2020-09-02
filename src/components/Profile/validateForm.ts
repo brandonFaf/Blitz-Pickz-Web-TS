@@ -1,5 +1,5 @@
-export const validateForm = (values, setErrors, allowNotifications) => {
-  let dnv, pv, pm;
+export const validateForm = (values, setErrors) => {
+  let dnv;
   if (!values.display_name) {
     dnv = false;
     setErrors(e => ({
@@ -13,42 +13,14 @@ export const validateForm = (values, setErrors, allowNotifications) => {
   if (!dnv) {
     setErrors(e => ({
       ...e,
-      phoneNumber: 'Invalid Phone Number'
+      displayName: 'Invalid Display Name'
     }));
   } else {
     setErrors(e => ({
       ...e,
-      phoneNumber: null
+      displayName: null
     }));
   }
 
-  //phonenumber validation
-
-  if (allowNotifications) {
-    pm = !values.phone_number;
-    var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    pv = values.phone_number ? phoneno.test(String(values.phone_number)) : true;
-  } else {
-    pv = true;
-    pm = false;
-  }
-  if (!pv) {
-    setErrors(e => ({
-      ...e,
-      phoneNumber: 'Invalid Phone Number'
-    }));
-  } else if (pm) {
-    setErrors(e => ({
-      ...e,
-      phoneNumber: 'Phone number is required to receive notifications'
-    }));
-  } else {
-    setErrors(e => ({
-      ...e,
-      phoneNumber: null
-    }));
-  }
-
-  const valid = dnv && pv && !pm ? true : false;
-  return valid;
+  return dnv;
 };

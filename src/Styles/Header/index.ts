@@ -19,6 +19,34 @@ export const Header = styled.div`
   backdrop-filter: blur(5px);
   background-color: ${Colors.background};
 `;
+export const DesktopHeader = styled.div`
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: rgba(12, 29, 52);
+  display: flex;
+  font-size: 15px;
+  font-weight: bold;
+  height: 75px;
+  justify-content: center;
+  /* margin-bottom: -10px; */
+  /* opacity: 0.75; */
+  position: sticky;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  top: 0;
+`;
+export const ModalHeader = styled.div`
+  align-items: center;
+  display: grid;
+  grid-template-columns: 70px 1fr 70px;
+  font-size: 15px;
+  font-weight: bold;
+  height: 60px;
+  width: 100%;
+  justify-items: center;
+  text-transform: uppercase;
+  flex-shrink: 0;
+`;
 export const HeaderGroupName = styled.div`
   font-size: 14px;
   text-align: center;

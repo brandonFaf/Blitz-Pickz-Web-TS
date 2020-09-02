@@ -8,27 +8,33 @@ import { useLeaderboardLazyQuery } from '../../types/graphql.types';
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 5vw 45px 28vw 10vw;
+  grid-template-columns: 5% 20% 40% 10%;
   grid-auto-flow: row;
   grid-column-gap: 12px;
   align-items: center;
+  justify-items: center;
+  justify-content: center;
   .current {
     color: ${Colors.highlight};
   }
 `;
-
+const HeaderRow = styled(Row)`
+  position: sticky;
+  top: 0;
+  background-color: ${Colors.background};
+  @media (min-width: 620px) {
+    background-color: ${Colors.drawer};
+  }
+`;
 const LBoard = styled.div`
   display: grid;
   grid-auto-flow: row;
-  margin-top: 40px;
   font-size: 14px;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
   grid-row-gap: 10px;
-  overflow-y: scroll;
-  margin: 0 10vw;
+  overflow-y: auto;
   grid-auto-rows: max-content;
+  grid-template-columns: 100%;
+  height: 100%;
 `;
 
 const Leaderboard = () => {
@@ -61,12 +67,12 @@ const Leaderboard = () => {
       : data.rankings;
   return (
     <LBoard data-testid='leaderboard'>
-      <Row>
+      <HeaderRow>
         <div />
         <div />
         <div>Player</div>
         <div>Points</div>
-      </Row>
+      </HeaderRow>
       {members?.map(m => {
         if (!m.user) {
           return <></>;

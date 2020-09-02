@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import Colors from '../../Styles/colors';
-import {
-  GroupList,
-  GroupSliderButtons,
-  GroupFormError
-} from '../../Styles/Groups';
+import { GroupSliderButtons, GroupFormError } from '../../Styles/Groups';
 import Member from './Member';
 import ActionButton from '../../Styles/Shared/ActionButton';
 import HighlightText from '../../Styles/Shared/HighlightText';
@@ -58,11 +54,11 @@ const JoinGroup: React.FC<JoinGroupParams> = ({ navigate, group }) => {
     <>
       <JGP>
         <HighlightText>{group.display_name} MEMBERS</HighlightText>
-        <GroupList>
+        <MemberList>
           {data?.group_by_pk?.members.map(m => (
             <Member member={m.user} key={m.user.id} />
           ))}
-        </GroupList>
+        </MemberList>
         <GroupSliderButtons>
           <ActionButton onClick={join}>JOIN THIS LEAGUE</ActionButton>
 
@@ -77,19 +73,33 @@ const JoinGroup: React.FC<JoinGroupParams> = ({ navigate, group }) => {
     </>
   );
 };
+export const MemberList = styled.div`
+  display: grid;
+  grid-area: guts;
+  align-self: start;
+  width: 100%;
+  grid-row-gap: 20px;
+  height: 90%;
+  overflow: auto;
+  align-content: baseline;
+`;
 const JGP = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
   justify-items: center;
   background-color: ${Colors.background};
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   z-index: 60;
   overflow: hidden;
   grid-template-columns: 100%;
   grid-template-rows: 10vh 50vh 15vh;
   grid-template-areas: 'text' 'guts' 'button';
+  @media (min-width: 620px) {
+    width: 50%;
+    grid-template-rows: 10% 50% 25%;
+  }
 `;
 
 export default JoinGroup;
