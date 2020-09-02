@@ -4283,7 +4283,7 @@ export type Game_DetailsFragment = Pick<
   home_team: Pick<Team, 'id' | 'short_name' | 'record'>;
   vis_team: Pick<Team, 'id' | 'short_name' | 'record'>;
   picks: Array<
-    Pick<Picks, 'id' | 'selected_id' | 'correct'> & {
+    Pick<Picks, 'id' | 'group_id' | 'selected_id' | 'correct'> & {
       user: Pick<User, 'id' | 'display_name'>;
     }
   >;
@@ -4311,7 +4311,7 @@ export type SavePickMutationVariables = Exact<{
 export type SavePickMutation = {
   insert_picks?: Maybe<
     Pick<Picks_Mutation_Response, 'affected_rows'> & {
-      returning: Array<Pick<Picks, 'selected_id'>>;
+      returning: Array<Pick<Picks, 'selected_id' | 'game_id' | 'id'>>;
     }
   >;
 };
@@ -4453,6 +4453,7 @@ export const Game_DetailsFragmentDoc = gql`
         id
         display_name
       }
+      group_id
       selected_id
       correct
     }
@@ -4757,6 +4758,8 @@ export const SavePickDocument = gql`
       affected_rows
       returning {
         selected_id
+        game_id
+        id
       }
     }
   }

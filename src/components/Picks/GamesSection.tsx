@@ -28,7 +28,12 @@ const GamesSection: React.FC<props> = ({ games, title }) => {
     }
   }));
   start({ opacity: 1, config: { duration: 300 } });
-
+  const sortedGames = [...games].sort((a, b) => {
+    const first = new Date(a.date + ' ' + a.time.substr(0, 8));
+    const second = new Date(b.date + ' ' + b.time.substr(0, 8));
+    //@ts-ignore
+    return first - second || b.id - a.id;
+  });
   return (
     <>
       {games.length > 0 && (
@@ -38,7 +43,7 @@ const GamesSection: React.FC<props> = ({ games, title }) => {
             <div className='title'>{title}</div>
             <div>HOME</div>
           </TitleRow>
-          {games.map(game => (
+          {sortedGames.map(game => (
             <Container style={gameAnimationProps} key={game.id}>
               <GameContainer game={game} />
             </Container>
