@@ -16,13 +16,15 @@ const CreateProfile = ({ user }: Props) => {
     photo_url: user.photoURL
   };
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Header>
         <div />
         <div className='header-text'>Create Profile</div>
         <div />
       </Header>
-      <Profile user={u} />
+      <div style={{ paddingTop: 75, width: '50%' }}>
+        <Profile user={u} />
+      </div>
     </div>
   );
 };

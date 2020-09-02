@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import ActionButton from '../../Styles/Shared/ActionButton';
 import { GroupSliderButtons } from '../../Styles/Groups';
-
+import Colors from '../../Styles/colors';
 const NoGroupMessage = () => {
   return (
     <Container>
@@ -31,10 +31,14 @@ const Container = styled.div`
   grid-template-rows: 60vh 15vh;
   align-items: center;
   height: calc(100vh - 75px);
-  width: 100vw;
+  width: 100%;
+  @media (min-width: 620px) {
+    background-color: ${Colors.drawer};
+    height: 100%;
+  }
 `;
 const TextContainer = styled.div`
-  width: 60vw;
+  width: 80%;
   font-size: 20px;
   line-height: 22px;
   letter-spacing: -0.04em;

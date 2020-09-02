@@ -11,6 +11,7 @@ import useUser from '../../hooks/useUser';
 import { useDashbaordLazyQuery } from '../../types/graphql.types';
 import useViewport from '../../hooks/useViewport';
 import Colors from '../../Styles/colors';
+import Loading from '../Shared/Loading';
 
 const Dashboard = () => {
   const { group } = useGroup();
@@ -29,7 +30,11 @@ const Dashboard = () => {
     }
   }, [group, loadDashboard, user.id]);
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
   }
   if (error) {
     console.log(error);

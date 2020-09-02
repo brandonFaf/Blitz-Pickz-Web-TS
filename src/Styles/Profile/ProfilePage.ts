@@ -29,7 +29,6 @@ export const ProfileForm = styled.form`
   background-color: ${(props: { side: boolean }) =>
     props.side ? 'transparent' : Colors.background};
   width: 100%;
-  position: absolute;
   fieldset {
     border: none;
     align-self: baseline;
