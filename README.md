@@ -1,7 +1,8 @@
 # Blitz Pickz
-Blitz Pickz is A friendly pick’em game that makes football worth watching. 
+Blitz Pickz is a friendly pick’em game that makes football worth watching. 
 
 - Made with CRA
+- Written with Typescript
 - Uses Apollo to interact with GraphQL Service provided by Hasura
 - Uses firebase for Auth
 
