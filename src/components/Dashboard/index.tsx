@@ -69,7 +69,7 @@ const Dashboard = () => {
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 15vh 50vh 15vh;
+  grid-template-rows: 15vh 46vh 15vh;
   align-items: center;
   @media (min-width: 620px) {
     height: 100vh;

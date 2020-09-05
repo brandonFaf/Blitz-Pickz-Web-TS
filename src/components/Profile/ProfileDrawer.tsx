@@ -8,7 +8,8 @@ import { GroupSliderButtons } from '../../Styles/Groups';
 import closeX from '../../img/close.svg';
 import useUser from '../../hooks/useUser';
 import useViewport from '../../hooks/useViewport';
-
+import styled from 'styled-components/macro';
+import AppButtons from '../AppButons';
 const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
   const { isMobile } = useViewport();
   const transform = isMobile ? '15vw' : '0';
@@ -51,11 +52,21 @@ const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
             </GroupSliderButtons>
           </SlidingPage>
         ) : (
-          !isMobile && <OpenText onClick={toggleProfile}>&lt; Profile</OpenText>
+          !isMobile && (
+            <DesktopContainer>
+              <OpenText onClick={toggleProfile}>&lt; Profile</OpenText>
+              <AppButtons />
+            </DesktopContainer>
+          )
         )
       )}
     </>
   );
 };
-
+const DesktopContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+  flex-direction: column;
+`;
 export default ProfileDrawer;

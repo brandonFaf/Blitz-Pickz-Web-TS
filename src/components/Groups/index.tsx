@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { GroupList, GroupSliderButtons } from '../../Styles/Groups';
 import { Link } from 'react-router-dom';
 import ActionButton from '../../Styles/Shared/ActionButton';
@@ -10,6 +11,7 @@ import {
   GetGroupsDocument
 } from '../../types/graphql.types';
 import Group from './Group';
+import AppButtons from '../AppButons';
 const Groups = ({ toggleGroups, isEdit, setEditGroup }) => {
   const { user } = useUser();
   const { group, setGroup } = useGroup();
@@ -61,8 +63,13 @@ const Groups = ({ toggleGroups, isEdit, setEditGroup }) => {
           <ActionButton>Create a League</ActionButton>
         </Link>
       </GroupSliderButtons>
+      <AppButtonContainer>
+        <AppButtons />
+      </AppButtonContainer>
     </>
   );
 };
-
+const AppButtonContainer = styled.div`
+  grid-area: app;
+`;
 export default Groups;

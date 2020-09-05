@@ -10,8 +10,8 @@ export const GroupsSlider = styled(animated.div)`
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas: 'header' 'guts' 'button';
-  grid-template-rows: 75px 60vh 15vh;
+  grid-template-areas: 'header' 'guts' 'button' 'app';
+  grid-template-rows: 75px 50vh 15vh 15vh;
   justify-content: center;
   justify-items: center;
   align-items: center;
