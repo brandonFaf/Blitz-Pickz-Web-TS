@@ -20,6 +20,7 @@ const JoinGroup: React.FC<JoinGroupParams> = ({ navigate, group }) => {
   const history = useHistory();
   const { user } = useUser();
   const { setGroup } = useGroup();
+  let alreadyMember = false;
   const { data, loading, error } = useGetMembersQuery({
     variables: { group_id: group.id }
   });
@@ -50,6 +51,10 @@ const JoinGroup: React.FC<JoinGroupParams> = ({ navigate, group }) => {
       </GroupFormError>
     );
   }
+  const members = data?.group_by_pk?.members;
+  if (members) {
+    alreadyMember = members.some(m => m.user.id === user.id);
+  }
   return (
     <>
       <JGP>
@@ -60,7 +65,11 @@ const JoinGroup: React.FC<JoinGroupParams> = ({ navigate, group }) => {
           ))}
         </MemberList>
         <GroupSliderButtons>
-          <ActionButton onClick={join}>JOIN THIS LEAGUE</ActionButton>
+          {alreadyMember ? (
+            <GroupFormError>You already belong to this league</GroupFormError>
+          ) : (
+            <ActionButton onClick={join}>JOIN THIS LEAGUE</ActionButton>
+          )}
 
           <ActionButton
             hollow

@@ -12,10 +12,11 @@ import {
 } from '../../types/graphql.types';
 import Group from './Group';
 import AppButtons from '../AppButons';
+import useViewport from '../../hooks/useViewport';
 const Groups = ({ toggleGroups, isEdit, setEditGroup }) => {
   const { user } = useUser();
   const { group, setGroup } = useGroup();
-
+  const { isMobile } = useViewport();
   const { data, loading, error } = useGetGroupsQuery({
     variables: { user_id: user.id }
   });
@@ -63,9 +64,11 @@ const Groups = ({ toggleGroups, isEdit, setEditGroup }) => {
           <ActionButton>Create a League</ActionButton>
         </Link>
       </GroupSliderButtons>
-      <AppButtonContainer>
-        <AppButtons />
-      </AppButtonContainer>
+      {isMobile && (
+        <AppButtonContainer>
+          <AppButtons />
+        </AppButtonContainer>
+      )}
     </>
   );
 };
