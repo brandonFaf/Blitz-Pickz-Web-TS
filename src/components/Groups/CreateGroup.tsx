@@ -18,6 +18,7 @@ import closeX from '../../img/close.svg';
 import styled from 'styled-components/macro';
 import Colors from '../../Styles/colors';
 import useViewport from '../../hooks/useViewport';
+import CreateConfirmation from './CreateConfirmation';
 
 export type CreateGroupModel = {
   groupName: string;
@@ -42,6 +43,7 @@ const CreateGroup = () => {
     groupName: null,
     passcode: null
   });
+  const [groupId, setGroupId] = useState(null);
   const [createGroup, { loading }] = useCreateGroupMutation({
     refetchQueries: [
       { query: GetGroupsDocument, variables: { user_id: user.id } }
@@ -78,7 +80,12 @@ const CreateGroup = () => {
       if (result) {
         const group = result?.data?.insert_group_user?.returning[0]?.group;
         setGroup(group);
-        history.push('/');
+        if (group) {
+          //@ts-ignore
+          setGroupId(group.id);
+        } else {
+          history.push('/');
+        }
       }
     }
     console.log('errors:', errors);
@@ -100,51 +107,66 @@ const CreateGroup = () => {
         <ModalHeader>{HeaderContent}</ModalHeader>
       )}
       <CreateGroupForm onSubmit={submitForm}>
-        <fieldset>
-          <Input
-            data-testid='groupName'
-            label='League Name'
-            name='groupName'
-            onChange={handleChange}
-            value={values.groupName}
-          />
-          {!errors.groupName && (
-            <GroupFormError data-testid='groupNameError' className='error'>
-              {errors.groupName}
-            </GroupFormError>
-          )}
-          {makePrivate && (
-            <>
+        {!groupId ? (
+          <>
+            <fieldset>
               <Input
-                label='Passcode'
-                name='passcode'
-                type='text'
+                data-testid='groupName'
+                label='League Name'
+                name='groupName'
                 onChange={handleChange}
-                value={values.passcode}
+                value={values.groupName}
               />
-              {!errors.passcode && (
-                <GroupFormError className='error'>
-                  {errors.passcode}
+              {!errors.groupName && (
+                <GroupFormError data-testid='groupNameError' className='error'>
+                  {errors.groupName}
                 </GroupFormError>
               )}
-            </>
-          )}
-          <label className='toggle-label' htmlFor='private'>
-            Private?
-          </label>
-          <Toggle
-            id='private'
-            defaultChecked={makePrivate}
-            onChange={toggleMakePrivate}
-          />
-        </fieldset>
-        <ActionButton
-          data-testid='submitButton'
-          onClick={submitForm}
-          type='submit'
-        >
-          {loading ? 'CREATING' : 'CREATE'}
-        </ActionButton>
+              {makePrivate && (
+                <>
+                  <Input
+                    label='Passcode'
+                    name='passcode'
+                    type='text'
+                    onChange={handleChange}
+                    value={values.passcode}
+                  />
+                  {!errors.passcode && (
+                    <GroupFormError className='error'>
+                      {errors.passcode}
+                    </GroupFormError>
+                  )}
+                </>
+              )}
+              <label className='toggle-label' htmlFor='private'>
+                Private?
+              </label>
+              <Toggle
+                id='private'
+                defaultChecked={makePrivate}
+                onChange={toggleMakePrivate}
+              />
+            </fieldset>
+            <ActionButton
+              data-testid='submitButton'
+              onClick={submitForm}
+              type='submit'
+            >
+              {loading ? 'CREATING' : 'CREATE'}
+            </ActionButton>
+          </>
+        ) : (
+          <>
+            <div style={{ textAlign: 'center' }}>
+              Awesome! Your group has been created!
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              Share this link to invite others to join the league
+            </div>
+            <CreateConfirmation groupId={groupId} />
+            <br />
+          </>
+        )}
       </CreateGroupForm>
     </JGP>
   );

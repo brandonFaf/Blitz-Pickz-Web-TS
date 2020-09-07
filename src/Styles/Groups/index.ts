@@ -18,6 +18,8 @@ export const GroupsSlider = styled(animated.div)`
   overflow: hidden;
   background-color: rgb(22, 51, 89);
   @media (min-width: 620px) {
+    grid-template-areas: 'header' 'guts' 'button';
+    grid-template-rows: 75px 65vh 15vh;
     width: 25%;
     height: 100%;
   }
