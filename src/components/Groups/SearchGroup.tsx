@@ -21,7 +21,7 @@ const SearchGroup = ({
   useEffect(() => {
     if (data && data.get_available_groups) {
       if (search) {
-        const expression = new RegExp(search);
+        const expression = new RegExp(search, 'i');
         setGroups(
           data.get_available_groups.filter(g => expression.test(g.display_name))
         );

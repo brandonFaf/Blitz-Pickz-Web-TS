@@ -20,7 +20,6 @@ const MakePicks = () => {
   const [loadPicks, { data, loading, called }] = usePicksLazyQuery();
   useEffect(() => {
     if (group) {
-      console.log({ user: user.id, group: group.id ?? 0, week });
       loadPicks({
         variables: { user_id: user.id, group_id: group?.id ?? 0, week }
       });
