@@ -1,7 +1,6 @@
 import getWeek from 'date-fns/getWeek';
 import sub from 'date-fns/sub';
-const getCurrentWeek = () => {
-  const w = getWeek(sub(new Date(), { days: 2 })) - 35;
-  return w > 0 ? w : (w + 35) % 17 === 0 ? 1 : (w + 35) % 17;
+export default () => {
+  const w = getWeek(sub(new Date(), { days: 2 })) - 36;
+  return w > 0 ? w : (w + 36) % 17 === 0 ? 1 : (w + 36) % 17;
 };
-export default getCurrentWeek;
