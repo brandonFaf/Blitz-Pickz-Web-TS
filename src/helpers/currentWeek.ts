@@ -1,7 +1,25 @@
-// import getWeek from 'date-fns/getWeek';
-// import sub from 'date-fns/sub';
+import getDayOfYear from 'date-fns/getDayOfYear';
 export default () => {
-  return 17;
-  // const w = getWeek(sub(new Date(), { days: 2 })) - 36;
-  // return w > 0 ? w : (w + 36) % 17 === 0 ? 1 : (w + 36) % 17;
+  const weeks = [
+    0, 100, 257, 264, 271, 278, 285, 292, 299, 306, 313, 320, 327, 334, 341,
+    348, 355, 362
+  ];
+  const day = getDayOfYear(new Date());
+  if (day < 4) {
+    return 17;
+  }
+  if (day < 11) {
+    return 18;
+  }
+  for (let i = 1; i < weeks.length; i++) {
+    const weekDay = weeks[i];
+    const newxtWeekDay = weeks[i + 1];
+    if (!newxtWeekDay) {
+      return 17;
+    }
+    if (weekDay <= day && newxtWeekDay > day) {
+      return i;
+    }
+  }
+  return 1;
 };
