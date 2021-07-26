@@ -8,7 +8,7 @@ const WeekSlider: React.FC = () => {
   const currentWeek = useMemo(() => getCurrentWeek(), []);
   const { isMobile } = useViewport();
   const { week, setWeek } = useWeek();
-  const weekNumbers = new Array(17).fill('1');
+  const weekNumbers = new Array(18).fill('1');
   const weekBox = useCallback(
     node => {
       if (node) {
