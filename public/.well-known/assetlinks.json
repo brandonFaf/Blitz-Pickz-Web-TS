@@ -1,22 +1,10 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.blitzpickz.twa",
-      "sha256_cert_fingerprints": [
-        "50:B6:8D:9F:14:22:F7:D0:7E:C0:34:5D:8B:35:83:D8:A0:93:88:F6:C1:AE:EA:47:9F:2F:D4:A9:69:A9:A5:BE"
-      ]
-    }
-  },
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.blitzpickz.twa",
-      "sha256_cert_fingerprints": [
-        "C0:AF:2F:EC:41:7E:A6:11:8D:CC:09:ED:E3:C8:48:7C:B5:F4:54:64:88:58:84:B7:58:56:E5:4D:7F:17:2A:D7"
-      ]
-    }
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.blitzpickz.twa",
+    "sha256_cert_fingerprints": [
+      "C0:AF:2F:EC:41:7E:A6:11:8D:CC:09:ED:E3:C8:48:7C:B5:F4:54:64:88:58:84:B7:58:56:E5:4D:7F:17:2A:D7"
+    ]
   }
-]
+}]
