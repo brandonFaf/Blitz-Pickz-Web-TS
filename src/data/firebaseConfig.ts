@@ -24,7 +24,7 @@ const prodFirebaseConfig = {
 const firebaseConfig =
   process.env.NODE_ENV === 'production'
     ? prodFirebaseConfig
-    : stageFirebaseConfig;
+    : prodFirebaseConfig;
 // Initialize Firebase instance
 firebase.initializeApp(firebaseConfig);
 
