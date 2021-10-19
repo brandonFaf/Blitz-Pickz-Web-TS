@@ -7,6 +7,10 @@ import styled from 'styled-components/macro';
 import moment from 'moment';
 import arePicksAllTheSame from '../../helpers/arePicksAllTheSame';
 
+interface SplitGames {
+  complexGames: Game_DetailsFragment[];
+  boringGames: Game_DetailsFragment[];
+}
 const Container = styled(animated.div)`
   display: flex;
   flex-direction: column;
@@ -39,11 +43,20 @@ const GamesSection: React.FC<props> = ({ games, title, sorted = false }) => {
     }
     return first.isBefore(second) ? -1 : 1;
   });
-  let gamesToDisplay = [...sortedGames];
+  let gamesToDisplay: SplitGames = {
+    complexGames: sortedGames,
+    boringGames: [] as Game_DetailsFragment[]
+  };
   if (sorted) {
-    gamesToDisplay = sortedGames.reduce((acc, game) => {
-      return arePicksAllTheSame(game) ? [...acc, game] : [game, ...acc];
-    }, [] as Game_DetailsFragment[]);
+    gamesToDisplay = sortedGames.reduce(
+      ({ complexGames, boringGames }, game) => {
+        arePicksAllTheSame(game)
+          ? boringGames.push(game)
+          : complexGames.push(game);
+        return { complexGames, boringGames };
+      },
+      { complexGames: [], boringGames: [] } as SplitGames
+    );
   }
   return (
     <>
@@ -54,11 +67,13 @@ const GamesSection: React.FC<props> = ({ games, title, sorted = false }) => {
             <div className='title'>{title}</div>
             <div>HOME</div>
           </TitleRow>
-          {gamesToDisplay.map(game => (
-            <Container style={gameAnimationProps} key={game.id}>
-              <GameContainer game={game} />
-            </Container>
-          ))}
+          {[...gamesToDisplay.complexGames, ...gamesToDisplay.boringGames].map(
+            game => (
+              <Container style={gameAnimationProps} key={game.id}>
+                <GameContainer game={game} />
+              </Container>
+            )
+          )}
         </GameSection>
       )}
     </>
