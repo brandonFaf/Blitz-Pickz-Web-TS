@@ -40,10 +40,8 @@ const LBoard = styled.div`
 const Leaderboard = () => {
   const { user } = useUser();
   const { group } = useGroup();
-  const [
-    loadLeaderboard,
-    { data, loading, error, called }
-  ] = useLeaderboardLazyQuery();
+  const [loadLeaderboard, { data, loading, error, called }] =
+    useLeaderboardLazyQuery();
   useEffect(() => {
     if (group) {
       loadLeaderboard({
@@ -63,7 +61,7 @@ const Leaderboard = () => {
   }
   const members =
     data.rankings.length === 0
-      ? group?.members.map(m => ({ ...m, rank: 1, points: 0 }))
+      ? group?.members.map(m => ({ ...m, rank: 1, points: 0, sum: 0 }))
       : data.rankings;
   return (
     <LBoard data-testid='leaderboard'>

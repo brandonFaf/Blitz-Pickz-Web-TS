@@ -5,6 +5,8 @@ import useToggleState from '../../hooks/useToggleState';
 import { Container, TeamButton, MiddleButton } from '../../Styles/Game';
 import getOrdinal from '../../helpers/getOrdinal';
 import WhoPicked from './WhoPicked';
+import arePicksAllTheSame from '../../helpers/arePicksAllTheSame';
+
 type Props = {
   game: Game_DetailsFragment;
 };
@@ -35,6 +37,7 @@ const EndGame: React.FC<Props> = ({ game }) => {
 
     return null;
   };
+  const allSame = arePicksAllTheSame(game);
   const middleHighlight = howToHighlight();
   const visHighlight = howToHighlight(vis_team.id);
   const homeHighlight = howToHighlight(home_team.id);
@@ -68,14 +71,24 @@ const EndGame: React.FC<Props> = ({ game }) => {
   return (
     <div className='container'>
       <Container onClick={toggleWhoPicked}>
-        <TeamButton data-testid={'vis-pick-button'} active={visHighlight}>
+        <TeamButton
+          data-testid={'vis-pick-button'}
+          allSame={allSame}
+          active={visHighlight}
+        >
           <>
             <div> {vis_team.short_name.toUpperCase()}</div>
             {vis_score != null && <div>{vis_score}</div>}
           </>
         </TeamButton>
-        <MiddleButton active={middleHighlight}>{getMiddle()}</MiddleButton>
-        <TeamButton data-testid={'home-pick-button'} active={homeHighlight}>
+        <MiddleButton allSame={allSame} active={middleHighlight}>
+          {getMiddle()}
+        </MiddleButton>
+        <TeamButton
+          data-testid={'home-pick-button'}
+          allSame={allSame}
+          active={homeHighlight}
+        >
           <>
             <div> {home_team.short_name.toUpperCase()}</div>
             {home_score != null && <div>{home_score}</div>}

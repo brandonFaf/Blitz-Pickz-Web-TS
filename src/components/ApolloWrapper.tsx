@@ -17,7 +17,7 @@ const ApolloWrapper = ({ children }: props) => {
   const uri =
     process.env.NODE_ENV === 'production'
       ? 'https://blitz-pickz-prod-21.herokuapp.com/v1/graphql'
-      : 'https://blitz-pickz-prod-21.herokuapp.com/v1/graphql';
+      : 'https://blitz-pickz-dev-21.herokuapp.com/v1/graphql';
   const httpLink = createHttpLink({
     uri
   });
