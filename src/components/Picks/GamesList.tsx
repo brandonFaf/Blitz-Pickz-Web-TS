@@ -64,8 +64,8 @@ const GamesList = () => {
                 )} PTS`}</span>
               </>
             ) : (
-                `Make Your Picks ${getPickCount(data)} / ${getGameCount(data)}`
-              )}
+              `Make Your Picks ${getPickCount(data)} / ${getGameCount(data)}`
+            )}
           </div>
         </>
       );
@@ -88,9 +88,17 @@ const GamesList = () => {
 
   return (
     <>
-      <GameSection games={data?.inProgressGames ?? []} title={'In Progress'} />
+      <GameSection
+        sorted={true}
+        games={data?.inProgressGames ?? []}
+        title={'In Progress'}
+      />
       <GameSection games={data?.upcomingGames ?? []} title={'Upcoming'} />
-      <GameSection games={data?.completedGames ?? []} title={'Completed'} />
+      <GameSection
+        sorted={true}
+        games={data?.completedGames ?? []}
+        title={'Completed'}
+      />
     </>
   );
 };

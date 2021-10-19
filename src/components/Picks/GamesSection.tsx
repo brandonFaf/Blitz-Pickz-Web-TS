@@ -5,6 +5,7 @@ import { GameSection, TitleRow } from '../../Styles/Picks';
 import GameContainer from '../Game/GameContainer';
 import styled from 'styled-components/macro';
 import moment from 'moment';
+import arePicksAllTheSame from '../../helpers/arePicksAllTheSame';
 
 const Container = styled(animated.div)`
   display: flex;
@@ -20,8 +21,9 @@ const Container = styled(animated.div)`
 type props = {
   games: Array<Game_DetailsFragment>;
   title: string;
+  sorted?: boolean;
 };
-const GamesSection: React.FC<props> = ({ games, title }) => {
+const GamesSection: React.FC<props> = ({ games, title, sorted = false }) => {
   const [gameAnimationProps, start] = useSpring(() => ({
     opacity: 0,
     config: {
@@ -37,6 +39,12 @@ const GamesSection: React.FC<props> = ({ games, title }) => {
     }
     return first.isBefore(second) ? -1 : 1;
   });
+  let gamesToDisplay = [...sortedGames];
+  if (sorted) {
+    gamesToDisplay = sortedGames.reduce((acc, game) => {
+      return arePicksAllTheSame(game) ? [...acc, game] : [game, ...acc];
+    }, [] as Game_DetailsFragment[]);
+  }
   return (
     <>
       {games.length > 0 && (
@@ -46,7 +54,7 @@ const GamesSection: React.FC<props> = ({ games, title }) => {
             <div className='title'>{title}</div>
             <div>HOME</div>
           </TitleRow>
-          {sortedGames.map(game => (
+          {gamesToDisplay.map(game => (
             <Container style={gameAnimationProps} key={game.id}>
               <GameContainer game={game} />
             </Container>
