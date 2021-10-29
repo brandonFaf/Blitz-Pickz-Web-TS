@@ -10,7 +10,7 @@ import useUser from '../../hooks/useUser';
 import useViewport from '../../hooks/useViewport';
 import styled from 'styled-components/macro';
 import AppButtons from '../AppButons';
-import { messaging } from 'firebase';
+import { messaging as fbMessaging } from 'firebase';
 import { useSaveNotificationTokenMutation } from '../../types/graphql.types';
 
 const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
@@ -24,8 +24,11 @@ const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
   const { user, setUser, logout } = useUser();
   const notificationTokens = user.notification_tokens ?? [];
   const [saveNotificationToken] = useSaveNotificationTokenMutation();
-
-  messaging().onMessage(async payload => {
+  const messaging = fbMessaging();
+  if (!messaging) {
+    console.log('no messaging');
+  }
+  messaging.onMessage(async payload => {
     console.log('Message received. ', payload);
     const { title, ...options } = payload.notification;
     const registration = await navigator.serviceWorker.ready;
@@ -34,7 +37,7 @@ const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
   useEffect(() => {
     const setUpServiceWorker = async () => {
       const registration = await navigator.serviceWorker.ready;
-      messaging().useServiceWorker(registration);
+      messaging.useServiceWorker(registration);
     };
 
     setUpServiceWorker();
@@ -45,7 +48,7 @@ const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
     // Note: because of Chrome, we cannot be sure the permission property
     // is set, therefore it's unsafe to check for the "default" value.
     if (window.Notification && Notification.permission !== 'denied') {
-      const token = await messaging().getToken();
+      const token = await messaging.getToken();
       console.log('token:', token);
       saveNotificationToken({ variables: { user_id: user.id, token } });
       notificationTokens.push({ token });
