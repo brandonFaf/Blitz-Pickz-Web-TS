@@ -24,31 +24,34 @@ const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
   const { user, setUser, logout } = useUser();
   const notificationTokens = user.notification_tokens ?? [];
   const [saveNotificationToken] = useSaveNotificationTokenMutation();
-  const messaging = fbMessaging();
-  if (!messaging) {
-    console.log('no messaging');
+  if (fbMessaging.isSupported()) {
+    const messaging = fbMessaging();
+    messaging.onMessage(async payload => {
+      console.log('Message received. ', payload);
+      const { title, ...options } = payload.notification;
+      const registration = await navigator.serviceWorker.ready;
+      registration.showNotification(title, options); // We will create this function in a further step.
+    });
   }
-  messaging.onMessage(async payload => {
-    console.log('Message received. ', payload);
-    const { title, ...options } = payload.notification;
-    const registration = await navigator.serviceWorker.ready;
-    registration.showNotification(title, options); // We will create this function in a further step.
-  });
   useEffect(() => {
     const setUpServiceWorker = async () => {
       const registration = await navigator.serviceWorker.ready;
-      messaging.useServiceWorker(registration);
+      fbMessaging().useServiceWorker(registration);
     };
-
-    setUpServiceWorker();
+    if (fbMessaging.isSupported()) {
+      setUpServiceWorker();
+    }
   }, []);
 
   const getNotifications = async () => {
+    if (!fbMessaging.isSupported()) {
+      alert("your browser doesn't support notifications");
+    }
     // If the user hasn't told whether he wants to be notified or not
     // Note: because of Chrome, we cannot be sure the permission property
     // is set, therefore it's unsafe to check for the "default" value.
-    if (window.Notification && Notification.permission !== 'denied') {
-      const token = await messaging.getToken();
+    else if (window.Notification && Notification.permission !== 'denied') {
+      const token = await fbMessaging().getToken();
       console.log('token:', token);
       saveNotificationToken({ variables: { user_id: user.id, token } });
       notificationTokens.push({ token });
