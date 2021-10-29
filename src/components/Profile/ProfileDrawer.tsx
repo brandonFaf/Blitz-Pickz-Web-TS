@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTransition } from 'react-spring';
 import { SlidingPage, SlidingHeader, OpenText } from '../../Styles/SlidingPage';
 import Profile from './index';
@@ -10,6 +10,9 @@ import useUser from '../../hooks/useUser';
 import useViewport from '../../hooks/useViewport';
 import styled from 'styled-components/macro';
 import AppButtons from '../AppButons';
+import { messaging as fbMessaging } from 'firebase';
+import { useSaveNotificationTokenMutation } from '../../types/graphql.types';
+
 const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
   const { isMobile } = useViewport();
   const transform = isMobile ? '15vw' : '0';
@@ -18,7 +21,52 @@ const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
     enter: { transform: `translate3d(${transform},0,0)` },
     leave: { transform: 'translate3d(100vw,0,0)' }
   });
-  const { user, logout } = useUser();
+  const { user, setUser, logout } = useUser();
+  const notificationTokens = user.notification_tokens ?? [];
+  const [saveNotificationToken] = useSaveNotificationTokenMutation();
+  if (fbMessaging.isSupported()) {
+    const messaging = fbMessaging();
+    messaging.onMessage(async payload => {
+      console.log('Message received. ', payload);
+      const { title, ...options } = payload.notification;
+      const registration = await navigator.serviceWorker.ready;
+      registration.showNotification(title, options); // We will create this function in a further step.
+    });
+  }
+  useEffect(() => {
+    const setUpServiceWorker = async () => {
+      const registration = await navigator.serviceWorker.ready;
+      fbMessaging().useServiceWorker(registration);
+    };
+    if (fbMessaging.isSupported()) {
+      setUpServiceWorker();
+    }
+  }, []);
+
+  const getNotifications = async () => {
+    if (!fbMessaging.isSupported()) {
+      alert("your browser doesn't support notifications");
+    }
+    // If the user hasn't told whether he wants to be notified or not
+    // Note: because of Chrome, we cannot be sure the permission property
+    // is set, therefore it's unsafe to check for the "default" value.
+    else if (window.Notification && Notification.permission !== 'denied') {
+      const token = await fbMessaging().getToken();
+      console.log('token:', token);
+      saveNotificationToken({ variables: { user_id: user.id, token } });
+      notificationTokens.push({ token });
+      setUser({
+        ...user,
+        notification_tokens: notificationTokens
+      });
+    } else {
+      // If the user refuses to get notified
+      alert(
+        'You denied permissions to notifications. Please go to your browser or phone setting to allow notifications.'
+      );
+    }
+  };
+
   return (
     <>
       {profileTransitions.map(({ item, key, props }) =>
@@ -42,13 +90,22 @@ const ProfileDrawer = ({ showProfile, toggleProfile, profileRef }) => {
             </SlidingHeader>
             <Profile user={user} toggleProfile={toggleProfile} />
 
-            <GroupSliderButtons style={{ marginTop: '5px' }}>
+            <GroupSliderButtons
+              style={{
+                marginTop: notificationTokens.length === 0 ? '50px' : '5px'
+              }}
+            >
               <Link to='/login'>
                 <ActionButton onClick={logout}>Logout</ActionButton>
               </Link>
               <a href='mailto:blitzpickz@gmail.com'>
                 <ActionButton hollow>Report An Issue</ActionButton>
               </a>
+              {notificationTokens.length === 0 && (
+                <ActionButton onClick={getNotifications}>
+                  Get Notifications
+                </ActionButton>
+              )}
             </GroupSliderButtons>
           </SlidingPage>
         ) : (

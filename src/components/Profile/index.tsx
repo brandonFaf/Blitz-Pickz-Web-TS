@@ -94,7 +94,6 @@ const Profile: React.FC<Props> = ({ user, toggleProfile }) => {
   const handleUploadError = (error: any) => {
     console.error(error);
   };
-  console.log('errors', errors);
   return (
     <>
       <ProfileForm onSubmit={submitForm} side>

@@ -2685,7 +2685,7 @@ export type Score = {
   group_id: Scalars['Int'];
   id: Scalars['Int'];
   points: Scalars['Int'];
-  rank: Scalars['Int'];
+  tiebreaker: Scalars['Int'];
   updated_at: Scalars['timestamptz'];
   /** An object relationship */
   user: User;
@@ -2747,7 +2747,7 @@ export type Score_Avg_Fields = {
   group_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   points?: Maybe<Scalars['Float']>;
-  rank?: Maybe<Scalars['Float']>;
+  tiebreaker?: Maybe<Scalars['Float']>;
   week?: Maybe<Scalars['Float']>;
 };
 
@@ -2756,7 +2756,7 @@ export type Score_Avg_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -2769,7 +2769,7 @@ export type Score_Bool_Exp = {
   group_id?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   points?: Maybe<Int_Comparison_Exp>;
-  rank?: Maybe<Int_Comparison_Exp>;
+  tiebreaker?: Maybe<Int_Comparison_Exp>;
   updated_at?: Maybe<Timestamptz_Comparison_Exp>;
   user?: Maybe<User_Bool_Exp>;
   user_id?: Maybe<String_Comparison_Exp>;
@@ -2787,7 +2787,7 @@ export type Score_Inc_Input = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   points?: Maybe<Scalars['Int']>;
-  rank?: Maybe<Scalars['Int']>;
+  tiebreaker?: Maybe<Scalars['Int']>;
   week?: Maybe<Scalars['Int']>;
 };
 
@@ -2797,7 +2797,7 @@ export type Score_Insert_Input = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   points?: Maybe<Scalars['Int']>;
-  rank?: Maybe<Scalars['Int']>;
+  tiebreaker?: Maybe<Scalars['Int']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   user?: Maybe<User_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['String']>;
@@ -2809,7 +2809,7 @@ export type Score_Max_Fields = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   points?: Maybe<Scalars['Int']>;
-  rank?: Maybe<Scalars['Int']>;
+  tiebreaker?: Maybe<Scalars['Int']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   user_id?: Maybe<Scalars['String']>;
   week?: Maybe<Scalars['Int']>;
@@ -2820,7 +2820,7 @@ export type Score_Max_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   updated_at?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
@@ -2831,7 +2831,7 @@ export type Score_Min_Fields = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   points?: Maybe<Scalars['Int']>;
-  rank?: Maybe<Scalars['Int']>;
+  tiebreaker?: Maybe<Scalars['Int']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   user_id?: Maybe<Scalars['String']>;
   week?: Maybe<Scalars['Int']>;
@@ -2842,7 +2842,7 @@ export type Score_Min_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   updated_at?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
@@ -2869,7 +2869,7 @@ export type Score_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   updated_at?: Maybe<Order_By>;
   user?: Maybe<User_Order_By>;
   user_id?: Maybe<Order_By>;
@@ -2890,7 +2890,7 @@ export enum Score_Select_Column {
   /** column name */
   Points = 'points',
   /** column name */
-  Rank = 'rank',
+  Tiebreaker = 'tiebreaker',
   /** column name */
   UpdatedAt = 'updated_at',
   /** column name */
@@ -2904,7 +2904,7 @@ export type Score_Set_Input = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   points?: Maybe<Scalars['Int']>;
-  rank?: Maybe<Scalars['Int']>;
+  tiebreaker?: Maybe<Scalars['Int']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   user_id?: Maybe<Scalars['String']>;
   week?: Maybe<Scalars['Int']>;
@@ -2915,7 +2915,7 @@ export type Score_Stddev_Fields = {
   group_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   points?: Maybe<Scalars['Float']>;
-  rank?: Maybe<Scalars['Float']>;
+  tiebreaker?: Maybe<Scalars['Float']>;
   week?: Maybe<Scalars['Float']>;
 };
 
@@ -2924,7 +2924,7 @@ export type Score_Stddev_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -2933,7 +2933,7 @@ export type Score_Stddev_Pop_Fields = {
   group_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   points?: Maybe<Scalars['Float']>;
-  rank?: Maybe<Scalars['Float']>;
+  tiebreaker?: Maybe<Scalars['Float']>;
   week?: Maybe<Scalars['Float']>;
 };
 
@@ -2942,7 +2942,7 @@ export type Score_Stddev_Pop_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -2951,7 +2951,7 @@ export type Score_Stddev_Samp_Fields = {
   group_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   points?: Maybe<Scalars['Float']>;
-  rank?: Maybe<Scalars['Float']>;
+  tiebreaker?: Maybe<Scalars['Float']>;
   week?: Maybe<Scalars['Float']>;
 };
 
@@ -2960,7 +2960,7 @@ export type Score_Stddev_Samp_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -2969,7 +2969,7 @@ export type Score_Sum_Fields = {
   group_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   points?: Maybe<Scalars['Int']>;
-  rank?: Maybe<Scalars['Int']>;
+  tiebreaker?: Maybe<Scalars['Int']>;
   week?: Maybe<Scalars['Int']>;
 };
 
@@ -2978,7 +2978,7 @@ export type Score_Sum_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -2991,7 +2991,7 @@ export enum Score_Update_Column {
   /** column name */
   Points = 'points',
   /** column name */
-  Rank = 'rank',
+  Tiebreaker = 'tiebreaker',
   /** column name */
   UpdatedAt = 'updated_at',
   /** column name */
@@ -3005,7 +3005,7 @@ export type Score_Var_Pop_Fields = {
   group_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   points?: Maybe<Scalars['Float']>;
-  rank?: Maybe<Scalars['Float']>;
+  tiebreaker?: Maybe<Scalars['Float']>;
   week?: Maybe<Scalars['Float']>;
 };
 
@@ -3014,7 +3014,7 @@ export type Score_Var_Pop_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -3023,7 +3023,7 @@ export type Score_Var_Samp_Fields = {
   group_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   points?: Maybe<Scalars['Float']>;
-  rank?: Maybe<Scalars['Float']>;
+  tiebreaker?: Maybe<Scalars['Float']>;
   week?: Maybe<Scalars['Float']>;
 };
 
@@ -3032,7 +3032,7 @@ export type Score_Var_Samp_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -3041,7 +3041,7 @@ export type Score_Variance_Fields = {
   group_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   points?: Maybe<Scalars['Float']>;
-  rank?: Maybe<Scalars['Float']>;
+  tiebreaker?: Maybe<Scalars['Float']>;
   week?: Maybe<Scalars['Float']>;
 };
 
@@ -3050,7 +3050,7 @@ export type Score_Variance_Order_By = {
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   points?: Maybe<Order_By>;
-  rank?: Maybe<Order_By>;
+  tiebreaker?: Maybe<Order_By>;
   week?: Maybe<Order_By>;
 };
 
@@ -3844,7 +3844,7 @@ export type LeaderboardQueryVariables = Exact<{
 export type LeaderboardQuery = {
   group_by_pk?: Maybe<Pick<Group, 'id' | 'display_name'>>;
   rankings: Array<
-    Pick<Rankings, 'points' | 'rank' | 'sum'> & {
+    Pick<Rankings, 'points' | 'rank'> & {
       user?: Maybe<Pick<User, 'display_name' | 'id' | 'photo_url'>>;
     }
   >;
@@ -4022,7 +4022,11 @@ export type LoadUserQueryVariables = Exact<{
 }>;
 
 export type LoadUserQuery = {
-  user_by_pk?: Maybe<Pick<User, 'photo_url' | 'display_name' | 'id'>>;
+  user_by_pk?: Maybe<
+    Pick<User, 'photo_url' | 'display_name' | 'id'> & {
+      notification_tokens: Array<Pick<Notification_Token, 'token'>>;
+    }
+  >;
 };
 
 export type SaveNotificationTokenMutationVariables = Exact<{
@@ -4100,7 +4104,6 @@ export const LeaderboardDocument = gql`
     rankings(where: {group_id: {_eq: $group_id}}, order_by: {rank: asc}) {
       points
       rank
-      sum
       user {
         display_name
         id
@@ -4883,6 +4886,9 @@ export const LoadUserDocument = gql`
       photo_url
       display_name
       id
+      notification_tokens {
+        token
+      }
     }
   }
 `;
