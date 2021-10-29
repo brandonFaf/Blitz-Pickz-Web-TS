@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorkerRegistration';
 import UserStore from './contexts/UserContext';
 import GroupStore from './contexts/GroupContext';
 import HeaderStore from './contexts/HeaderContext';

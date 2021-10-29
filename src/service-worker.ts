@@ -13,6 +13,8 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import firebase from 'firebase/app';
+import 'firebase/messaging';
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -79,3 +81,34 @@ self.addEventListener('message', event => {
 });
 
 // Any other custom service worker logic can go here.
+
+// Initialize the Firebase app in the service worker by passing in
+// your app's Firebase config object.
+// https://firebase.google.com/docs/web/setup#config-object
+firebase.initializeApp({
+  apiKey: 'AIzaSyD4bZXa_AJqkWWebCvkwsMFZam5ziDLvAs',
+  authDomain: 'pastel-prod.firebaseapp.com',
+  databaseURL: 'https://pastel-prod.firebaseio.com',
+  projectId: 'pastel-prod',
+  storageBucket: 'pastel-prod.appspot.com',
+  messagingSenderId: '532368822845',
+  appId: '1:532368822845:web:9afe35fcb13a35cc'
+});
+
+// Retrieve an instance of Firebase Messaging so that it can handle background
+// messages.
+const messaging = firebase.messaging();
+messaging.setBackgroundMessageHandler(payload => {
+  console.log(
+    '[firebase-messaging-sw.js] Received background message ',
+    payload
+  );
+  // Customize notification here
+  const notificationTitle = 'Background Message Title';
+  const notificationOptions = {
+    body: 'Background Message body.',
+    icon: '/firebase-logo.png'
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
