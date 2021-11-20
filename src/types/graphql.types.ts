@@ -3844,7 +3844,7 @@ export type LeaderboardQueryVariables = Exact<{
 export type LeaderboardQuery = {
   group_by_pk?: Maybe<Pick<Group, 'id' | 'display_name'>>;
   rankings: Array<
-    Pick<Rankings, 'points' | 'rank'> & {
+    Pick<Rankings, 'points' | 'rank' | 'sum'> & {
       user?: Maybe<Pick<User, 'display_name' | 'id' | 'photo_url'>>;
     }
   >;
@@ -3874,6 +3874,24 @@ export type DashbaordQueryVariables = Exact<{
 
 export type DashbaordQuery = {
   rankings: Array<Pick<Rankings, 'points' | 'rank'>>;
+};
+
+export type HistoricalLeaderboardQueryVariables = Exact<{
+  group_id: Scalars['Int'];
+  week: Scalars['Int'];
+}>;
+
+export type HistoricalLeaderboardQuery = {
+  group: Array<{
+    members: Array<{
+      user: Pick<User, 'display_name' | 'id' | 'photo_url'> & {
+        scores: Array<Pick<Score, 'points'>>;
+        scores_aggregate: {
+          aggregate?: Maybe<{sum?: Maybe<Pick<Score_Sum_Fields, 'points'>>}>;
+        };
+      };
+    }>;
+  }>;
 };
 
 export type Game_DetailsFragment = Pick<
@@ -4022,11 +4040,7 @@ export type LoadUserQueryVariables = Exact<{
 }>;
 
 export type LoadUserQuery = {
-  user_by_pk?: Maybe<
-    Pick<User, 'photo_url' | 'display_name' | 'id'> & {
-      notification_tokens: Array<Pick<Notification_Token, 'token'>>;
-    }
-  >;
+  user_by_pk?: Maybe<Pick<User, 'photo_url' | 'display_name' | 'id'>>;
 };
 
 export type SaveNotificationTokenMutationVariables = Exact<{
@@ -4104,6 +4118,7 @@ export const LeaderboardDocument = gql`
     rankings(where: {group_id: {_eq: $group_id}}, order_by: {rank: asc}) {
       points
       rank
+      sum
       user {
         display_name
         id
@@ -4282,6 +4297,81 @@ export type DashbaordLazyQueryHookResult = ReturnType<
 export type DashbaordQueryResult = ApolloReactHooks.QueryResult<
   DashbaordQuery,
   DashbaordQueryVariables
+>;
+export const HistoricalLeaderboardDocument = gql`
+  query HistoricalLeaderboard($group_id: Int!, $week: Int!) {
+    group(where: {id: {_eq: $group_id}}) {
+      members {
+        user {
+          scores(where: {week: {_eq: $week}, group_id: {_eq: $group_id}}) {
+            points
+          }
+          scores_aggregate(
+            where: {week: {_lte: $week}, group_id: {_eq: $group_id}}
+          ) {
+            aggregate {
+              sum {
+                points
+              }
+            }
+          }
+          display_name
+          id
+          photo_url
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useHistoricalLeaderboardQuery__
+ *
+ * To run a query within a React component, call `useHistoricalLeaderboardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHistoricalLeaderboardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHistoricalLeaderboardQuery({
+ *   variables: {
+ *      group_id: // value for 'group_id'
+ *      week: // value for 'week'
+ *   },
+ * });
+ */
+export function useHistoricalLeaderboardQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    HistoricalLeaderboardQuery,
+    HistoricalLeaderboardQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<
+    HistoricalLeaderboardQuery,
+    HistoricalLeaderboardQueryVariables
+  >(HistoricalLeaderboardDocument, baseOptions);
+}
+export function useHistoricalLeaderboardLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    HistoricalLeaderboardQuery,
+    HistoricalLeaderboardQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<
+    HistoricalLeaderboardQuery,
+    HistoricalLeaderboardQueryVariables
+  >(HistoricalLeaderboardDocument, baseOptions);
+}
+export type HistoricalLeaderboardQueryHookResult = ReturnType<
+  typeof useHistoricalLeaderboardQuery
+>;
+export type HistoricalLeaderboardLazyQueryHookResult = ReturnType<
+  typeof useHistoricalLeaderboardLazyQuery
+>;
+export type HistoricalLeaderboardQueryResult = ApolloReactHooks.QueryResult<
+  HistoricalLeaderboardQuery,
+  HistoricalLeaderboardQueryVariables
 >;
 export const GetGamesForWeekDocument = gql`
   query getGamesForWeek($week: Int!, $group_id: Int!) {
@@ -4886,9 +4976,6 @@ export const LoadUserDocument = gql`
       photo_url
       display_name
       id
-      notification_tokens {
-        token
-      }
     }
   }
 `;

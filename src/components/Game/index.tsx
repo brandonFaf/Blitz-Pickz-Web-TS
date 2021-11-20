@@ -132,6 +132,7 @@ const Game: React.FC<Props> = ({ game }) => {
           onClick={save(vis_team.id)}
         >
           {vis_team.short_name.toUpperCase()}
+          <div>{vis_team.record}</div>
         </TeamButton>
         <MiddleButton>
           <div>{gameDate.format('ddd M/D')}</div>
@@ -143,6 +144,7 @@ const Game: React.FC<Props> = ({ game }) => {
           onClick={save(home_team.id)}
         >
           {home_team.short_name.toUpperCase()}
+          <div>{home_team.record}</div>
         </TeamButton>
       </Container>
 
