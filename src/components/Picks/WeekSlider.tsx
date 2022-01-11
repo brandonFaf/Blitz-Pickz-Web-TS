@@ -8,7 +8,7 @@ const WeekSlider: React.FC = () => {
   const currentWeek = useMemo(() => getCurrentWeek(), []);
   const { isMobile } = useViewport();
   const { week, setWeek } = useWeek();
-  const weekNumbers = new Array(18).fill('1');
+  const weekNumbers = new Array(22).fill('1');
   const weekBox = useCallback(
     node => {
       if (node) {
@@ -32,6 +32,27 @@ const WeekSlider: React.FC = () => {
       {weekNumbers.map((x, i) => {
         let cn = i + 1 === week ? 'active' : '';
         cn += i + 1 === currentWeek ? ' current' : '';
+        const word = i <= 17 ? 'WEEK' : 'ROUND'
+        let number 
+switch (i) {
+  case 18:
+  number = "Wld Crd"
+    break;
+  
+  case 19:
+    number = "DIV"
+    break;
+    case 20:
+    number = "CONF"
+    break;
+    case 21:
+    number = "SB"
+    break;
+  default:
+     number = (i + 1).toString()
+
+
+}
         return (
           <div
             key={i}
@@ -39,8 +60,8 @@ const WeekSlider: React.FC = () => {
             data-testid={`week-button-${i + 1}`}
             onClick={() => setWeek(i + 1)}
           >
-            <div>{i + 1 === week && 'WEEK'}</div>
-            {i + 1}
+            <div>{i + 1 === week && word}</div>
+            {number}
           </div>
         );
       })}

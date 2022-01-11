@@ -8,8 +8,20 @@ export default () => {
   if (day < 4) {
     return 17;
   }
-  if (day < 11) {
+  if (day < 10) {
     return 18;
+  }
+  if(day < 18){
+    return 19
+  }
+  if(day < 24){
+    return 20
+  }
+  if(day< 31){
+    return 21
+  }
+  if(day < 100){
+    return 22
   }
   for (let i = 1; i < weeks.length; i++) {
     const weekDay = weeks[i];
