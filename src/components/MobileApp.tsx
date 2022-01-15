@@ -69,7 +69,7 @@ const ModalContent = () => {
     from: { transform: 'translate3d(0,75vh,0)' },
     enter: { transform: 'translate3d(0,0,0)' },
     leave: { transform: 'translate3d(0,75vh,0)' },
-    config: { duration: 300 }
+    config: { duration: 300 },
   });
   return (
     <>
@@ -78,10 +78,10 @@ const ModalContent = () => {
           key={key}
           style={{
             position: 'absolute',
-            height:'calc(100vh - 75px)',
+            height: '100vh',
             top: location.pathname === '/picks' ? 75 : 0,
             zIndex: location.pathname === '/picks' ? 55 : 80,
-            ...props
+            ...props,
           }}
         >
           <Switch location={item}>
