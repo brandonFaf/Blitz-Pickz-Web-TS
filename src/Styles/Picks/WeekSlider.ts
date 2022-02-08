@@ -10,14 +10,14 @@ const WeekSlider = styled.div`
   overflow: auto;
   height: 65px;
   padding: 0 40vw;
-  grid-template-columns: repeat(24, 20vw);
+  grid-template-columns: repeat(25, 20vw);
   background-color: ${Colors.lightBlue};
   align-items: center;
   z-index: 12;
   box-shadow: 0px -14px 16px 0px rgba(0, 0, 0, 0.7);
   font-size: 20px;
   @media (min-width: 620px) {
-    grid-template-columns: repeat(24, 20%);
+    grid-template-columns: repeat(25, 20%);
     padding: 0;
     width: 50%;
     position: fixed;

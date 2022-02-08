@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import {
   useGetGamesForWeekQuery,
-  GetGamesForWeekQuery
+  GetGamesForWeekQuery,
 } from '../../types/graphql.types';
 import useGroup from '../../hooks/useGroup';
 import useHeader from '../../hooks/useHeader';
@@ -12,6 +12,7 @@ import GamesSkeleton from './GamesSkeleton';
 import getCurrentWeek from '../../helpers/currentWeek';
 import { HeaderGroupName } from '../../Styles/Header';
 import Colors from '../../Styles/colors';
+import ActionButton from '../../Styles/Shared/ActionButton';
 
 const GamesList = () => {
   const { group } = useGroup();
@@ -20,13 +21,13 @@ const GamesList = () => {
   const { setPickHeader } = useHeader();
 
   const { data, loading, error } = useGetGamesForWeekQuery({
-    variables: { week, group_id: group?.id ?? 0 }
+    variables: { week, group_id: group?.id ?? 0 },
   });
   useGetGamesForWeekQuery({
-    variables: { week: week + 1, group_id: group?.id ?? 0 }
+    variables: { week: week + 1, group_id: group?.id ?? 0 },
   });
   useGetGamesForWeekQuery({
-    variables: { week: week - 1, group_id: group?.id ?? 0 }
+    variables: { week: week - 1, group_id: group?.id ?? 0 },
   });
   const getPickCount = useCallback(
     (d: GetGamesForWeekQuery) => {
@@ -99,6 +100,30 @@ const GamesList = () => {
         games={data?.completedGames ?? []}
         title={'Completed'}
       />
+      {week === 23 && (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '80%',
+            textAlign: 'center',
+          }}
+        >
+          <p>
+            Answer fun questions about the big game and see how you rank
+            compared to others
+          </p>
+          <a
+            style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+            target='blank'
+            href='https://propbets.blitzpickz.com'
+          >
+            <ActionButton>Let's Go!</ActionButton>
+          </a>
+        </div>
+      )}
     </>
   );
 };
