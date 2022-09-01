@@ -78,7 +78,6 @@ const ModalContent = () => {
           key={key}
           style={{
             position: 'absolute',
-            height: '100vh',
             top: location.pathname === '/picks' ? 75 : 0,
             zIndex: location.pathname === '/picks' ? 55 : 80,
             ...props,
