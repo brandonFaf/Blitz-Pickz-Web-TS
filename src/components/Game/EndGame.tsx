@@ -20,7 +20,7 @@ const EndGame: React.FC<Props> = ({ game }) => {
     home_score,
     quarter,
     time_remaning,
-    winning_team
+    winning_team,
   } = game;
   const [showWhoPicked, toggleWhoPicked] = useToggleState(false);
   const howToHighlight = (teamId?: number) => {
@@ -95,12 +95,13 @@ const EndGame: React.FC<Props> = ({ game }) => {
           </>
         </TeamButton>
       </Container>
-      <WhoPicked
-        picks={game.picks}
-        homeId={game.home_team.id}
-        visId={game.vis_team.id}
-        showWhoPicked={showWhoPicked}
-      />
+      {showWhoPicked && (
+        <WhoPicked
+          picks={game.picks}
+          homeId={game.home_team.id}
+          visId={game.vis_team.id}
+        />
+      )}
     </div>
   );
 };

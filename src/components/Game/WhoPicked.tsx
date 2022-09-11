@@ -3,9 +3,8 @@ import React from 'react';
 import {
   WhoPickedContainer,
   PickGroup,
-  Divider
+  Divider,
 } from '../../Styles/Game/WhoPicked';
-import { animated, useTransition } from 'react-spring';
 import { Picks, User } from '../../types/graphql.types';
 
 type props = {
@@ -14,23 +13,11 @@ type props = {
   >;
   homeId: number;
   visId: number;
-  showWhoPicked: boolean;
 };
-const WhoPicked: React.FC<props> = ({
-  picks,
-  homeId,
-  visId,
-  showWhoPicked
-}) => {
+const WhoPicked: React.FC<props> = ({ picks, homeId, visId }) => {
   const pickedVisTm = picks.filter(p => p.selected_id === visId);
   const pickedHomeTm = picks.filter(p => p.selected_id === homeId);
-
-  const transitions = useTransition(showWhoPicked, null, {
-    from: { opacity: 0, height: '0vh' },
-    enter: { opacity: 1, height: '15vh' },
-    leave: { opacity: 0, height: '0vh' }
-  });
-  const meat = (
+  return (
     <WhoPickedContainer>
       <PickGroup>
         {pickedVisTm.map(({ user: { id, display_name } }) => (
@@ -44,18 +31,6 @@ const WhoPicked: React.FC<props> = ({
         ))}
       </PickGroup>
     </WhoPickedContainer>
-  );
-  return (
-    <>
-      {transitions.map(
-        ({ item, key, props }) =>
-          item && (
-            <animated.div key={key} style={props}>
-              {meat}
-            </animated.div>
-          )
-      )}
-    </>
   );
 };
 
