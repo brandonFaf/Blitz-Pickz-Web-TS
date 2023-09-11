@@ -5,7 +5,7 @@ import 'firebase/database';
 import useUser from './useUser';
 import {
   useLoadUserLazyQuery,
-  useGetGroupsLazyQuery
+  useGetGroupsLazyQuery,
 } from '../types/graphql.types';
 import useGroup from './useGroup';
 
@@ -18,7 +18,7 @@ const useLogin = (): {
   const [user, setUser] = useState<firebase.User | null>();
   const [status, setStatus] = useState('loading');
   const [loadUser, { loading, data, error }] = useLoadUserLazyQuery({
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
   });
   const [loadGroups, { data: groupData }] = useGetGroupsLazyQuery();
 
@@ -26,6 +26,7 @@ const useLogin = (): {
     const unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged(async (u: firebase.User | null) => {
+        console.log('I have a user', u);
         setUser(u);
         if (!u) {
           setStatus('out');
@@ -42,7 +43,7 @@ const useLogin = (): {
         } else {
           console.log('loading Groups');
           loadGroups({
-            variables: { user_id: u.uid }
+            variables: { user_id: u.uid },
           });
         }
         const t = await u.getIdToken();
