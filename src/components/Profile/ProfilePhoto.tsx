@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import Colors from '../../Styles/colors';
 interface PhotoProps {
@@ -43,8 +43,10 @@ const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   size = 'small',
   src,
   displayName,
-  onClick
+  onClick,
 }) => {
+  const [imageError, setImageError] = useState(false);
+
   let initals =
     displayName &&
     displayName.split(' ').reduce((acc, w) => {
@@ -63,9 +65,24 @@ const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   if (initals === '') {
     initals = '?';
   }
-  if (src) {
-    return <PhotoImg onClick={onClick} size={size} src={src} alt='profile' />;
+
+  const handleImageError = () => {
+    // Handle image loading errors here
+    setImageError(true);
+  };
+
+  if (src && !imageError) {
+    return (
+      <PhotoImg
+        onClick={onClick}
+        size={size}
+        src={src}
+        alt='profile'
+        onError={handleImageError} // Attach onError event handler
+      />
+    );
   }
+
   return (
     <PhotoDiv onClick={onClick} size={size}>
       {initals?.substring(0, 2).toUpperCase()}
